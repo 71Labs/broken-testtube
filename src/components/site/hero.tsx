@@ -2,9 +2,9 @@ import { Reveal } from "./reveal";
 
 const FACTS = [
   { k: "Est.", v: "2026" },
-  { k: "Discipline", v: "Software R&D" },
-  { k: "Products", v: "Shipping" },
-  { k: "Location", v: "Remote / Global" },
+  { k: "Focus", v: "Consumer fintech" },
+  { k: "Product", v: "Talise" },
+  { k: "Chain", v: "Sui" },
 ];
 
 export function Hero() {
@@ -27,7 +27,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[rgb(var(--glow))] opacity-60" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-[rgb(var(--glow))]" />
             </span>
-            71Labs · Product studio &amp; research lab
+            71Labs · Independent product studio
           </p>
         </Reveal>
 
@@ -40,19 +40,19 @@ export function Hero() {
 
         <Reveal delay={140}>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            71Labs is a product studio and research lab. We design, build, and
-            ship software at the frontier — from developer infrastructure and AI
-            systems to the consumer tools that put them to work.
+            71Labs is an independent product studio. Right now we&apos;re
+            building Talise — a consumer app that lets anyone hold real dollars
+            and send them to a name, settling in under a second.
           </p>
         </Reveal>
 
         <Reveal delay={200}>
           <div className="mt-10 flex flex-wrap items-center gap-3">
             <a
-              href="#products"
+              href="#talise"
               className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5"
             >
-              Explore our products
+              Meet Talise
               <span className="transition-transform duration-300 group-hover:translate-x-0.5">
                 →
               </span>

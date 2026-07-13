@@ -2,20 +2,26 @@ import { Logo } from "./logo";
 
 const COLUMNS = [
   {
-    title: "Products",
-    links: ["Helix", "Beacon", "Atlas", "Cortex"],
+    title: "Talise",
+    links: [
+      { label: "Overview", href: "#talise" },
+      { label: "How it works", href: "#features" },
+      { label: "talise.io", href: "https://talise.io" },
+    ],
   },
   {
-    title: "Resources",
-    links: ["Docs", "Changelog", "Github", "Status"],
-  },
-  {
-    title: "Company",
-    links: ["About", "Careers", "Blog", "Contact"],
+    title: "Studio",
+    links: [
+      { label: "How we work", href: "#studio" },
+      { label: "Contact", href: "#contact" },
+    ],
   },
   {
     title: "Legal",
-    links: ["Terms of Service", "Privacy Policy"],
+    links: [
+      { label: "Terms of Service", href: "#" },
+      { label: "Privacy Policy", href: "#" },
+    ],
   },
 ];
 
@@ -23,12 +29,12 @@ export function SiteFooter() {
   return (
     <footer className="border-t border-border">
       <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
-        <div className="grid gap-12 md:grid-cols-[1.4fr_repeat(4,1fr)]">
+        <div className="grid gap-12 md:grid-cols-[1.6fr_repeat(3,1fr)]">
           <div>
             <Logo />
             <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              A product studio and research lab building software at the
-              frontier.
+              An independent product studio. Currently building Talise —
+              money that moves like a message.
             </p>
             <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground/70">
               71.00° N · Building since 2026
@@ -42,12 +48,15 @@ export function SiteFooter() {
               </h4>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
-                  <li key={link}>
+                  <li key={link.label}>
                     <a
-                      href="#"
+                      href={link.href}
+                      {...(link.href.startsWith("http")
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
                       className="text-sm text-muted-foreground transition-colors hover:text-foreground"
                     >
-                      {link}
+                      {link.label}
                     </a>
                   </li>
                 ))}

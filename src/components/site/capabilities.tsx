@@ -18,17 +18,17 @@ const ITEMS = [
   },
   {
     no: "04",
-    title: "Scale",
-    body: "The best experiments graduate into products with SLAs, docs, and support — ready for teams to build on.",
+    title: "Ship",
+    body: "The best experiments graduate into real products in people's hands — like Talise, live today.",
   },
 ];
 
 export function Capabilities() {
   return (
-    <section id="company" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+    <section id="studio" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
       <Reveal className="max-w-2xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-          How we work
+          The studio
         </p>
         <h2 className="mt-4 text-balance text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
           Research to production, under one roof.

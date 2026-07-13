@@ -25,9 +25,9 @@ There is no test runner configured yet. Add one (e.g. Vitest) before writing tes
 Single Next.js app; the home page is the marketing/landing site for 71Labs.
 
 - `src/app/layout.tsx` — root layout. Forces **dark mode** (`className="dark"` on `<html>` — the site is dark-only) and loads Geist Sans (`--font-sans`) + Geist Mono (`--font-geist-mono`). Also holds site `metadata`.
-- `src/app/page.tsx` — composes the landing page from section components in order: Header → Hero → Products → Cortex → Capabilities → BackedBy → ContactCTA → Footer.
+- `src/app/page.tsx` — composes the landing page from section components in order: Header → Hero → Talise → Features → Capabilities → ContactCTA → Footer.
 - `src/app/globals.css` — Tailwind import + the design system (see below).
-- `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx`, `reveal.tsx`, and `memory-graph.tsx` are `"use client"` (scroll state, IntersectionObserver, animation).
+- `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx` and `reveal.tsx` are `"use client"` (scroll state, IntersectionObserver). **Content note:** 71Labs is the studio; **Talise** (talise.io — a consumer stablecoin payments app on Sui) is its one real, live product. `talise.tsx` (spotlight + phone mockup) and `features.tsx` are built from Talise's actual value props — keep copy truthful, don't invent additional products or investors.
 
 ### Design system (in `globals.css`)
 

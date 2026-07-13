@@ -5,9 +5,9 @@ import { Logo } from "./logo";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { label: "Products", href: "#products" },
-  { label: "Research", href: "#research" },
-  { label: "Company", href: "#company" },
+  { label: "Talise", href: "#talise" },
+  { label: "How it works", href: "#features" },
+  { label: "Studio", href: "#studio" },
 ];
 
 export function SiteHeader() {

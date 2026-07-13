@@ -32,10 +32,10 @@ export function ContactCTA() {
                 </span>
               </a>
               <a
-                href="#company"
+                href="#studio"
                 className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm text-foreground transition-colors hover:bg-white/[0.04]"
               >
-                See open roles
+                About the studio
               </a>
             </div>
           </div>
