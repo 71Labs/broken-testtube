@@ -22,11 +22,20 @@ There is no test runner configured yet. Add one (e.g. Vitest) before writing tes
 
 ## Architecture
 
-Single Next.js app, no `src/` sub-packages yet:
+Single Next.js app; the home page is the marketing/landing site for 71Labs.
 
-- `src/app/layout.tsx` — root layout; loads Geist fonts and applies the `--font-geist-*` variables consumed by the Tailwind theme.
-- `src/app/page.tsx` — home route.
-- `src/app/globals.css` — Tailwind import + theme tokens.
+- `src/app/layout.tsx` — root layout. Forces **dark mode** (`className="dark"` on `<html>` — the site is dark-only) and loads Geist Sans (`--font-sans`) + Geist Mono (`--font-geist-mono`). Also holds site `metadata`.
+- `src/app/page.tsx` — composes the landing page from section components in order: Header → Hero → Products → Cortex → Capabilities → BackedBy → ContactCTA → Footer.
+- `src/app/globals.css` — Tailwind import + the design system (see below).
+- `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx`, `reveal.tsx`, and `memory-graph.tsx` are `"use client"` (scroll state, IntersectionObserver, animation).
+
+### Design system (in `globals.css`)
+
+- **Dark-only palette** lives in `:root` (not `.dark`) as hex CSS variables — near-black `--background: #08080a`, muted `--muted-foreground`, subtle `--border`. `--glow` is an `R G B` tri(used as `rgb(var(--glow))` / `rgba(var(--glow), …)`) for the signature indigo accent.
+- **Custom utilities**: `.bg-grid` / `.bg-grid-sm` / `.bg-dots` (backdrops), `.mask-fade-b` / `.mask-radial` (edge fades), `.text-display` (muted top-lit gradient heading), `.reveal` + `.is-in` (scroll-in, driven by the `Reveal` component and respecting `prefers-reduced-motion`).
+- **Motion**: keyframes `drift`, `corePulse`, `dashFlow`, `spinSlow`, `glowBreath`, `marquee`. All animation is disabled under `prefers-reduced-motion`.
+- **Typography convention**: Geist Sans for display/body; Geist Mono (`font-mono`) uppercase with wide tracking for all eyebrows/labels/serial-number motifs.
+- Product/feature preview visuals are hand-built with inline SVG + Tailwind (no image assets) — see `products.tsx` and `memory-graph.tsx`.
 
 When adding features, follow App Router conventions: route folders under `src/app/`, colocated `page.tsx`/`layout.tsx`/`loading.tsx`, Server Components by default, and `"use client"` only where interactivity requires it.
 
