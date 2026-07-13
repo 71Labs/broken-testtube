@@ -10,8 +10,7 @@ const FACTS = [
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      {/* backdrop layers */}
-      <div className="pointer-events-none absolute inset-0 bg-grid mask-fade-b opacity-70" />
+      {/* backdrop glow */}
       <div
         className="pointer-events-none absolute left-1/2 top-[-10%] h-[520px] w-[820px] -translate-x-1/2 rounded-full opacity-60 blur-[120px]"
         style={{

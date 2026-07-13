@@ -87,7 +87,6 @@ export function Talise() {
       id="talise"
       className="relative overflow-hidden border-y border-border"
     >
-      <div className="pointer-events-none absolute inset-0 bg-dots opacity-40" />
       <div
         className="pointer-events-none absolute right-[8%] top-1/4 h-[420px] w-[420px] rounded-full opacity-50 blur-[120px]"
         style={{ background: "radial-gradient(closest-side, rgba(130,141,248,0.18), transparent 70%)" }}
