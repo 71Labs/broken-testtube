@@ -9,44 +9,44 @@ function IconHandle() {
     </svg>
   );
 }
-function IconBolt() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-      <path d="M13 3 5 13h5l-1 8 8-10h-5l1-8Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-    </svg>
-  );
-}
-function IconNoGas() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-      <rect x="4" y="4" width="9" height="16" rx="1.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M13 9h3.5a2 2 0 0 1 2 2v5a1.5 1.5 0 0 0 3 0v-6l-2.5-2.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="m4 20 16-16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-function IconYield() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-      <path d="M12 21c0-5 3-8 8-8-1 5-4 8-8 8Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
-      <path d="M12 21c0-6-3-9-8-9 1 5 4 9 8 9ZM12 21v-6" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  );
-}
-function IconLogin() {
-  return (
-    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
-      <circle cx="12" cy="8" r="3.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M5 20a7 7 0 0 1 14 0" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-function IconCashOut() {
+function IconCheque() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
       <rect x="3" y="6" width="18" height="12" rx="2" stroke="currentColor" strokeWidth="1.5" />
-      <circle cx="12" cy="12" r="2.5" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M7 12h.01M17 12h.01" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M7 14l2.5-2.5L12 14M7 10h4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M15 15h3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+function IconLock() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+      <rect x="5" y="10" width="14" height="10" rx="2" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+function IconLeaf() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+      <path d="M20 4C10 4 4 9 4 17c0 1.5.3 2.5.3 2.5S6 12 20 4Z" stroke="currentColor" strokeWidth="1.5" strokeLinejoin="round" />
+      <path d="M4.5 19.5C7 14 11 11 16 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+    </svg>
+  );
+}
+function IconRoundup() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+      <path d="M4 13a8 8 0 0 1 14-5m2-2v4h-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="12" cy="16" r="4.5" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M12 14.2v3.6M10.8 15h1.7a.9.9 0 0 1 0 1.8h-1.3a.9.9 0 0 0 0 1.8h1.7" stroke="currentColor" strokeWidth="1.1" strokeLinecap="round" />
+    </svg>
+  );
+}
+function IconBank() {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5">
+      <path d="M4 10h16M5 10 12 4l7 6M6 10v7M10 10v7M14 10v7M18 10v7M4 20h16" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
@@ -55,41 +55,45 @@ const FEATURES = [
   {
     icon: <IconHandle />,
     title: "Handle-based sends",
-    body: "Send money to a name like sele@talise instead of a 42-character wallet address.",
+    body: "Send to a name like eromonsele@talise.sui instead of a 42-character wallet address. It settles on Sui in under a second.",
   },
   {
-    icon: <IconBolt />,
-    title: "Sub-second settlement",
-    body: "Transfers finalize in under a second on Sui — money that keeps up with a conversation.",
+    icon: <IconCheque />,
+    title: "Money in a link",
+    body: "Write a cheque and drop it in any DM — the recipient claims it as real money, protected by captcha and no-VPN checks.",
   },
   {
-    icon: <IconNoGas />,
-    title: "No gas, ever",
-    body: "Talise covers all network fees. Send the whole amount, with nothing skimmed off the top.",
+    icon: <IconLock />,
+    title: "Private send",
+    body: "Send smaller amounts privately, with the value kept off the public record. Discretion by default for everyday payments.",
   },
   {
-    icon: <IconYield />,
-    title: "Automatic yield",
-    body: "Idle dollars earn yield through vetted Sui protocols while staying fully liquid.",
+    icon: <IconLeaf />,
+    title: "Earn up to 8%",
+    body: "Idle USDsui earns yield through vetted Sui protocols while staying fully liquid — spend or send it at any moment.",
   },
   {
-    icon: <IconLogin />,
-    title: "Sign in with Google",
-    body: "zkLogin onboarding means no seed phrase and no wallet to install — just tap and go.",
+    icon: <IconRoundup />,
+    title: "Round-up & Save",
+    body: "Auto-save a slice of every send into named savings goals, and earn on the balance as it grows toward the target.",
   },
   {
-    icon: <IconCashOut />,
-    title: "Cash out anywhere",
-    body: "Withdraw to your local currency or wire USD to a bank account, across borders.",
+    icon: <IconBank />,
+    title: "Cash out to your bank",
+    body: "Withdraw straight to a local bank — Nigeria live today, more rails on the way — paid out 1:1 from your USDsui.",
   },
 ];
 
 export function Features() {
   return (
-    <section id="features" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+    <section
+      id="features"
+      className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28"
+      style={{ ["--glow" as string]: "140 231 90" }}
+    >
       <Reveal className="max-w-2xl">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground">
-          How it works
+          Inside the app
         </p>
         <h2 className="mt-4 text-balance text-3xl font-semibold tracking-[-0.02em] text-foreground sm:text-4xl">
           Real dollars, without the crypto friction.
@@ -103,8 +107,8 @@ export function Features() {
       <div className="mt-12 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
         {FEATURES.map((f, i) => (
           <Reveal key={f.title} delay={(i % 3) * 80} className="h-full">
-            <div className="group flex h-full flex-col bg-card p-6 transition-colors duration-300 hover:bg-[#101014]">
-              <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-muted-foreground transition-colors group-hover:text-foreground">
+            <div className="group flex h-full flex-col bg-card p-6 transition-colors duration-300 hover:bg-[#0e0e0e]">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-[rgb(var(--glow))] transition-colors">
                 {f.icon}
               </span>
               <h3 className="mt-5 text-base font-medium text-foreground">

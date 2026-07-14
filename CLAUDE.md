@@ -25,9 +25,11 @@ There is no test runner configured yet. Add one (e.g. Vitest) before writing tes
 Single Next.js app; the home page is the marketing/landing site for 71Labs.
 
 - `src/app/layout.tsx` — root layout. Forces **dark mode** (`className="dark"` on `<html>` — the site is dark-only) and loads Geist Sans (`--font-sans`) + Geist Mono (`--font-geist-mono`). Also holds site `metadata`.
-- `src/app/page.tsx` — composes the landing page from section components in order: Header → Hero → Talise → Features → Capabilities → ContactCTA → Footer.
+- `src/app/page.tsx` — composes the landing page from section components in order: Header → Hero → Talise → Features → Gallery → Capabilities → ContactCTA → Footer.
 - `src/app/globals.css` — Tailwind import + the design system (see below).
-- `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx` and `reveal.tsx` are `"use client"` (scroll state, IntersectionObserver). **Content note:** 71Labs is the studio; **Talise** (talise.io — a consumer stablecoin payments app on Sui) is its one real, live product. `talise.tsx` (spotlight + phone mockup) and `features.tsx` are built from Talise's actual value props — keep copy truthful, don't invent additional products or investors.
+- `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx` and `reveal.tsx` are `"use client"` (scroll state, IntersectionObserver). **Content note:** 71Labs is the studio; **Talise** (talise.io — a consumer stablecoin payments app on Sui) is its one real, live product. `talise.tsx` (spotlight), `features.tsx`, and `gallery.tsx` are built from Talise's actual value props and **real app screenshots in `public/talise/`** — keep copy truthful, don't invent additional products or investors.
+- **Talise brand accent**: the Talise/Features/Gallery sections override `--glow` to lime-green (`140 231 90`) via inline style, so all `rgb(var(--glow))` usages (bullets, labels, phone glows) turn green in the product zone while the rest of the site stays neutral. The Talise CTA uses `bg-[#b7f486]`. The tagline accent word uses Instrument Serif italic (`font-serif`, `--font-serif`) in lime-yellow `#dcf24a`.
+- **App screenshots** live in `public/talise/` (home, cheque, send, receive, earn, private, cashout — iPhone 16 Pro, 1206×2622) plus `og.png` (the "Money that moves freely, like messages." banner, used for OpenGraph). Rendered through `phone-frame.tsx` (a device bezel around `next/image`).
 
 ### Design system (in `globals.css`)
 
