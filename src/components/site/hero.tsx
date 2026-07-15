@@ -1,4 +1,5 @@
 import { Reveal } from "./reveal";
+import { PillButton } from "./pill-button";
 
 const FACTS = [
   { k: "Est.", v: "2026" },
@@ -47,21 +48,10 @@ export function Hero() {
 
         <Reveal delay={200}>
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <a
-              href="#talise"
-              className="group inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5"
-            >
-              Meet Talise
-              <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-                →
-              </span>
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-2 rounded-full border border-border px-5 py-2.5 text-sm text-foreground transition-colors hover:bg-white/[0.04]"
-            >
+            <PillButton href="#talise">Meet Talise</PillButton>
+            <PillButton href="#contact" variant="secondary">
               Work with us
-            </a>
+            </PillButton>
           </div>
         </Reveal>
 

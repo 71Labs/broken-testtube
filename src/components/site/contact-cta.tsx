@@ -1,4 +1,5 @@
 import { Reveal } from "./reveal";
+import { PillButton } from "./pill-button";
 
 export function ContactCTA() {
   return (
@@ -21,21 +22,12 @@ export function ContactCTA() {
               we&apos;re always hiring people who like the frontier.
             </p>
             <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="mailto:hello@71labs.xyz"
-                className="group inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-medium text-primary-foreground transition-transform duration-200 hover:-translate-y-0.5"
-              >
+              <PillButton href="mailto:hello@71labs.xyz" icon="up-right">
                 hello@71labs.xyz
-                <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-                  →
-                </span>
-              </a>
-              <a
-                href="#studio"
-                className="inline-flex items-center rounded-full border border-border px-6 py-3 text-sm text-foreground transition-colors hover:bg-white/[0.04]"
-              >
+              </PillButton>
+              <PillButton href="#studio" variant="secondary">
                 About the studio
-              </a>
+              </PillButton>
             </div>
           </div>
         </div>

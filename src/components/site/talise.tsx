@@ -1,10 +1,18 @@
 import { Reveal } from "./reveal";
 import { PhoneFrame } from "./phone-frame";
+import { PillButton } from "./pill-button";
 
 const POINTS = [
   "Send to a handle like eromonsele@talise.sui — never a 0x address.",
   "Balances are USDsui, 1:1 with the US dollar, earning up to 8%.",
   "Sign in with Google. No seed phrase, and we cover the gas.",
+];
+
+const STATS = [
+  { label: "Settlement", value: "< 1s", note: "on Sui" },
+  { label: "Network fees", value: "$0", note: "we sponsor gas" },
+  { label: "Earn on balance", value: "8%", note: "up to, APY" },
+  { label: "USDsui", value: "1:1", note: "to US dollar" },
 ];
 
 export function Talise() {
@@ -49,23 +57,12 @@ export function Talise() {
           </ul>
 
           <div className="mt-9 flex flex-wrap items-center gap-3">
-            <a
-              href="https://talise.io"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group inline-flex items-center gap-2 rounded-full bg-[#b7f486] px-5 py-2.5 text-sm font-medium text-black transition-transform duration-200 hover:-translate-y-0.5"
-            >
+            <PillButton href="https://talise.io" variant="accent" external icon="up-right">
               Visit talise.io
-              <span className="transition-transform duration-300 group-hover:translate-x-0.5">
-                →
-              </span>
-            </a>
-            <a
-              href="#gallery"
-              className="inline-flex items-center rounded-full border border-border px-5 py-2.5 text-sm text-foreground transition-colors hover:bg-white/[0.04]"
-            >
+            </PillButton>
+            <PillButton href="#gallery" variant="secondary">
               See the app
-            </a>
+            </PillButton>
           </div>
         </Reveal>
 
@@ -97,6 +94,27 @@ export function Talise() {
           </div>
         </Reveal>
       </div>
+
+      {/* professional stat strip */}
+      <Reveal className="relative mx-auto max-w-6xl px-5 pb-24 sm:px-8 sm:pb-28">
+        <dl className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl border border-border bg-border lg:grid-cols-4">
+          {STATS.map((s) => (
+            <div key={s.label} className="bg-card px-6 py-7">
+              <dt className="font-mono text-[10px] uppercase tracking-[0.18em] text-muted-foreground">
+                {s.label}
+              </dt>
+              <dd className="mt-3 flex items-baseline gap-2">
+                <span className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                  {s.value}
+                </span>
+                <span className="font-mono text-[10px] text-[rgb(var(--glow))]">
+                  {s.note}
+                </span>
+              </dd>
+            </div>
+          ))}
+        </dl>
+      </Reveal>
     </section>
   );
 }

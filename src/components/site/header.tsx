@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { Logo } from "./logo";
+import { PillButton } from "./pill-button";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -47,16 +48,10 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
-          <a
-            href="#contact"
-            className="group inline-flex items-center gap-2 rounded-full border border-border bg-white/[0.02] px-4 py-2 text-sm text-foreground transition-colors hover:bg-white/[0.06]"
-          >
+        <div className="hidden items-center md:flex">
+          <PillButton href="#contact" icon="up-right">
             Get in touch
-            <span className="text-muted-foreground transition-transform duration-300 group-hover:translate-x-0.5">
-              →
-            </span>
-          </a>
+          </PillButton>
         </div>
 
         {/* Mobile toggle */}
