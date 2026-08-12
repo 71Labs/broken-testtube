@@ -1,9 +1,7 @@
 import { SiteHeader } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
-import { Products } from "@/components/site/products";
+import { ProductsIntro } from "@/components/site/products-intro";
 import { Talise } from "@/components/site/talise";
-import { Features } from "@/components/site/features";
-import { Gallery } from "@/components/site/gallery";
 import { Utsuro } from "@/components/site/utsuro";
 import { Capabilities } from "@/components/site/capabilities";
 import { ContactCTA } from "@/components/site/contact-cta";
@@ -15,10 +13,8 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1">
         <Hero />
-        <Products />
+        <ProductsIntro />
         <Talise />
-        <Features />
-        <Gallery />
         <Utsuro />
         <Capabilities />
         <ContactCTA />

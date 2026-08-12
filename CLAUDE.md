@@ -24,29 +24,29 @@ There is no test runner configured yet. Add one (e.g. Vitest) before writing tes
 
 Single Next.js app; the home page is the marketing/landing site for 71Labs.
 
-- `src/app/layout.tsx` — root layout. Forces **dark mode** (`className="dark"` on `<html>` — the site is dark-only) and loads Geist Sans (`--font-sans`) + Geist Mono (`--font-geist-mono`). Also holds site `metadata`.
-- `src/app/page.tsx` — composes the landing page in order: Header → Hero → **Products** → Talise → Features → Gallery → **Utsuro** → Capabilities → ContactCTA → Footer.
+- `src/app/layout.tsx` — root layout (**light**, no `dark` class). Loads Geist Sans (`--font-sans`), Geist Mono (`--font-geist-mono`), Instrument Serif (`--font-serif`). Holds site `metadata`.
+- `src/app/page.tsx` — composes the landing page in order: Header → Hero → ProductsIntro (`#products`) → Talise → Utsuro → Capabilities (`#studio`) → ContactCTA (`#contact`) → Footer.
 - `src/app/globals.css` — Tailwind import + the design system (see below).
-- `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx`, `reveal.tsx`, and `dashboard.tsx` are `"use client"`.
+- `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx` and `reveal.tsx` are `"use client"`.
 
-### Two products, one studio
+### Light, SpaceX/Grok-style — two products, one studio
 
-71Labs is the **studio** (dark, neutral). It ships **two** real products, each with its own brand world on the page:
-- **Talise** (talise.io) — consumer stablecoin payments on Sui. Dark zone, **lime-green** accent (`--glow: 140 231 90`). Sections: `talise.tsx` (spotlight + phone screenshots + stat strip), `features.tsx`, `gallery.tsx`. Real app screenshots in `public/talise/`.
-- **Utsuro** (utsuro.xyz) — AI image & video generation (assistant sharpens prompt → 0G Compute renders, verifiable on-chain; models Z-Image-Turbo / MiniMax H3 / Qwen3-VL). `utsuro.tsx` is a **full light-themed band** (`bg-[#f6f5f2]`, near-black text, **orange** `#e8681e` accent) — it deliberately uses explicit light colors (not the dark CSS tokens) to flip the page into Utsuro's brand. Assets in `public/utsuro/`: `app.png` (real app screenshot, shown in a browser frame) and `out-*.png` (real AI renders cropped from marketing shots — coffee/shoe/skincare/portrait). `UtsuroMark` is in `utsuro-mark.tsx`.
+The site is **light** (white canvas, near-black text, huge white space), modeled on the xAI/Grok landing page. 71Labs is the **studio**; it ships **two** real products, each with an accent used only for small touches (icon tile, eyebrow, bullet checks, "Explore →"):
+- **Talise** (talise.io) — consumer stablecoin payments on Sui. Green accent `#3c9a4e` (icon tile lime `#b7f486`). Real iPhone screenshots in `public/talise/`.
+- **Utsuro** (utsuro.xyz) — AI image & video (assistant sharpens prompt → 0G Compute renders, verifiable on-chain; Z-Image-Turbo / MiniMax H3 / Qwen3-VL). Orange accent `#e8681e`. Assets in `public/utsuro/`: `app.png` (real app screenshot) + `out-*.png` (real AI renders cropped from marketing shots). `UtsuroMark` is in `utsuro-mark.tsx`.
 
-- **`products.tsx`** — the studio's product overview: a dark Talise card beside a light Utsuro card, communicating the two brands at a glance.
-- **`dashboard.tsx`** — an unused "Talise for web · Preview" browser-framed dashboard mock (sidebar nav, insight cards, interactive filter tabs, records table), built in the style of the *Beautiful UI* suite (beautifului.dev). Currently NOT in `page.tsx` (dropped to keep the two products balanced) — re-add if a web-app section is wanted. **Content note:** 71Labs is the studio; **Talise** (talise.io — a consumer stablecoin payments app on Sui) is its one real, live product. `talise.tsx` (spotlight), `features.tsx`, and `gallery.tsx` are built from Talise's actual value props and **real app screenshots in `public/talise/`** — keep copy truthful, don't invent additional products or investors.
-- **Talise brand accent**: the Talise/Features/Gallery sections override `--glow` to lime-green (`140 231 90`) via inline style, so all `rgb(var(--glow))` usages (bullets, labels, phone glows) turn green in the product zone while the rest of the site stays neutral. The Talise CTA uses `bg-[#b7f486]`. The tagline accent word uses Instrument Serif italic (`font-serif`, `--font-serif`) in lime-yellow `#dcf24a`.
-- **App screenshots** live in `public/talise/` (home, cheque, send, receive, earn, private, cashout — iPhone 16 Pro, 1206×2622) plus `og.png` (the "Money that moves freely, like messages." banner, used for OpenGraph). Rendered through `phone-frame.tsx` (a device bezel around `next/image`).
+Key components:
+- **`header.tsx`** — light sticky header with a **Products mega-menu** (hover/click dropdown listing Talise + Utsuro with marks & descriptions) and a black "Work with us" `PillButton`.
+- **`hero.tsx`** — centered: a "New · Utsuro is in beta" pill, a **two-tone** heading (black line + grey `.text-dim` line), centered black/outline pill CTAs.
+- **`product-section.tsx`** — the reusable xAI-style feature block: icon + mono eyebrow + big title + description + check-bullets + CTAs on one side, a large preview card on the other; `reverse` flips the columns. `talise.tsx` and `utsuro.tsx` are thin wrappers that pass content + a bespoke preview (Talise fans three phone screenshots on a green-tinted card; Utsuro shows the app in a browser frame + a 4-render strip).
+- **`pill-button.tsx`** — `primary` (black pill, white arrow chip) / `secondary` (outlined). **Keep copy truthful** — don't invent products or investors.
 
 ### Design system (in `globals.css`)
 
-- **Dark-only palette** lives in `:root` (not `.dark`) as hex CSS variables — near-black `--background: #08080a`, muted `--muted-foreground`, subtle `--border`. `--glow` is an `R G B` tri(used as `rgb(var(--glow))` / `rgba(var(--glow), …)`) for the signature indigo accent.
-- **Custom utilities**: `.bg-grid` / `.bg-grid-sm` / `.bg-dots` (backdrops), `.mask-fade-b` / `.mask-radial` (edge fades), `.text-display` (muted top-lit gradient heading), `.reveal` + `.is-in` (scroll-in, driven by the `Reveal` component and respecting `prefers-reduced-motion`).
-- **Motion**: keyframes `drift`, `corePulse`, `dashFlow`, `spinSlow`, `glowBreath`, `marquee`. All animation is disabled under `prefers-reduced-motion`.
-- **Typography convention**: Geist Sans for display/body; Geist Mono (`font-mono`) uppercase with wide tracking for all eyebrows/labels/serial-number motifs.
-- Product/feature preview visuals are hand-built with inline SVG + Tailwind (no image assets) — see `products.tsx` and `memory-graph.tsx`.
+- **Light palette** in `:root` as hex — `--background: #ffffff`, `--foreground: #0a0a0a`, `--card: #f6f6f4`, muted `--muted-foreground: #71717a`, hairline `--border: rgba(10,10,10,0.1)`. Product accents `--talise` / `--utsuro` exist but components mostly pass hex inline. **Note:** the site imports `shadcn/tailwind.css`; after editing `globals.css` tokens, **restart the dev server** — CSS-var changes don't always hot-reload and can leave a stale (dark) palette.
+- **Utilities**: `.text-display` / `.text-dim` (two-tone headings), `.reveal` + `.is-in` (scroll-in via the `Reveal` component, respects `prefers-reduced-motion`).
+- **Motion**: keyframes `drift`, `marquee` only. Disabled under `prefers-reduced-motion`.
+- **Typography**: Geist Sans display/body; Geist Mono (`font-mono`) uppercase wide-tracked for eyebrows/labels; Instrument Serif (`font-serif`) available for accents.
 
 When adding features, follow App Router conventions: route folders under `src/app/`, colocated `page.tsx`/`layout.tsx`/`loading.tsx`, Server Components by default, and `"use client"` only where interactivity requires it.
 

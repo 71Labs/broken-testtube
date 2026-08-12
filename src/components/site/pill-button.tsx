@@ -1,25 +1,18 @@
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "accent";
+type Variant = "primary" | "secondary";
 
 const base =
   "group inline-flex items-center gap-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:-translate-y-0.5";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-white py-1.5 pl-5 pr-1.5 text-black",
-  accent: "bg-[#b7f486] py-1.5 pl-5 pr-1.5 text-black",
+  primary: "bg-neutral-950 py-1.5 pl-5 pr-1.5 text-white",
   secondary:
-    "border border-border bg-white/[0.02] py-1.5 pl-5 pr-5 text-foreground hover:bg-white/[0.06]",
-};
-
-const chipTone: Record<Variant, string> = {
-  primary: "bg-black text-white",
-  accent: "bg-black text-white",
-  secondary: "",
+    "border border-neutral-300 bg-white py-1.5 pl-5 pr-5 text-neutral-900 hover:bg-neutral-50",
 };
 
 /**
- * Agency-style pill button. `primary`/`accent` render a trailing circular
+ * SpaceX/Grok-style pill. `primary` is a black pill with a white circular
  * icon chip; `secondary` is a plain outlined pill.
  */
 export function PillButton({
@@ -44,13 +37,8 @@ export function PillButton({
   return (
     <a href={href} {...externalProps} className={cn(base, variants[variant], className)}>
       <span>{children}</span>
-      {variant !== "secondary" && icon !== "none" && (
-        <span
-          className={cn(
-            "flex h-8 w-8 items-center justify-center rounded-full",
-            chipTone[variant],
-          )}
-        >
+      {variant === "primary" && icon !== "none" && (
+        <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-neutral-950">
           {icon === "up-right" ? (
             <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
               <path

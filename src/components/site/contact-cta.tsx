@@ -3,32 +3,25 @@ import { PillButton } from "./pill-button";
 
 export function ContactCTA() {
   return (
-    <section id="contact" className="mx-auto max-w-6xl px-5 py-24 sm:px-8 sm:py-28">
+    <section id="contact" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
       <Reveal>
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-card px-6 py-16 text-center sm:px-16 sm:py-20">
-          <div
-            className="pointer-events-none absolute left-1/2 top-0 h-64 w-[640px] -translate-x-1/2 rounded-full opacity-70 blur-[100px]"
-            style={{
-              background:
-                "radial-gradient(closest-side, rgba(130,141,248,0.18), transparent 70%)",
-            }}
-          />
-          <div className="relative">
-            <h2 className="mx-auto max-w-2xl text-balance text-3xl font-semibold tracking-[-0.02em] text-display sm:text-5xl">
+        <div className="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#f6f6f4] px-7 py-12 sm:px-14 lg:flex-row lg:items-center">
+          <div className="max-w-lg">
+            <h2 className="text-3xl font-semibold tracking-[-0.02em] text-neutral-950 sm:text-4xl">
               Have a hard problem worth solving?
             </h2>
-            <p className="mx-auto mt-5 max-w-lg text-muted-foreground">
+            <p className="mt-4 text-neutral-500">
               We partner with founders and teams on ambitious software — and
               we&apos;re always hiring people who like the frontier.
             </p>
-            <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-              <PillButton href="mailto:hello@71labs.xyz" icon="up-right">
-                hello@71labs.xyz
-              </PillButton>
-              <PillButton href="#studio" variant="secondary">
-                About the studio
-              </PillButton>
-            </div>
+          </div>
+          <div className="flex shrink-0 flex-wrap items-center gap-3">
+            <PillButton href="mailto:hello@71labs.xyz" icon="up-right">
+              hello@71labs.xyz
+            </PillButton>
+            <PillButton href="#studio" variant="secondary">
+              About the studio
+            </PillButton>
           </div>
         </div>
       </Reveal>

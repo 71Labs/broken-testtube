@@ -4,9 +4,9 @@ const COLUMNS = [
   {
     title: "Products",
     links: [
-      { label: "Talise — payments", href: "#talise" },
+      { label: "Talise", href: "#talise" },
       { label: "talise.io", href: "https://talise.io" },
-      { label: "Utsuro — AI video", href: "#utsuro" },
+      { label: "Utsuro", href: "#utsuro" },
       { label: "utsuro.xyz", href: "https://utsuro.xyz" },
     ],
   },
@@ -15,6 +15,7 @@ const COLUMNS = [
     links: [
       { label: "How we work", href: "#studio" },
       { label: "Contact", href: "#contact" },
+      { label: "Careers", href: "#contact" },
     ],
   },
   {
@@ -33,29 +34,24 @@ export function SiteFooter() {
         <div className="grid gap-12 md:grid-cols-[1.6fr_repeat(3,1fr)]">
           <div>
             <Logo />
-            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
-              An independent product studio. Currently building Talise —
-              money that moves like a message.
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-neutral-500">
+              An independent product studio building Talise and Utsuro.
             </p>
-            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground/70">
-              71.00° N · Building since 2026
+            <p className="mt-6 font-mono text-[11px] uppercase tracking-[0.18em] text-neutral-400">
+              Building since 2026 · Sui &amp; 0G
             </p>
           </div>
 
           {COLUMNS.map((col) => (
             <div key={col.title}>
-              <h4 className="text-sm font-medium text-foreground">
-                {col.title}
-              </h4>
+              <h4 className="text-sm font-medium text-neutral-950">{col.title}</h4>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
                     <a
                       href={link.href}
-                      {...(link.href.startsWith("http")
-                        ? { target: "_blank", rel: "noopener noreferrer" }
-                        : {})}
-                      className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+                      className="text-sm text-neutral-500 transition-colors hover:text-neutral-950"
                     >
                       {link.label}
                     </a>
@@ -67,16 +63,10 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 sm:flex-row sm:items-center">
-          <p className="font-mono text-xs text-muted-foreground">
-            © 2026 71Labs. All rights reserved.
-          </p>
+          <p className="font-mono text-xs text-neutral-400">© 2026 71Labs. All rights reserved.</p>
           <div className="flex items-center gap-5">
             {["X", "GitHub", "LinkedIn"].map((s) => (
-              <a
-                key={s}
-                href="#"
-                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-              >
+              <a key={s} href="#" className="text-xs text-neutral-500 transition-colors hover:text-neutral-950">
                 {s}
               </a>
             ))}
