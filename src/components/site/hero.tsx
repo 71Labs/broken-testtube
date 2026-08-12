@@ -19,7 +19,7 @@ export function Hero() {
         </Reveal>
 
         <Reveal delay={80}>
-          <h1 className="mx-auto mt-8 max-w-3xl text-balance text-5xl font-semibold leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]">
+          <h1 className="mx-auto mt-8 max-w-3xl text-balance text-5xl font-medium leading-[1.02] tracking-[-0.03em] sm:text-6xl lg:text-[4.5rem]">
             <span className="text-neutral-950">Building the tools</span>{" "}
             <span className="text-dim">that come next.</span>
           </h1>

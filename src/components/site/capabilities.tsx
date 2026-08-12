@@ -15,7 +15,7 @@ export function Capabilities() {
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-neutral-400">
             The studio
           </p>
-          <h2 className="mt-4 text-balance text-3xl font-semibold tracking-[-0.02em] text-neutral-950 sm:text-4xl">
+          <h2 className="mt-4 text-balance text-3xl font-medium tracking-[-0.02em] text-neutral-950 sm:text-4xl">
             Research to production, under one roof.
           </h2>
           <p className="mt-5 max-w-md text-neutral-500">

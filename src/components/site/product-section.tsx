@@ -39,7 +39,7 @@ export function ProductSection({
             </span>
           </div>
 
-          <h2 className="mt-5 text-balance text-4xl font-semibold leading-[1.05] tracking-[-0.02em] text-neutral-950 sm:text-[3rem]">
+          <h2 className="mt-5 text-balance text-4xl font-medium leading-[1.05] tracking-[-0.02em] text-neutral-950 sm:text-[3rem]">
             {title}
           </h2>
 

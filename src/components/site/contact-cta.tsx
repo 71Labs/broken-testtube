@@ -7,7 +7,7 @@ export function ContactCTA() {
       <Reveal>
         <div className="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#f6f6f4] px-7 py-12 sm:px-14 lg:flex-row lg:items-center">
           <div className="max-w-lg">
-            <h2 className="text-3xl font-semibold tracking-[-0.02em] text-neutral-950 sm:text-4xl">
+            <h2 className="text-3xl font-medium tracking-[-0.02em] text-neutral-950 sm:text-4xl">
               Have a hard problem worth solving?
             </h2>
             <p className="mt-4 text-neutral-500">
