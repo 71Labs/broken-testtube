@@ -3,9 +3,9 @@ import { PillButton } from "./pill-button";
 
 const FACTS = [
   { k: "Est.", v: "2026" },
-  { k: "Focus", v: "Consumer fintech" },
-  { k: "Product", v: "Talise" },
-  { k: "Chain", v: "Sui" },
+  { k: "Focus", v: "Fintech · AI" },
+  { k: "Products", v: "Talise · Utsuro" },
+  { k: "Stack", v: "Sui · 0G" },
 ];
 
 export function Hero() {
@@ -40,15 +40,16 @@ export function Hero() {
 
         <Reveal delay={140}>
           <p className="mt-8 max-w-xl text-lg leading-relaxed text-muted-foreground">
-            71Labs is an independent product studio. Right now we&apos;re
-            building Talise — a consumer app that lets anyone hold real dollars
-            and send them to a name, settling in under a second.
+            71Labs is an independent product studio. We build and ship at the
+            frontier — consumer payments with{" "}
+            <span className="text-foreground">Talise</span>, and AI image &amp;
+            video with <span className="text-foreground">Utsuro</span>.
           </p>
         </Reveal>
 
         <Reveal delay={200}>
           <div className="mt-10 flex flex-wrap items-center gap-3">
-            <PillButton href="#talise">Meet Talise</PillButton>
+            <PillButton href="#products">See our products</PillButton>
             <PillButton href="#contact" variant="secondary">
               Work with us
             </PillButton>

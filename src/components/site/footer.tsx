@@ -2,11 +2,12 @@ import { Logo } from "./logo";
 
 const COLUMNS = [
   {
-    title: "Talise",
+    title: "Products",
     links: [
-      { label: "Overview", href: "#talise" },
-      { label: "How it works", href: "#features" },
+      { label: "Talise — payments", href: "#talise" },
       { label: "talise.io", href: "https://talise.io" },
+      { label: "Utsuro — AI video", href: "#utsuro" },
+      { label: "utsuro.xyz", href: "https://utsuro.xyz" },
     ],
   },
   {

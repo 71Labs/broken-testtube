@@ -19,7 +19,7 @@ const ITEMS = [
   {
     no: "1.3",
     title: "Ship",
-    body: "The best experiments graduate into real products in people's hands — like Talise, live today.",
+    body: "The best experiments graduate into real products in people's hands — like Talise and Utsuro, live today.",
   },
 ];
 

@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 
 const NAV = [
   { label: "Talise", href: "#talise" },
-  { label: "How it works", href: "#features" },
+  { label: "Utsuro", href: "#utsuro" },
   { label: "Studio", href: "#studio" },
 ];
 
