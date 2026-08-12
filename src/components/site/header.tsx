@@ -51,7 +51,7 @@ export function SiteHeader() {
           : "border-b border-transparent bg-white/0",
       )}
     >
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 sm:px-8">
+      <div className="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-5 sm:px-8 lg:px-12">
         <a href="#top" className="shrink-0" aria-label="71Labs home">
           <Logo />
         </a>
@@ -138,7 +138,7 @@ export function SiteHeader() {
           open ? "max-h-96 border-b opacity-100" : "max-h-0 opacity-0",
         )}
       >
-        <nav className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-4 sm:px-8">
+        <nav className="mx-auto flex max-w-[90rem] flex-col gap-1 px-5 py-4 sm:px-8 lg:px-12">
           <p className="px-3 pb-1 font-mono text-[10px] uppercase tracking-[0.16em] text-neutral-400">Products</p>
           {PRODUCTS.map((p) => (
             <a key={p.name} href={p.href} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-neutral-50">

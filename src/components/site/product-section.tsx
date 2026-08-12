@@ -31,7 +31,7 @@ export function ProductSection({
 }) {
   return (
     <section id={id} className="border-t border-border">
-      <div className="mx-auto grid max-w-6xl items-center gap-12 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid max-w-[90rem] items-center gap-12 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-2 lg:gap-16">
         {/* text */}
         <Reveal className={cn(reverse && "lg:order-2")}>
           <div className="flex items-center gap-2.5">

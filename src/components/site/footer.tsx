@@ -31,7 +31,7 @@ const COLUMNS = [
 export function SiteFooter() {
   return (
     <footer className="border-t border-border">
-      <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8">
+      <div className="mx-auto max-w-[90rem] px-5 py-16 sm:px-8 lg:px-12">
         <div className="grid gap-12 md:grid-cols-[1.6fr_repeat(3,1fr)]">
           <div>
             <Logo />
@@ -70,6 +70,9 @@ export function SiteFooter() {
         <div className="mt-16 flex flex-col items-start justify-between gap-4 border-t border-border pt-8 sm:flex-row sm:items-center">
           <p className="font-mono text-xs text-neutral-400">© 2026 71Labs. All rights reserved.</p>
           <div className="flex items-center gap-5">
+            <a href="/panel" className="text-xs text-neutral-500 transition-colors hover:text-neutral-950">
+              Team panel
+            </a>
             {["X", "GitHub", "LinkedIn"].map((s) => (
               <a key={s} href="#" className="text-xs text-neutral-500 transition-colors hover:text-neutral-950">
                 {s}

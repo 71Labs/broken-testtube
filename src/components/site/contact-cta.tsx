@@ -3,7 +3,7 @@ import { PillButton } from "./pill-button";
 
 export function ContactCTA() {
   return (
-    <section id="contact" className="mx-auto max-w-6xl px-5 py-20 sm:px-8">
+    <section id="contact" className="mx-auto max-w-[90rem] px-5 py-20 sm:px-8 lg:px-12">
       <Reveal>
         <div className="flex flex-col items-start justify-between gap-8 rounded-3xl bg-[#f6f6f4] px-7 py-12 sm:px-14 lg:flex-row lg:items-center">
           <div className="max-w-lg">

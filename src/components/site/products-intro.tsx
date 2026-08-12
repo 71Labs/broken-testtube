@@ -2,7 +2,7 @@ import { Reveal } from "./reveal";
 
 export function ProductsIntro() {
   return (
-    <section id="products" className="mx-auto max-w-6xl px-5 pt-8 sm:px-8">
+    <section id="products" className="mx-auto max-w-[90rem] px-5 pt-8 sm:px-8 lg:px-12">
       <Reveal className="mx-auto max-w-2xl text-center">
         <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-neutral-400">
           Our products
