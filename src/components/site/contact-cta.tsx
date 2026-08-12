@@ -11,7 +11,7 @@ export function ContactCTA() {
               Have a hard problem worth solving?
             </h2>
             <p className="mt-4 text-neutral-500">
-              We partner with founders and teams on ambitious software — and
+              We partner with founders and teams on ambitious software, and
               we&apos;re always hiring people who like the frontier.
             </p>
           </div>

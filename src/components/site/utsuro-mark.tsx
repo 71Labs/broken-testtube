@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /**
- * Utsuro mark — a soft black tile with a white arch (a lens/aperture opening),
+ * Utsuro mark: a soft black tile with a white arch (a lens/aperture opening),
  * echoing the app's wordmark badge. Self-contained colors so it reads on both
  * light and dark surfaces.
  */

@@ -1,10 +1,10 @@
 import { Reveal } from "./reveal";
 
 const ITEMS = [
-  { no: "1.0", title: "Research", body: "We start from first principles — prototyping hard problems in AI, systems, and distributed software before they're obviously tractable." },
+  { no: "1.0", title: "Research", body: "We start from first principles, prototyping hard problems in AI, systems, and distributed software before they're obviously tractable." },
   { no: "1.1", title: "Design", body: "We treat interface and ergonomics as core engineering. A tool people reach for beats a demo people applaud." },
   { no: "1.2", title: "Build", body: "Small teams, short cycles, real users. We ship production software and iterate against the way it's actually used." },
-  { no: "1.3", title: "Ship", body: "The best experiments graduate into real products in people's hands — like Talise and Utsuro, live today." },
+  { no: "1.3", title: "Ship", body: "The best experiments graduate into real products in people's hands, like Talise and Utsuro, live today." },
 ];
 
 export function Capabilities() {
@@ -20,7 +20,7 @@ export function Capabilities() {
           </h2>
           <p className="mt-5 max-w-md text-neutral-500">
             71Labs is a small, senior team. We take an idea from a first
-            prototype to a product in people&apos;s hands — owning the research,
+            prototype to a product in people&apos;s hands, owning the research,
             the design, and the engineering end to end.
           </p>
         </Reveal>

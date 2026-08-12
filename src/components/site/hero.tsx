@@ -28,7 +28,7 @@ export function Hero() {
         <Reveal delay={140}>
           <p className="mx-auto mt-7 max-w-xl text-lg leading-relaxed text-neutral-500">
             71Labs is an independent product studio. We build and ship at the
-            frontier — consumer payments with{" "}
+            frontier. Consumer payments with{" "}
             <span className="text-neutral-900">Talise</span>, and AI image &amp;
             video with <span className="text-neutral-900">Utsuro</span>.
           </p>

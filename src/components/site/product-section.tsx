@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils";
 
 export function ProductSection({
   id,
+  name,
   eyebrow,
   accent,
   icon,
@@ -16,6 +17,7 @@ export function ProductSection({
   reverse = false,
 }: {
   id: string;
+  name: string;
   eyebrow: string;
   accent: string;
   icon: React.ReactNode;
@@ -34,7 +36,10 @@ export function ProductSection({
         <Reveal className={cn(reverse && "lg:order-2")}>
           <div className="flex items-center gap-2.5">
             {icon}
-            <span className="font-mono text-[11px] uppercase tracking-[0.2em]" style={{ color: accent }}>
+            <span className="font-wordmark text-xl font-medium tracking-tight text-neutral-950">
+              {name}
+            </span>
+            <span className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: accent }}>
               {eyebrow}
             </span>
           </div>

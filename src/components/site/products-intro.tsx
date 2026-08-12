@@ -11,7 +11,7 @@ export function ProductsIntro() {
           Two products, one studio.
         </h2>
         <p className="mt-4 text-neutral-500">
-          We build and ship the whole thing — from research to the app in your
+          We build and ship the whole thing, from research to the app in your
           hands. Each lives in its own world; both are built by 71Labs.
         </p>
       </Reveal>

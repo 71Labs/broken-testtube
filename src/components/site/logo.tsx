@@ -36,19 +36,15 @@ export function LogoMark({ className }: { className?: string }) {
   );
 }
 
-export function Logo({
-  className,
-  markClassName,
-}: {
-  className?: string;
-  markClassName?: string;
-}) {
+export function Logo({ className }: { className?: string }) {
   return (
-    <span className={cn("inline-flex items-center gap-2.5", className)}>
-      <LogoMark className={markClassName} />
-      <span className="font-mono text-[13px] font-medium uppercase tracking-[0.28em] text-foreground">
-        71Labs
-      </span>
+    <span
+      className={cn(
+        "font-wordmark text-xl font-medium tracking-tight text-neutral-950",
+        className,
+      )}
+    >
+      71labs
     </span>
   );
 }

@@ -89,7 +89,7 @@ export function SiteHeader() {
                   >
                     {p.mark}
                     <span>
-                      <span className="block text-sm font-medium text-neutral-950">{p.name}</span>
+                      <span className="font-wordmark block text-base font-medium tracking-tight text-neutral-950">{p.name}</span>
                       <span className="mt-0.5 block text-xs text-neutral-500">{p.desc}</span>
                     </span>
                   </a>
@@ -143,7 +143,7 @@ export function SiteHeader() {
           {PRODUCTS.map((p) => (
             <a key={p.name} href={p.href} onClick={() => setOpen(false)} className="flex items-center gap-3 rounded-lg px-3 py-2.5 hover:bg-neutral-50">
               {p.mark}
-              <span className="text-sm text-neutral-900">{p.name}</span>
+              <span className="font-wordmark text-base font-medium tracking-tight text-neutral-900">{p.name}</span>
             </a>
           ))}
           <div className="my-1 h-px bg-border" />

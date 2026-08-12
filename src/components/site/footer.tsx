@@ -1,4 +1,5 @@
 import { Logo } from "./logo";
+import { cn } from "@/lib/utils";
 
 const COLUMNS = [
   {
@@ -51,7 +52,11 @@ export function SiteFooter() {
                     <a
                       href={link.href}
                       {...(link.href.startsWith("http") ? { target: "_blank", rel: "noopener noreferrer" } : {})}
-                      className="text-sm text-neutral-500 transition-colors hover:text-neutral-950"
+                      className={cn(
+                        "text-sm text-neutral-500 transition-colors hover:text-neutral-950",
+                        (link.label === "Talise" || link.label === "Utsuro") &&
+                          "font-wordmark text-base tracking-tight",
+                      )}
                     >
                       {link.label}
                     </a>

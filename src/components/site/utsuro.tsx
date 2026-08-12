@@ -37,7 +37,8 @@ export function Utsuro() {
   return (
     <ProductSection
       id="utsuro"
-      eyebrow="Utsuro · AI image & video"
+      name="Utsuro"
+      eyebrow="AI image & video · 0G"
       accent={ACCENT}
       icon={<UtsuroMark className="h-8 w-8" />}
       title={
@@ -48,7 +49,7 @@ export function Utsuro() {
       }
       description="An assistant sharpens your prompt and explains why each answer changes the result. Then 0G Compute renders stills and motion over a route you can verify on-chain."
       bullets={[
-        "Reference read, not pasted — Qwen3-VL describes subject, palette and mood.",
+        "Reference read, not pasted. Qwen3-VL describes subject, palette and mood.",
         "Approve the still, then it becomes the locked first frame of your video.",
         "Z-Image-Turbo and MiniMax H3, with 200 free credits on signup.",
       ]}

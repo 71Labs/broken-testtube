@@ -35,7 +35,7 @@
   --radius-3xl: calc(var(--radius) * 2.2);
 }
 
-/* 71Labs — light, SpaceX/Grok-style. Palette lives in :root as hex. */
+/* 71Labs light theme, SpaceX/Grok-style. Palette lives in :root as hex. */
 :root {
   --background: #ffffff;
   --foreground: #0a0a0a;
@@ -80,6 +80,13 @@
 }
 
 @layer utilities {
+  /* Brand wordmark face. Tries Kangge first (add the licensed file to use it),
+     falls back to Space Grotesk (--font-display), then the body sans. */
+  .font-wordmark {
+    font-family: "Kangge", var(--font-display), var(--font-sans), sans-serif;
+    letter-spacing: -0.01em;
+  }
+
   /* Two-tone display heading: near-black fading to grey (SpaceX/Grok look). */
   .text-display {
     color: #0a0a0a;
