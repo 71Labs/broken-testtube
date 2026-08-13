@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
 import {
-  Hanken_Grotesk,
+  Urbanist,
   Geist_Mono,
   Instrument_Serif,
   Space_Grotesk,
 } from "next/font/google";
 import "./globals.css";
 
-const sans = Hanken_Grotesk({
+const sans = Urbanist({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],

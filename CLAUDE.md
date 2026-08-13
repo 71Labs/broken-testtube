@@ -24,7 +24,7 @@ There is no test runner configured yet. Add one (e.g. Vitest) before writing tes
 
 Single Next.js app; the home page is the marketing/landing site for 71Labs.
 
-- `src/app/layout.tsx` — root layout (**light**, no `dark` class). Loads Geist Sans (`--font-sans`), Geist Mono (`--font-geist-mono`), Instrument Serif (`--font-serif`). Holds site `metadata`.
+- `src/app/layout.tsx` — root layout (**light**, no `dark` class). Loads Urbanist (`--font-sans`, body/display), Space Grotesk (`--font-display`, wordmark stand-in for Kangge), Geist Mono (`--font-geist-mono`), Instrument Serif (`--font-serif`). Holds site `metadata`.
 - `src/app/page.tsx` — composes the landing page in order: Header → Hero → ProductsIntro (`#products`) → Talise → Utsuro → Capabilities (`#studio`) → ContactCTA (`#contact`) → Footer.
 - `src/app/globals.css` — Tailwind import + the design system (see below).
 - `src/components/site/` — one file per landing section. Server Components by default; only `header.tsx` and `reveal.tsx` are `"use client"`.
@@ -46,7 +46,7 @@ Key components:
 - **Light palette** in `:root` as hex — `--background: #ffffff`, `--foreground: #0a0a0a`, `--card: #f6f6f4`, muted `--muted-foreground: #71717a`, hairline `--border: rgba(10,10,10,0.1)`. Product accents `--talise` / `--utsuro` exist but components mostly pass hex inline. **Note:** the site imports `shadcn/tailwind.css`; after editing `globals.css` tokens, **restart the dev server** — CSS-var changes don't always hot-reload and can leave a stale (dark) palette.
 - **Utilities**: `.text-display` / `.text-dim` (two-tone headings), `.reveal` + `.is-in` (scroll-in via the `Reveal` component, respects `prefers-reduced-motion`).
 - **Motion**: keyframes `drift`, `marquee` only. Disabled under `prefers-reduced-motion`.
-- **Typography**: Geist Sans display/body; Geist Mono (`font-mono`) uppercase wide-tracked for eyebrows/labels; Instrument Serif (`font-serif`) available for accents.
+- **Typography**: Urbanist display/body (`--font-sans`); brand wordmarks use `.font-wordmark` (Kangge → Space Grotesk fallback); Geist Mono (`font-mono`) uppercase wide-tracked for eyebrows/labels; Instrument Serif (`font-serif`) for accents.
 
 When adding features, follow App Router conventions: route folders under `src/app/`, colocated `page.tsx`/`layout.tsx`/`loading.tsx`, Server Components by default, and `"use client"` only where interactivity requires it.
 
