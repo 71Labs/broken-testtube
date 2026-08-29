@@ -35,30 +35,51 @@
   --radius-3xl: calc(var(--radius) * 2.2);
 }
 
-/* 71Labs light theme, SpaceX/Grok-style. Palette lives in :root as hex. */
+/* 71Labs — light, luxury/editorial. Palette lives in :root as hex. */
 :root {
-  --background: #ffffff;
-  --foreground: #0a0a0a;
-  --card: #f6f6f4;
-  --card-foreground: #0a0a0a;
+  --background: #f3f2ee; /* warm editorial off-white */
+  --foreground: #0b0b0c;
+  --card: #ffffff; /* clean white tiles on warm canvas */
+  --card-foreground: #0b0b0c;
   --popover: #ffffff;
-  --popover-foreground: #0a0a0a;
-  --primary: #0a0a0a;
+  --popover-foreground: #0b0b0c;
+  --primary: #0b0b0c;
   --primary-foreground: #ffffff;
-  --secondary: #f4f4f2;
-  --secondary-foreground: #0a0a0a;
-  --muted: #f5f5f4;
-  --muted-foreground: #71717a;
-  --accent: #f4f4f2;
-  --accent-foreground: #0a0a0a;
+  --secondary: #f4f3f0;
+  --secondary-foreground: #0b0b0c;
+  --muted: #f5f4f1;
+  --muted-foreground: #6f6f76; /* mid grey */
+  --accent: #f4f3f0;
+  --accent-foreground: #0b0b0c;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: rgba(10, 10, 10, 0.1);
-  --input: rgba(10, 10, 10, 0.14);
-  --ring: rgba(10, 10, 10, 0.2);
+  --border: rgba(11, 11, 12, 0.09);
+  --input: rgba(11, 11, 12, 0.14);
+  --ring: rgba(11, 11, 12, 0.2);
+  /* greys for the black/grey type mix */
+  --ink: #0b0b0c;
+  --ink-2: #3a3a40;
+  --grey: #6f6f76;
+  --grey-2: #a1a1a8;
   /* product accents */
-  --talise: 88 173 62;
+  --talise: 60 154 78;
   --utsuro: 232 104 30;
   --radius: 0.875rem;
+
+  /* ── Apple-grade spring easing palette (Physical personality) ───────── */
+  /* spring-snappy: entries / reveals (default) */
+  --spring-snappy: linear(
+    0, 0.009, 0.035 2.1%, 0.141 4.4%, 0.723 12.9%, 0.938 16.7%, 1.017 19.4%,
+    1.067 22.5%, 1.089 26%, 1.079 30.3%, 1.049 36%, 1.024 42.6%, 1.011 50.3%,
+    1.004 59.2%, 1.001 69.3%, 1
+  );
+  /* spring-smooth: state changes / position shifts */
+  --spring-smooth: linear(
+    0, 0.004, 0.016 2.3%, 0.063 4.7%, 0.141 7.2%, 0.25 9.9%, 0.601 16.5%,
+    0.815 21%, 0.929 25.2%, 0.987 29%, 1.025 33.5%, 1.042 38%, 1.04 43.5%,
+    1.027 50%, 1.013 57.5%, 1.005 67%, 1.001 79%, 1
+  );
+  /* ease-snap: hover / feedback (utility) */
+  --ease-snap: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 @layer base {
@@ -67,7 +88,8 @@
   }
   html {
     @apply font-sans;
-    scroll-behavior: smooth;
+    /* Lenis drives smoothing; native smooth-scroll would fight it. */
+    scroll-behavior: auto;
     -webkit-font-smoothing: antialiased;
   }
   body {
@@ -75,7 +97,7 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: rgba(10, 10, 10, 0.12);
+    background: rgba(11, 11, 12, 0.1);
   }
 }
 
@@ -87,31 +109,59 @@
     letter-spacing: -0.01em;
   }
 
-  /* Two-tone display heading: near-black fading to grey (SpaceX/Grok look). */
-  .text-display {
-    color: #0a0a0a;
+  /* Editorial serif for display headings (Elevix look). */
+  .font-editorial {
+    font-family: var(--font-editorial), Georgia, "Times New Roman", serif;
+    letter-spacing: -0.015em;
   }
-  .text-dim {
-    color: #a1a1aa;
-  }
-  .text-balance {
-    text-wrap: balance;
+  .text-serif {
+    font-family: var(--font-editorial), Georgia, serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.02;
   }
 
-  /* Scroll / load reveal. */
-  .reveal {
-    opacity: 0;
-    transform: translateY(20px);
-    transition:
-      opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1),
-      transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    transition-delay: var(--reveal-delay, 0ms);
-    will-change: opacity, transform;
+  /* Faint editorial grid backdrop. */
+  .bg-grid-lines {
+    background-image:
+      linear-gradient(to right, rgba(11, 11, 12, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(11, 11, 12, 0.045) 1px, transparent 1px);
+    background-size: 120px 120px;
   }
-  .reveal.is-in {
-    opacity: 1;
-    transform: none;
+
+  .text-ink { color: var(--ink); }
+  .text-ink-2 { color: var(--ink-2); }
+  .text-grey { color: var(--grey); }
+  .text-grey-2 { color: var(--grey-2); }
+  .text-balance { text-wrap: balance; }
+
+  /* Warm luxury surface. */
+  .surface { background: var(--card); }
+
+  /* Fluid display heading. */
+  .text-hero {
+    font-size: clamp(2.75rem, 8.5vw, 8.5rem);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    font-weight: 500;
   }
+
+  /* Masked word-reveal: each word sits in an overflow-clip line. */
+  .word-mask { display: inline-block; overflow: hidden; vertical-align: top; }
+
+  /* Very fine film grain for luxury texture (light mode). */
+  .grain::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Hairline that draws in via scaleX. */
+  .rule { height: 1px; background: var(--border); transform-origin: left; }
 }
 
 @keyframes drift {
@@ -124,6 +174,5 @@
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reveal { opacity: 1; transform: none; transition: none; }
   * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
 }

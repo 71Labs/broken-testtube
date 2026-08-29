@@ -4,8 +4,10 @@ import {
   Geist_Mono,
   Instrument_Serif,
   Space_Grotesk,
+  Newsreader,
 } from "next/font/google";
 import "./globals.css";
+import { SmoothScroll } from "@/components/motion/smooth-scroll";
 
 const sans = Urbanist({
   variable: "--font-sans",
@@ -31,6 +33,14 @@ const instrumentSerif = Instrument_Serif({
   variable: "--font-serif",
   subsets: ["latin"],
   weight: "400",
+  style: ["normal", "italic"],
+});
+
+// Editorial display serif for headings (Elevix-style).
+const editorial = Newsreader({
+  variable: "--font-editorial",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600"],
   style: ["normal", "italic"],
 });
 
@@ -76,10 +86,10 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${wordmark.variable} ${geistMono.variable} ${instrumentSerif.variable} h-full antialiased`}
+      className={`${sans.variable} ${wordmark.variable} ${geistMono.variable} ${instrumentSerif.variable} ${editorial.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-background text-foreground">
-        {children}
+      <body className="grain min-h-full flex flex-col bg-background text-foreground">
+        <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>
   );

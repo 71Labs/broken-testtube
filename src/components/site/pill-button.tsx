@@ -3,12 +3,13 @@ import { cn } from "@/lib/utils";
 type Variant = "primary" | "secondary";
 
 const base =
-  "group inline-flex items-center gap-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:-translate-y-0.5";
+  "group inline-flex items-center gap-2.5 rounded-full text-sm font-medium [transition:transform_.5s_var(--ease-snap),background-color_.3s_var(--ease-snap),box-shadow_.5s_var(--ease-snap)] hover:-translate-y-0.5 active:scale-[0.97] active:transition-transform active:duration-150";
 
 const variants: Record<Variant, string> = {
-  primary: "bg-neutral-950 py-1.5 pl-5 pr-1.5 text-white",
+  primary:
+    "bg-neutral-950 py-1.5 pl-5 pr-1.5 text-white hover:shadow-[0_10px_30px_-8px_rgba(0,0,0,0.35)]",
   secondary:
-    "border border-neutral-300 bg-white py-1.5 pl-5 pr-5 text-neutral-900 hover:bg-neutral-50",
+    "border border-neutral-300 bg-white/70 py-1.5 pl-5 pr-5 text-neutral-900 backdrop-blur hover:bg-white hover:shadow-[0_8px_24px_-10px_rgba(0,0,0,0.18)]",
 };
 
 /**

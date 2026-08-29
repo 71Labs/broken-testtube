@@ -1,4 +1,5 @@
-import { Reveal } from "./reveal";
+import { Reveal } from "@/components/motion/reveal";
+import { Magnetic } from "@/components/motion/magnetic";
 import { PillButton } from "./pill-button";
 import { cn } from "@/lib/utils";
 
@@ -15,6 +16,7 @@ export function ProductSection({
   secondary,
   preview,
   reverse = false,
+  badge,
 }: {
   id: string;
   name: string;
@@ -23,62 +25,112 @@ export function ProductSection({
   icon: React.ReactNode;
   title: React.ReactNode;
   description: string;
-  bullets: string[];
+  bullets: React.ReactNode[];
   primary: { label: string; href: string; external?: boolean };
   secondary: { label: string; href: string };
   preview: React.ReactNode;
   reverse?: boolean;
+  /** Optional slot rendered between the description and the bullets. */
+  badge?: React.ReactNode;
 }) {
   return (
     <section id={id} className="border-t border-border">
-      <div className="mx-auto grid max-w-[90rem] items-center gap-12 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-2 lg:gap-16">
+      <div className="mx-auto grid max-w-[90rem] items-center gap-12 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-2 lg:gap-16 lg:px-12">
         {/* text */}
-        <Reveal className={cn(reverse && "lg:order-2")}>
-          <div className="flex items-center gap-2.5">
+        <div className={cn(reverse && "lg:order-2")}>
+          <Reveal className="flex items-center gap-2.5">
             {icon}
-            <span className="font-wordmark text-xl font-medium tracking-tight text-neutral-950">
+            <span className="font-wordmark text-xl font-medium tracking-tight text-ink">
               {name}
             </span>
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em]" style={{ color: accent }}>
+            <span
+              className="font-mono text-[10px] uppercase tracking-[0.18em]"
+              style={{ color: accent }}
+            >
               {eyebrow}
             </span>
-          </div>
+          </Reveal>
 
-          <h2 className="mt-5 text-balance text-4xl font-medium leading-[1.05] tracking-[-0.02em] text-neutral-950 sm:text-[3rem]">
+          <Reveal
+            as="h2"
+            delay={0.06}
+            className="mt-5 text-balance font-editorial text-[2.6rem] font-normal leading-[1.02] tracking-[-0.02em] text-ink sm:text-[3.4rem]"
+          >
             {title}
-          </h2>
+          </Reveal>
 
-          <p className="mt-5 max-w-md text-lg leading-relaxed text-neutral-500">
+          <Reveal
+            as="p"
+            delay={0.12}
+            className="mt-5 max-w-md text-lg leading-relaxed text-grey"
+          >
             {description}
-          </p>
+          </Reveal>
+
+          {badge && (
+            <Reveal delay={0.16} className="mt-6">
+              {badge}
+            </Reveal>
+          )}
 
           <ul className="mt-7 space-y-3">
-            {bullets.map((b) => (
-              <li key={b} className="flex items-start gap-2.5 text-sm text-neutral-700">
-                <svg viewBox="0 0 16 16" className="mt-0.5 h-4 w-4 shrink-0" fill="none" style={{ color: accent }}>
-                  <path d="M3.5 8.5l3 3 6-7" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+            {bullets.map((b, i) => (
+              <Reveal
+                as="li"
+                key={i}
+                delay={0.18 + i * 0.08}
+                y={16}
+                className="flex items-start gap-2.5 text-sm text-ink-2"
+              >
+                <svg
+                  viewBox="0 0 16 16"
+                  className="mt-0.5 h-4 w-4 shrink-0"
+                  fill="none"
+                  style={{ color: accent }}
+                >
+                  <path
+                    d="M3.5 8.5l3 3 6-7"
+                    stroke="currentColor"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
                 </svg>
                 {b}
-              </li>
+              </Reveal>
             ))}
           </ul>
 
-          <div className="mt-9 flex flex-wrap items-center gap-3">
-            <PillButton href={primary.href} external={primary.external} icon={primary.external ? "up-right" : "arrow"}>
-              {primary.label}
-            </PillButton>
+          <Reveal
+            delay={0.18 + bullets.length * 0.08}
+            className="mt-9 flex flex-wrap items-center gap-3"
+          >
+            <Magnetic>
+              <PillButton
+                href={primary.href}
+                external={primary.external}
+                icon={primary.external ? "up-right" : "arrow"}
+              >
+                {primary.label}
+              </PillButton>
+            </Magnetic>
             <a
               href={secondary.href}
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-900"
+              className="group inline-flex items-center gap-1.5 text-sm font-medium text-ink"
             >
               {secondary.label}
-              <span style={{ color: accent }}>→</span>
+              <span
+                className="transition-transform duration-300 group-hover:translate-x-0.5"
+                style={{ color: accent }}
+              >
+                →
+              </span>
             </a>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
 
         {/* preview */}
-        <Reveal delay={120} className={cn(reverse && "lg:order-1")}>
+        <Reveal delay={0.12} className={cn(reverse && "lg:order-1")}>
           {preview}
         </Reveal>
       </div>

@@ -1,5 +1,6 @@
 import { SiteHeader } from "@/components/site/header";
 import { Hero } from "@/components/site/hero";
+import { Recognition } from "@/components/site/recognition";
 import { ProductsIntro } from "@/components/site/products-intro";
 import { Talise } from "@/components/site/talise";
 import { Utsuro } from "@/components/site/utsuro";
@@ -13,6 +14,7 @@ export default function Home() {
       <SiteHeader />
       <main className="flex-1">
         <Hero />
+        <Recognition />
         <ProductsIntro />
         <Talise />
         <Utsuro />

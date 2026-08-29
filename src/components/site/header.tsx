@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { motion } from "motion/react";
 import { Logo, LogoMark } from "./logo";
 import { UtsuroMark } from "./utsuro-mark";
 import { PillButton } from "./pill-button";
+import { Magnetic } from "@/components/motion/magnetic";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -43,15 +45,16 @@ export function SiteHeader() {
   }, []);
 
   return (
-    <header
-      className={cn(
-        "sticky top-0 z-50 transition-colors duration-300",
-        scrolled
-          ? "border-b border-border bg-white/80 backdrop-blur-xl"
-          : "border-b border-transparent bg-white/0",
-      )}
-    >
-      <div className="mx-auto flex h-16 max-w-[90rem] items-center justify-between px-5 sm:px-8 lg:px-12">
+    <header className="sticky top-3 z-50 px-3 sm:top-4 sm:px-5">
+      <motion.div
+        initial={{ y: -16, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        className={cn(
+          "mx-auto flex h-14 max-w-5xl items-center justify-between rounded-full border border-border bg-white/85 pl-6 pr-2 backdrop-blur-xl transition-shadow duration-300",
+          scrolled ? "shadow-[0_10px_40px_-14px_rgba(0,0,0,0.22)]" : "shadow-[0_6px_24px_-14px_rgba(0,0,0,0.14)]",
+        )}
+      >
         <a href="#top" className="shrink-0" aria-label="71Labs home">
           <Logo />
         </a>
@@ -110,9 +113,11 @@ export function SiteHeader() {
         </nav>
 
         <div className="hidden items-center md:flex">
-          <PillButton href="#contact" icon="up-right">
-            Work with us
-          </PillButton>
+          <Magnetic>
+            <PillButton href="#contact" icon="up-right">
+              Work with us
+            </PillButton>
+          </Magnetic>
         </div>
 
         {/* Mobile toggle */}
@@ -129,7 +134,7 @@ export function SiteHeader() {
             <span className={cn("absolute bottom-0 left-0 h-px w-full bg-current transition-transform duration-300", open && "-translate-y-[5.5px] -rotate-45")} />
           </div>
         </button>
-      </div>
+      </motion.div>
 
       {/* Mobile sheet */}
       <div
