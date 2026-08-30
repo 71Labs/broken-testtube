@@ -34,7 +34,7 @@ export function ProductSection({
   badge?: React.ReactNode;
 }) {
   return (
-    <section id={id} className="border-t border-border">
+    <section id={id}>
       <div className="mx-auto grid max-w-[90rem] items-center gap-12 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-2 lg:gap-16 lg:px-12">
         {/* text */}
         <div className={cn(reverse && "lg:order-2")}>

@@ -9,7 +9,7 @@ const ITEMS = [
 
 export function Capabilities() {
   return (
-    <section id="studio" className="border-t border-border">
+    <section id="studio">
       <div className="mx-auto grid max-w-[90rem] gap-10 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
         <Reveal>
           <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-grey-2">

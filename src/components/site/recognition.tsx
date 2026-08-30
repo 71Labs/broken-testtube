@@ -11,7 +11,7 @@ const STATS = [
 
 export function Recognition() {
   return (
-    <section className="mx-auto max-w-[90rem] px-5 pb-8 pt-4 sm:px-8 lg:px-12">
+    <section className="mx-auto max-w-[90rem] px-5 pb-6 pt-12 sm:px-8 sm:pt-16 lg:px-12">
       <Reveal className="relative">
         {/* peeking badge */}
         <div className="absolute left-1/2 top-0 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg">
@@ -36,7 +36,7 @@ export function Recognition() {
             className="relative mx-auto mt-7 max-w-4xl text-serif text-[clamp(1.9rem,3.4vw,3.1rem)] leading-[1.12] text-white"
           >
             Talise placed 2nd in DeFi &amp; Payments at Sui Overflow 2026,{" "}
-            <span className="italic text-white/45">
+            <span className="text-white/50">
               out of a genuinely high field judged by Mysten Labs and the Sui
               ecosystem.
             </span>

@@ -4,7 +4,7 @@ export function ProductsIntro() {
   return (
     <section
       id="products"
-      className="mx-auto max-w-[90rem] px-5 pt-8 sm:px-8 lg:px-12"
+      className="mx-auto max-w-[90rem] px-5 pt-24 pb-4 sm:px-8 sm:pt-28 lg:px-12"
     >
       <div className="mx-auto max-w-2xl text-center">
         <Reveal

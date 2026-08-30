@@ -9,7 +9,7 @@ export function Hero() {
     <section id="top" className="relative overflow-hidden">
       <div className="pointer-events-none absolute inset-0 -z-10 bg-grid-lines opacity-60" />
 
-      <div className="mx-auto grid max-w-[90rem] items-center gap-10 px-5 py-16 sm:px-8 lg:grid-cols-[1fr_1.05fr] lg:gap-12 lg:px-12 lg:py-20">
+      <div className="mx-auto grid max-w-[90rem] items-center gap-12 px-5 py-16 sm:px-8 sm:py-20 lg:grid-cols-[1fr_1.05fr] lg:gap-16 lg:px-12 lg:py-24">
         {/* Left — statement */}
         <div>
           <Reveal as="p" className="flex items-center gap-2 text-sm text-ink-2">
@@ -25,7 +25,7 @@ export function Hero() {
             <span className="block text-[clamp(2.75rem,6vw,5.25rem)] leading-[0.98]">
               Building the tools
             </span>
-            <span className="block text-[clamp(2.75rem,6vw,5.25rem)] italic leading-[1.05] text-grey">
+            <span className="block text-[clamp(2.75rem,6vw,5.25rem)] leading-[1.02] text-grey-2">
               that come next.
             </span>
           </Reveal>
