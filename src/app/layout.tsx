@@ -1,47 +1,18 @@
 import type { Metadata } from "next";
-import {
-  Urbanist,
-  Geist_Mono,
-  Instrument_Serif,
-  Space_Grotesk,
-  Newsreader,
-} from "next/font/google";
+import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 
-const sans = Urbanist({
+// AREA 17 workhorse type — Inter as the Suisse Intl substitute.
+const sans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-});
-
-// Wordmark face. Stand-in for "Kangge" (drop the licensed Kangge file in and
-// it takes over via the `.font-wordmark` stack in globals.css).
-const wordmark = Space_Grotesk({
-  variable: "--font-display",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: ["400", "500", "600"],
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
-});
-
-// Elegant serif used only for the Talise brand-tagline accent.
-const instrumentSerif = Instrument_Serif({
-  variable: "--font-serif",
-  subsets: ["latin"],
-  weight: "400",
-  style: ["normal", "italic"],
-});
-
-// Editorial display serif for headings (Elevix-style).
-const editorial = Newsreader({
-  variable: "--font-editorial",
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600"],
-  style: ["normal", "italic"],
 });
 
 export const metadata: Metadata = {
@@ -86,9 +57,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${wordmark.variable} ${geistMono.variable} ${instrumentSerif.variable} ${editorial.variable} h-full antialiased`}
+      className={`${sans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="grain min-h-full flex flex-col bg-background text-foreground">
+      <body className="min-h-full flex flex-col bg-background text-foreground">
         <SmoothScroll>{children}</SmoothScroll>
       </body>
     </html>

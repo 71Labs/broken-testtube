@@ -1,53 +1,41 @@
 import Image from "next/image";
 import { ProductSection } from "./product-section";
-import { Parallax } from "@/components/motion/parallax";
-import { UtsuroMark } from "./utsuro-mark";
-
-const ACCENT = "#e8681e";
 
 const RENDERS = ["out-coffee", "out-shoe", "out-skincare", "out-portrait"];
 
 function UtsuroPreview() {
   return (
-    <Parallax amount={40}>
-      <div className="rounded-3xl border border-border bg-card p-6">
-        {/* app in a browser frame */}
-        <div className="overflow-hidden rounded-2xl border border-border bg-white shadow-[0_30px_80px_-30px_rgba(0,0,0,0.25)]">
-          <div className="flex items-center gap-3 border-b border-border px-4 py-2.5">
-            <div className="flex gap-1.5">
-              <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
-              <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
-              <span className="h-2.5 w-2.5 rounded-full bg-neutral-200" />
-            </div>
-            <div className="mx-auto rounded-md border border-border bg-neutral-50 px-3 py-1 font-mono text-[10px] text-grey-2">
-              utsuro.xyz/home
-            </div>
-          </div>
-          <Image
-            src="/utsuro/app.png"
-            alt="Utsuro app"
-            width={3456}
-            height={1964}
-            sizes="(min-width:1024px) 520px, 100vw"
-            className="h-auto w-full"
-          />
+    <div className="surface rounded-lg p-6 sm:p-8">
+      <div className="overflow-hidden rounded-[6px] border border-hairline bg-white">
+        <div className="flex items-center gap-2 border-b border-hairline px-4 py-2.5">
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e0e0e0]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e0e0e0]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#e0e0e0]" />
+          <span className="mx-auto text-[11px] text-grey-2">utsuro.xyz</span>
         </div>
-        {/* render strip */}
-        <div className="mt-3 grid grid-cols-4 gap-2">
-          {RENDERS.map((r) => (
-            <Image
-              key={r}
-              src={`/utsuro/${r}.png`}
-              alt="Utsuro render"
-              width={378}
-              height={378}
-              sizes="120px"
-              className="aspect-square w-full rounded-lg object-cover shadow-sm"
-            />
-          ))}
-        </div>
+        <Image
+          src="/utsuro/app.png"
+          alt="Utsuro app"
+          width={3456}
+          height={1964}
+          sizes="(min-width:1024px) 560px, 100vw"
+          className="h-auto w-full"
+        />
       </div>
-    </Parallax>
+      <div className="mt-3 grid grid-cols-4 gap-3">
+        {RENDERS.map((r) => (
+          <Image
+            key={r}
+            src={`/utsuro/${r}.png`}
+            alt="Utsuro render"
+            width={378}
+            height={378}
+            sizes="120px"
+            className="aspect-square w-full rounded-[6px] object-cover"
+          />
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -56,15 +44,8 @@ export function Utsuro() {
     <ProductSection
       id="utsuro"
       name="Utsuro"
-      eyebrow="AI image & video · 0G"
-      accent={ACCENT}
-      icon={<UtsuroMark className="h-8 w-8" />}
-      title={
-        <>
-          Describe an idea. It renders the{" "}
-          <span className="text-[#e8681e]">images and video.</span>
-        </>
-      }
+      eyebrow="AI image & video"
+      title="Describe an idea. It renders the images and video."
       description="An assistant sharpens your prompt and explains why each answer changes the result. Then 0G Compute renders stills and motion over a route you can verify on-chain."
       bullets={[
         "Reference read, not pasted. Qwen3-VL describes subject, palette and mood.",

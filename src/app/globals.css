@@ -35,35 +35,39 @@
   --radius-3xl: calc(var(--radius) * 2.2);
 }
 
-/* 71Labs — light, luxury/editorial. Palette lives in :root as hex. */
+/* 71Labs — AREA 17 monochrome editorial struck yellow. */
 :root {
-  --background: #f3f2ee; /* warm editorial off-white */
-  --foreground: #0b0b0c;
-  --card: #ffffff; /* clean white tiles on warm canvas */
-  --card-foreground: #0b0b0c;
+  --background: #ffffff;
+  --foreground: #1a1a1a;
+  --card: #f2f2f2; /* fog */
+  --card-foreground: #1a1a1a;
   --popover: #ffffff;
-  --popover-foreground: #0b0b0c;
-  --primary: #0b0b0c;
+  --popover-foreground: #1a1a1a;
+  --primary: #1a1a1a;
   --primary-foreground: #ffffff;
-  --secondary: #f4f3f0;
-  --secondary-foreground: #0b0b0c;
-  --muted: #f5f4f1;
-  --muted-foreground: #6f6f76; /* mid grey */
-  --accent: #f4f3f0;
-  --accent-foreground: #0b0b0c;
+  --secondary: #f2f2f2;
+  --secondary-foreground: #1a1a1a;
+  --muted: #f2f2f2;
+  --muted-foreground: #949494;
+  --accent: #f2f2f2;
+  --accent-foreground: #1a1a1a;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: rgba(11, 11, 12, 0.09);
-  --input: rgba(11, 11, 12, 0.14);
-  --ring: rgba(11, 11, 12, 0.2);
-  /* greys for the black/grey type mix */
-  --ink: #0b0b0c;
-  --ink-2: #3a3a40;
-  --grey: #6f6f76;
-  --grey-2: #a1a1a8;
-  /* product accents */
+  --border: #e6e6e6; /* hairline */
+  --input: #e6e6e6;
+  --ring: #1a1a1a;
+  /* AREA 17 named tokens */
+  --ink: #1a1a1a;
+  --ink-2: #3a3a3a;
+  --grey: #757575; /* dim */
+  --grey-2: #949494; /* muted */
+  --hairline: #e6e6e6;
+  --fog: #f2f2f2;
+  --cream: #f2ede9;
+  --yellow: #fdf313;
+  /* product accents kept but the marketing site is monochrome */
   --talise: 60 154 78;
   --utsuro: 232 104 30;
-  --radius: 0.875rem;
+  --radius: 0.5rem; /* 8px */
 
   /* ── Apple-grade spring easing palette (Physical personality) ───────── */
   /* spring-snappy: entries / reveals (default) */
@@ -97,71 +101,52 @@
     text-rendering: optimizeLegibility;
   }
   ::selection {
-    background: rgba(11, 11, 12, 0.1);
+    background: var(--yellow);
+    color: #1a1a1a;
   }
 }
 
 @layer utilities {
-  /* Brand wordmark face. Tries Kangge first (add the licensed file to use it),
-     falls back to Space Grotesk (--font-display), then the body sans. */
+  /* Wordmark = the workhorse sans (Inter), tight. */
   .font-wordmark {
-    font-family: "Kangge", var(--font-display), var(--font-sans), sans-serif;
-    letter-spacing: -0.01em;
-  }
-
-  /* Editorial serif for display headings (Elevix look). */
-  .font-editorial {
-    font-family: var(--font-editorial), Georgia, "Times New Roman", serif;
-    letter-spacing: -0.015em;
-  }
-  .text-serif {
-    font-family: var(--font-editorial), Georgia, serif;
-    font-weight: 400;
+    font-family: var(--font-sans), sans-serif;
+    font-weight: 600;
     letter-spacing: -0.02em;
-    line-height: 1.02;
   }
 
-  /* Faint editorial grid backdrop. */
-  .bg-grid-lines {
-    background-image:
-      linear-gradient(to right, rgba(11, 11, 12, 0.045) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(11, 11, 12, 0.045) 1px, transparent 1px);
-    background-size: 120px 120px;
-  }
-
+  /* AREA 17 named text + surface helpers. */
   .text-ink { color: var(--ink); }
   .text-ink-2 { color: var(--ink-2); }
-  .text-grey { color: var(--grey); }
-  .text-grey-2 { color: var(--grey-2); }
+  .text-grey { color: var(--grey); }        /* dim #757575 */
+  .text-grey-2 { color: var(--grey-2); }    /* muted #949494 */
   .text-balance { text-wrap: balance; }
+  .surface { background: var(--fog); }
+  .surface-cream { background: var(--cream); }
+  .bg-yellow { background: var(--yellow); }
 
-  /* Warm luxury surface. */
-  .surface { background: var(--card); }
-
-  /* Fluid display heading. */
-  .text-hero {
-    font-size: clamp(2.75rem, 8.5vw, 8.5rem);
-    line-height: 0.92;
-    letter-spacing: -0.035em;
-    font-weight: 500;
+  /* Editorial display heading — Suisse-tight rhythm. */
+  .ed-display {
+    font-size: clamp(2.5rem, 5.2vw, 3.55rem);   /* ~40 → 55px */
+    line-height: 1.06;
+    letter-spacing: -0.015em;
+    font-weight: 400;
+  }
+  .ed-heading {
+    font-size: clamp(1.9rem, 3.6vw, 2.6rem);    /* ~30 → 42px */
+    line-height: 1.12;
+    letter-spacing: -0.014em;
+    font-weight: 400;
   }
 
-  /* Masked word-reveal: each word sits in an overflow-clip line. */
+  /* Ghost link: color shift + hairline underline on hover. */
+  .link-ghost {
+    color: var(--ink);
+    text-decoration: none;
+    transition: color 0.25s var(--ease-snap);
+  }
+  .link-ghost:hover { color: var(--grey-2); }
+
   .word-mask { display: inline-block; overflow: hidden; vertical-align: top; }
-
-  /* Very fine film grain for luxury texture (light mode). */
-  .grain::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    z-index: 60;
-    pointer-events: none;
-    opacity: 0.035;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  }
-
-  /* Hairline that draws in via scaleX. */
-  .rule { height: 1px; background: var(--border); transform-origin: left; }
 }
 
 @keyframes drift {

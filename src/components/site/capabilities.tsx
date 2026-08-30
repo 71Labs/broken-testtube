@@ -1,56 +1,40 @@
 import { Reveal } from "@/components/motion/reveal";
+import { Caption } from "./ui";
 
 const ITEMS = [
-  { no: "1.0", title: "Research", body: "We start from first principles, prototyping hard problems in AI, systems, and distributed software before they're obviously tractable." },
-  { no: "1.1", title: "Design", body: "We treat interface and ergonomics as core engineering. A tool people reach for beats a demo people applaud." },
-  { no: "1.2", title: "Build", body: "Small teams, short cycles, real users. We ship production software and iterate against the way it's actually used." },
-  { no: "1.3", title: "Ship", body: "The best experiments graduate into real products in people's hands, like Talise and Utsuro, live today." },
+  { no: "01", title: "Research", body: "We start from first principles, prototyping hard problems in AI, systems, and distributed software before they're obviously tractable." },
+  { no: "02", title: "Design", body: "We treat interface and ergonomics as core engineering. A tool people reach for beats a demo people applaud." },
+  { no: "03", title: "Build", body: "Small teams, short cycles, real users. We ship production software and iterate against the way it's actually used." },
+  { no: "04", title: "Ship", body: "The best experiments graduate into real products in people's hands, like Talise and Utsuro, live today." },
 ];
 
 export function Capabilities() {
   return (
-    <section id="studio">
-      <div className="mx-auto grid max-w-[90rem] gap-10 px-5 py-24 sm:px-8 sm:py-28 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-        <Reveal>
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-grey-2">
-            The studio
-          </p>
-          <h2 className="mt-4 text-balance font-editorial text-[2.2rem] font-normal leading-[1.06] tracking-[-0.02em] text-ink sm:text-[2.9rem]">
+    <section id="studio" className="mx-auto max-w-[1440px] px-6 py-24 sm:px-10 sm:py-32 lg:px-12">
+      <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
+        <div>
+          <Reveal>
+            <Caption>The studio</Caption>
+          </Reveal>
+          <Reveal as="h2" delay={0.06} className="ed-heading mt-5 max-w-[13ch] text-ink">
             Research to production, under one roof.
-          </h2>
-          <p className="mt-5 max-w-md text-grey">
+          </Reveal>
+          <Reveal as="p" delay={0.1} className="mt-6 max-w-[360px] text-[17px] leading-[1.6] text-grey">
             71Labs is a small, senior team. We take an idea from a first
             prototype to a product in people&apos;s hands, owning the research,
             the design, and the engineering end to end.
-          </p>
-        </Reveal>
+          </Reveal>
+        </div>
 
-        <div className="border-t border-border">
+        <div className="border-t border-hairline">
           {ITEMS.map((it, i) => (
-            <Reveal key={it.no} delay={i * 0.08}>
-              <div className="group grid grid-cols-[3rem_1fr_auto] items-start gap-5 border-b border-border px-3 py-6 transition-colors duration-300 hover:bg-card sm:grid-cols-[3.5rem_1fr_auto]">
-                <span className="font-mono text-xs tracking-[0.14em] text-grey-2">
-                  {it.no}
-                </span>
+            <Reveal key={it.no} delay={i * 0.07}>
+              <div className="group grid grid-cols-[2.5rem_1fr] gap-6 border-b border-hairline py-7">
+                <span className="text-[13px] font-medium tracking-[0.06em] text-grey-2">{it.no}</span>
                 <div>
-                  <h3 className="text-lg font-medium text-ink">{it.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-grey">
-                    {it.body}
-                  </p>
+                  <h3 className="text-[19px] font-medium text-ink">{it.title}</h3>
+                  <p className="mt-2 text-[15px] leading-relaxed text-grey">{it.body}</p>
                 </div>
-                <svg
-                  viewBox="0 0 16 16"
-                  className="mt-1 h-4 w-4 text-grey-2 [transition:transform_.4s_var(--ease-snap),color_.3s] group-hover:translate-x-1 group-hover:text-ink"
-                  fill="none"
-                >
-                  <path
-                    d="M6 3l5 5-5 5"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
               </div>
             </Reveal>
           ))}

@@ -1,26 +1,17 @@
 import { Reveal } from "@/components/motion/reveal";
+import { Caption } from "./ui";
 
 export function ProductsIntro() {
   return (
-    <section
-      id="products"
-      className="mx-auto max-w-[90rem] px-5 pt-24 pb-4 sm:px-8 sm:pt-28 lg:px-12"
-    >
-      <div className="mx-auto max-w-2xl text-center">
-        <Reveal
-          as="p"
-          className="font-mono text-[11px] uppercase tracking-[0.22em] text-grey-2"
-        >
-          Our products
+    <section id="products" className="mx-auto max-w-[1440px] px-6 pt-24 sm:px-10 sm:pt-32 lg:px-12">
+      <div className="max-w-[900px] border-t border-hairline pt-12">
+        <Reveal>
+          <Caption>Our products</Caption>
         </Reveal>
-        <Reveal
-          as="h2"
-          delay={0.08}
-          className="mt-4 text-balance font-editorial text-[2.2rem] font-normal tracking-[-0.02em] text-ink sm:text-[2.9rem]"
-        >
+        <Reveal as="h2" delay={0.06} className="ed-heading mt-5 text-ink">
           Two products, one studio.
         </Reveal>
-        <Reveal as="p" delay={0.16} className="mt-4 text-grey">
+        <Reveal as="p" delay={0.1} className="mt-5 max-w-[520px] text-[17px] leading-[1.6] text-grey">
           We build and ship the whole thing, from research to the app in your
           hands. Each lives in its own world; both are built by 71Labs.
         </Reveal>

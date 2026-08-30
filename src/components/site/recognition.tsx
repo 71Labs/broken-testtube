@@ -1,9 +1,9 @@
 import { Reveal } from "@/components/motion/reveal";
 import { CountUp } from "@/components/motion/count-up";
-import { LogoMark } from "./logo";
+import { Caption } from "./ui";
 
 const STATS = [
-  { node: <>2nd</>, label: "DeFi & Payments" },
+  { node: <>2nd</>, label: "DeFi & Payments", accent: true },
   { node: <CountUp to={15000} prefix="$" />, label: "Prize won" },
   { node: <CountUp to={1233} />, label: "On-chain transactions" },
   { node: <CountUp to={5000} prefix="$" suffix="+" />, label: "Settled volume" },
@@ -11,49 +11,33 @@ const STATS = [
 
 export function Recognition() {
   return (
-    <section className="mx-auto max-w-[90rem] px-5 pb-6 pt-12 sm:px-8 sm:pt-16 lg:px-12">
-      <Reveal className="relative">
-        {/* peeking badge */}
-        <div className="absolute left-1/2 top-0 z-10 flex h-16 w-16 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-white shadow-lg">
-          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-[#4f46e5] text-white">
-            <LogoMark className="h-6 w-6" />
+    <section className="mx-auto max-w-[1440px] px-6 py-24 sm:px-10 sm:py-32 lg:px-12">
+      <div className="max-w-[900px]">
+        <Reveal>
+          <Caption>Recognition</Caption>
+        </Reveal>
+        <Reveal as="h2" delay={0.06} className="ed-heading mt-5 text-ink">
+          Talise placed 2nd in DeFi &amp; Payments at Sui Overflow 2026,{" "}
+          <span className="text-grey-2">
+            out of a genuinely high field judged by Mysten Labs and the Sui
+            ecosystem.
           </span>
-        </div>
+        </Reveal>
+      </div>
 
-        <div className="overflow-hidden rounded-[2rem] bg-[#141416] px-6 pb-14 pt-20 text-center sm:px-16 sm:pb-16">
-          <div className="pointer-events-none absolute inset-0 bg-grid-lines opacity-[0.05]" />
-
-          <Reveal delay={0.06} className="relative inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1">
-            <span className="h-2 w-2 rounded-full bg-[#8ce65a]" />
-            <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/70">
-              Recognition
-            </span>
+      <div className="mt-16 grid grid-cols-2 gap-x-8 gap-y-12 border-t border-hairline pt-12 lg:grid-cols-4">
+        {STATS.map((s, i) => (
+          <Reveal key={i} delay={i * 0.08}>
+            <div className="relative inline-block text-[44px] font-medium leading-none tracking-tight tabular-nums text-ink sm:text-[54px]">
+              {s.node}
+              {s.accent && (
+                <span className="absolute -bottom-1.5 left-0 h-2.5 w-full bg-[#fdf313]" style={{ zIndex: -1 }} />
+              )}
+            </div>
+            <p className="mt-4 text-[15px] text-grey">{s.label}</p>
           </Reveal>
-
-          <Reveal
-            as="h2"
-            delay={0.12}
-            className="relative mx-auto mt-7 max-w-4xl text-serif text-[clamp(1.9rem,3.4vw,3.1rem)] leading-[1.12] text-white"
-          >
-            Talise placed 2nd in DeFi &amp; Payments at Sui Overflow 2026,{" "}
-            <span className="text-white/50">
-              out of a genuinely high field judged by Mysten Labs and the Sui
-              ecosystem.
-            </span>
-          </Reveal>
-
-          <div className="relative mx-auto mt-12 grid max-w-4xl grid-cols-2 gap-8 lg:grid-cols-4">
-            {STATS.map((s, i) => (
-              <Reveal key={i} delay={0.12 + i * 0.08}>
-                <div className="text-4xl font-semibold tracking-tight tabular-nums text-white sm:text-5xl">
-                  {s.node}
-                </div>
-                <p className="mt-2 text-sm text-white/55">{s.label}</p>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </Reveal>
+        ))}
+      </div>
     </section>
   );
 }
