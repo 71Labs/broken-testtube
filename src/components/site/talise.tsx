@@ -12,6 +12,7 @@ function TalisePreview() {
             width={1206}
             height={2622}
             sizes="168px"
+            quality={88}
             className="w-full rounded-[14px] border border-hairline"
           />
         </div>
@@ -22,6 +23,7 @@ function TalisePreview() {
             width={1206}
             height={2622}
             sizes="196px"
+            quality={88}
             className="w-full rounded-[16px] border border-hairline"
           />
         </div>

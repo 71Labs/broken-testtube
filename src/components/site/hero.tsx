@@ -32,6 +32,7 @@ export function Hero() {
             alt="Building at 71Labs"
             fill
             priority
+            quality={92}
             sizes="100vw"
             className="object-cover"
           />

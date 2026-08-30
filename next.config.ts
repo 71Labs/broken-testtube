@@ -6,6 +6,11 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
   },
+  images: {
+    // Allow HD quality on prominent imagery (default is 75, which softens photos).
+    qualities: [75, 88, 92],
+    formats: ["image/avif", "image/webp"],
+  },
 };
 
 export default nextConfig;

@@ -19,6 +19,7 @@ function UtsuroPreview() {
           width={3456}
           height={1964}
           sizes="(min-width:1024px) 560px, 100vw"
+          quality={88}
           className="h-auto w-full"
         />
       </div>
@@ -31,6 +32,7 @@ function UtsuroPreview() {
             width={378}
             height={378}
             sizes="120px"
+            quality={88}
             className="aspect-square w-full rounded-[6px] object-cover"
           />
         ))}
