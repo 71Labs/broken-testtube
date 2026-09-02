@@ -2,17 +2,19 @@ const COLUMNS = [
   {
     title: "Products",
     links: [
-      { label: "Talise", href: "#talise" },
+      { label: "Talise", href: "/talise" },
       { label: "talise.io", href: "https://talise.io" },
-      { label: "Utsuro", href: "#utsuro" },
+      { label: "Utsuro", href: "/utsuro" },
       { label: "utsuro.xyz", href: "https://utsuro.xyz" },
     ],
   },
   {
     title: "Studio",
     links: [
-      { label: "How we work", href: "#studio" },
-      { label: "Contact", href: "#contact" },
+      { label: "About the studio", href: "/studio" },
+      { label: "Writing", href: "/writing" },
+      { label: "Careers", href: "/careers" },
+      { label: "Contact", href: "/#contact" },
       { label: "Team panel", href: "/panel" },
     ],
   },
