@@ -4,24 +4,28 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { setRole } from "../actions";
 import type { Role } from "@/lib/panel/types";
+import { Select } from "./ui/select";
 
 export function RoleSelect({ id, role }: { id: string; role: Role }) {
   const router = useRouter();
   const [pending, start] = useTransition();
   return (
-    <select
+    <Select
+      size="sm"
       value={role}
       disabled={pending}
-      onChange={(e) =>
+      ariaLabel="Role"
+      className="w-28"
+      items={[
+        { value: "worker", label: "Worker" },
+        { value: "admin", label: "Admin" },
+      ]}
+      onValueChange={(v) =>
         start(async () => {
-          await setRole(id, e.target.value as Role);
+          await setRole(id, v as Role);
           router.refresh();
         })
       }
-      className="rounded-md border border-neutral-200 bg-white px-2 py-1 text-xs text-neutral-700 outline-none focus:border-neutral-900 disabled:opacity-60"
-    >
-      <option value="worker">Worker</option>
-      <option value="admin">Admin</option>
-    </select>
+    />
   );
 }

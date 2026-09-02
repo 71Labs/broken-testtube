@@ -3,38 +3,59 @@
 import { useActionState } from "react";
 import type { Profile } from "@/lib/panel/types";
 import { updateProfile } from "../actions";
+import { Button } from "./ui/button";
+import { CheckmarkCircle02Icon, Icon } from "./ui/icons";
+
+const inputCls =
+  "w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm text-ink placeholder:text-grey-2 outline-none transition-[border-color,box-shadow] duration-150 focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink/10";
 
 export function ProfileForm({ profile }: { profile: Profile }) {
   const [state, action, pending] = useActionState(updateProfile, null);
   return (
-    <form action={action} className="max-w-md space-y-4 rounded-2xl border border-neutral-200 bg-white p-6">
+    <form
+      action={action}
+      className="max-w-md space-y-4 rounded-xl border border-hairline bg-white p-6"
+    >
       <label className="block">
-        <span className="mb-1.5 block text-xs font-medium text-neutral-600">Full name</span>
+        <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.14em] text-grey">
+          Full name
+        </span>
         <input
           name="full_name"
           defaultValue={profile.full_name}
           required
-          className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm outline-none focus:border-neutral-900"
+          className={inputCls}
         />
       </label>
       <label className="block">
-        <span className="mb-1.5 block text-xs font-medium text-neutral-600">Title</span>
+        <span className="mb-1.5 block font-mono text-[10px] uppercase tracking-[0.14em] text-grey">
+          Title
+        </span>
         <input
           name="title"
           defaultValue={profile.title ?? ""}
           placeholder="e.g. Product engineer"
-          className="w-full rounded-lg border border-neutral-300 px-3 py-2.5 text-sm outline-none focus:border-neutral-900"
+          className={inputCls}
         />
       </label>
       <div className="flex items-center gap-3">
-        <button
-          disabled={pending}
-          className="rounded-lg bg-neutral-950 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
-        >
+        <Button type="submit" disabled={pending}>
           {pending ? "Saving…" : "Save changes"}
-        </button>
-        {state?.ok && <span className="text-xs text-neutral-500">Saved.</span>}
-        {state?.error && <span className="text-xs text-red-600">{state.error}</span>}
+        </Button>
+        {state?.ok && (
+          <span
+            role="status"
+            className="flex items-center gap-1 text-xs text-grey"
+          >
+            <Icon icon={CheckmarkCircle02Icon} size={14} className="text-ink" />
+            Saved
+          </span>
+        )}
+        {state?.error && (
+          <span role="alert" className="text-xs text-red-600">
+            {state.error}
+          </span>
+        )}
       </div>
     </form>
   );

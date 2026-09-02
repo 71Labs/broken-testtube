@@ -12,8 +12,14 @@ import {
 } from "@/lib/panel/types";
 import { assignTask, deleteTask, updateTaskStatus } from "../actions";
 import { cn } from "@/lib/utils";
+import { Select, type Option } from "./ui/select";
+import { Delete02Icon, Icon, InboxIcon } from "./ui/icons";
 
 const COLUMNS: TaskStatus[] = ["todo", "in_progress", "done"];
+const STATUS_ITEMS: Option[] = COLUMNS.map((s) => ({
+  value: s,
+  label: STATUS_META[s].label,
+}));
 
 export function TaskBoard({
   tasks,
@@ -35,101 +41,131 @@ export function TaskBoard({
       router.refresh();
     });
 
+  const assigneeItems: Option[] = [
+    { value: "", label: "Unassigned" },
+    ...team.map((m) => ({ value: m.id, label: m.full_name })),
+  ];
+
   return (
-    <div className={cn("grid gap-4 md:grid-cols-3", pending && "opacity-70")}>
+    <div
+      className={cn(
+        "grid gap-4 transition-opacity duration-150 md:grid-cols-3",
+        pending && "opacity-60",
+      )}
+    >
       {COLUMNS.map((col) => {
         const items = tasks.filter((t) => t.status === col);
         return (
-          <div key={col} className="rounded-2xl border border-neutral-200 bg-neutral-50/60">
+          <div key={col} className="rounded-xl border border-hairline bg-fog/60">
             <div className="flex items-center justify-between px-4 py-3">
-              <span className="flex items-center gap-2 text-sm font-medium text-neutral-900">
-                <span className="h-2 w-2 rounded-full" style={{ background: STATUS_META[col].dot }} />
+              <span className="flex items-center gap-2 text-sm font-medium text-ink">
+                <span
+                  className="h-2 w-2 rounded-full"
+                  style={{ background: STATUS_META[col].dot }}
+                />
                 {STATUS_META[col].label}
               </span>
-              <span className="font-mono text-[11px] text-neutral-400">{items.length}</span>
+              <span className="font-mono text-[11px] tabular-nums text-grey-2">
+                {items.length}
+              </span>
             </div>
             <div className="space-y-2 px-2 pb-2">
               {items.length === 0 && (
-                <p className="px-2 py-6 text-center text-xs text-neutral-400">Nothing here yet.</p>
+                <div className="flex flex-col items-center gap-2 px-2 py-8 text-center">
+                  <Icon icon={InboxIcon} size={18} className="text-grey-2" />
+                  <p className="text-xs text-grey-2">Nothing here yet.</p>
+                </div>
               )}
               {items.map((t) => {
                 const canEdit = isAdmin || t.assignee_id === myId;
                 const canDelete = isAdmin || t.created_by === myId;
                 return (
-                  <div key={t.id} className="rounded-xl border border-neutral-200 bg-white p-3">
+                  <div
+                    key={t.id}
+                    className="rounded-lg border border-hairline bg-white p-3 transition-colors duration-150 hover:border-ink/15"
+                  >
                     <div className="flex items-start justify-between gap-2">
-                      <p className="text-sm font-medium leading-snug text-neutral-900">{t.title}</p>
+                      <p className="text-sm font-medium leading-snug text-ink">
+                        {t.title}
+                      </p>
                       {canDelete && (
                         <button
                           onClick={() => run(() => deleteTask(t.id))}
-                          className="shrink-0 text-neutral-300 transition-colors hover:text-red-500"
-                          aria-label="Delete task"
+                          className="-mr-1 -mt-1 grid h-7 w-7 shrink-0 place-items-center rounded-md text-grey-2 outline-none transition-colors hover:bg-red-50 hover:text-red-500 focus-visible:ring-2 focus-visible:ring-ink/10"
+                          aria-label={`Delete task: ${t.title}`}
                         >
-                          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none">
-                            <path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-                          </svg>
+                          <Icon icon={Delete02Icon} size={15} />
                         </button>
                       )}
                     </div>
                     {t.description && (
-                      <p className="mt-1 line-clamp-2 text-xs text-neutral-500">{t.description}</p>
+                      <p className="mt-1 line-clamp-2 text-xs text-grey">
+                        {t.description}
+                      </p>
                     )}
 
                     <div className="mt-2.5 flex flex-wrap items-center gap-1.5">
                       {t.project && (
                         <span
                           className="inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium"
-                          style={{ background: `${t.project.color}1a`, color: t.project.color }}
+                          style={{
+                            background: `${t.project.color}1a`,
+                            color: t.project.color,
+                          }}
                         >
                           {t.project.name}
                         </span>
                       )}
-                      <span className={cn("rounded-full px-2 py-0.5 text-[10px] font-medium", PRIORITY_META[t.priority].className)}>
+                      <span
+                        className={cn(
+                          "rounded-full px-2 py-0.5 text-[10px] font-medium",
+                          PRIORITY_META[t.priority].className,
+                        )}
+                      >
                         {PRIORITY_META[t.priority].label}
                       </span>
                       {t.due_date && (
-                        <span className="rounded-full bg-neutral-100 px-2 py-0.5 font-mono text-[10px] text-neutral-500">
+                        <span className="rounded-full bg-secondary px-2 py-0.5 font-mono text-[10px] tabular-nums text-grey">
                           {t.due_date}
                         </span>
                       )}
                     </div>
 
-                    <div className="mt-3 flex items-center justify-between gap-2 border-t border-neutral-100 pt-2.5">
-                      <span className="flex items-center gap-1.5 text-[11px] text-neutral-500">
-                        <span className="flex h-5 w-5 items-center justify-center rounded-full bg-neutral-200 text-[9px] font-medium text-neutral-600">
+                    <div className="mt-3 flex items-center justify-between gap-2 border-t border-hairline pt-2.5">
+                      <span className="flex min-w-0 items-center gap-1.5 text-[11px] text-grey">
+                        <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-secondary text-[9px] font-medium text-ink-2">
                           {t.assignee ? initials(t.assignee.full_name) : "—"}
                         </span>
-                        {t.assignee?.full_name ?? "Unassigned"}
+                        <span className="truncate">
+                          {t.assignee?.full_name ?? "Unassigned"}
+                        </span>
                       </span>
 
-                      {canEdit ? (
-                        <select
-                          value={t.status}
-                          onChange={(e) => run(() => updateTaskStatus(t.id, e.target.value as TaskStatus))}
-                          className="rounded-md border border-neutral-200 bg-white px-1.5 py-1 text-[11px] text-neutral-700 outline-none focus:border-neutral-900"
-                        >
-                          {COLUMNS.map((s) => (
-                            <option key={s} value={s}>
-                              {STATUS_META[s].label}
-                            </option>
-                          ))}
-                        </select>
-                      ) : null}
+                      {canEdit && (
+                        <div className="w-28 shrink-0">
+                          <Select
+                            size="sm"
+                            value={t.status}
+                            ariaLabel="Task status"
+                            items={STATUS_ITEMS}
+                            onValueChange={(v) =>
+                              run(() => updateTaskStatus(t.id, v as TaskStatus))
+                            }
+                          />
+                        </div>
+                      )}
                     </div>
 
                     {isAdmin && (
-                      <select
-                        value={t.assignee_id ?? ""}
-                        onChange={(e) => run(() => assignTask(t.id, e.target.value || null))}
-                        className="mt-2 w-full rounded-md border border-neutral-200 bg-white px-1.5 py-1 text-[11px] text-neutral-600 outline-none focus:border-neutral-900"
-                      >
-                        <option value="">Unassigned</option>
-                        {team.map((m) => (
-                          <option key={m.id} value={m.id}>
-                            {m.full_name}
-                          </option>
-                        ))}
-                      </select>
+                      <div className="mt-2">
+                        <Select
+                          size="sm"
+                          value={t.assignee_id ?? ""}
+                          ariaLabel="Assign task"
+                          items={assigneeItems}
+                          onValueChange={(v) => run(() => assignTask(t.id, v || null))}
+                        />
+                      </div>
                     )}
                   </div>
                 );

@@ -27,6 +27,15 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  /* AREA 17 named colors, exposed as Tailwind utilities (text-ink, bg-yellow, …) */
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-grey: var(--grey);
+  --color-grey-2: var(--grey-2);
+  --color-hairline: var(--hairline);
+  --color-fog: var(--fog);
+  --color-cream: var(--cream);
+  --color-yellow: var(--yellow);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);

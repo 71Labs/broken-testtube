@@ -33,15 +33,18 @@ export default async function OrgPage() {
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         {departments.map((d) => (
-          <div key={d.id} className="rounded-2xl border border-neutral-200 bg-white p-5">
+          <div
+            key={d.id}
+            className="rounded-xl border border-hairline bg-white p-5 transition-colors duration-150 hover:border-ink/15"
+          >
             <span className="flex items-center gap-2">
               <span className="h-2.5 w-2.5 rounded-full" style={{ background: d.color }} />
-              <span className="text-sm font-medium text-neutral-900">{d.name}</span>
+              <span className="text-sm font-medium text-ink">{d.name}</span>
             </span>
-            <p className="mt-3 text-3xl font-medium tracking-tight text-neutral-950">
+            <p className="mt-3 text-3xl font-medium tracking-tight tabular-nums text-ink">
               {inDept(d.id).length}
             </p>
-            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-neutral-400">
+            <p className="font-mono text-[10px] uppercase tracking-[0.14em] text-grey-2">
               {inDept(d.id).length === 1 ? "person" : "people"}
             </p>
           </div>
@@ -71,7 +74,7 @@ export default async function OrgPage() {
         {unassigned.length > 0 && (
           <DeptSection
             name="Unassigned"
-            color="#d4d4d8"
+            color="#c4c4c4"
             description="Not yet placed in a department."
             leadName={null}
             leadNode={null}
@@ -108,42 +111,52 @@ function DeptSection({
   team: Profile[];
 }) {
   return (
-    <section className="overflow-hidden rounded-2xl border border-neutral-200">
-      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-neutral-200 bg-neutral-50 px-5 py-3.5">
+    <section className="overflow-hidden rounded-xl border border-hairline">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-hairline bg-fog px-5 py-3.5">
         <div className="flex items-center gap-2.5">
           <span className="h-3 w-3 rounded-full" style={{ background: color }} />
           <div>
-            <p className="text-sm font-medium text-neutral-900">{name}</p>
-            {description && <p className="text-xs text-neutral-500">{description}</p>}
+            <p className="text-sm font-medium text-ink">{name}</p>
+            {description && <p className="text-xs text-grey">{description}</p>}
           </div>
         </div>
-        <div className="flex items-center gap-2 text-xs text-neutral-500">
-          <span className="font-mono uppercase tracking-[0.12em] text-neutral-400">Lead</span>
-          {leadNode ?? <span className="text-neutral-700">{leadName ?? "—"}</span>}
+        <div className="flex items-center gap-2 text-xs text-grey">
+          <span className="font-mono uppercase tracking-[0.12em] text-grey-2">Lead</span>
+          {leadNode ?? <span className="text-ink-2">{leadName ?? "—"}</span>}
         </div>
       </div>
 
       {members.length === 0 ? (
-        <p className="px-5 py-6 text-center text-xs text-neutral-400">No one here yet.</p>
+        <p className="px-5 py-6 text-center text-xs text-grey-2">No one here yet.</p>
       ) : (
-        <div className="divide-y divide-neutral-100">
+        <div className="divide-y divide-hairline">
           {members.map((m) => (
-            <div key={m.id} className="grid grid-cols-1 gap-3 px-5 py-3.5 sm:grid-cols-[1.4fr_1fr_auto] sm:items-center">
+            <div
+              key={m.id}
+              className="grid grid-cols-1 gap-3 px-5 py-3.5 sm:grid-cols-[1.4fr_1fr_auto] sm:items-center"
+            >
               <span className="flex items-center gap-3">
-                <span className="flex h-8 w-8 items-center justify-center rounded-full bg-neutral-900 text-[11px] font-medium text-white">
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
                   {initials(m.full_name)}
                 </span>
-                <span>
-                  <span className="block text-sm font-medium text-neutral-900">{m.full_name}</span>
-                  <span className="block text-xs text-neutral-500">{m.title ?? "—"}</span>
+                <span className="min-w-0">
+                  <span className="block truncate text-sm font-medium text-ink">
+                    {m.full_name}
+                  </span>
+                  <span className="block truncate text-xs text-grey">
+                    {m.title ?? "—"}
+                  </span>
                 </span>
               </span>
 
-              <span className="text-xs text-neutral-500">
+              <span className="text-xs text-grey">
                 {m.manager?.full_name ? (
-                  <>Reports to <span className="text-neutral-800">{m.manager.full_name}</span></>
+                  <>
+                    Reports to{" "}
+                    <span className="text-ink-2">{m.manager.full_name}</span>
+                  </>
                 ) : (
-                  <span className="text-neutral-400">No manager</span>
+                  <span className="text-grey-2">No manager</span>
                 )}
               </span>
 
@@ -153,7 +166,7 @@ function DeptSection({
                   <ManagerSelect profileId={m.id} value={m.manager_id} people={team} />
                 </span>
               ) : (
-                <span className="rounded-full bg-neutral-100 px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-neutral-500">
+                <span className="justify-self-start rounded-full bg-secondary px-2 py-0.5 text-[10px] font-medium uppercase tracking-[0.12em] text-grey">
                   {m.role}
                 </span>
               )}

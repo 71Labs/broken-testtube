@@ -4,42 +4,38 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { setDepartment, setManager, setDepartmentLead } from "../actions";
 import type { Department, Profile } from "@/lib/panel/types";
-
-const cls =
-  "rounded-md border border-neutral-200 bg-white px-2 py-1 text-xs text-neutral-700 outline-none focus:border-neutral-900 disabled:opacity-60";
+import { Select, type Option } from "./ui/select";
 
 function Picker({
   value,
   placeholder,
   options,
+  ariaLabel,
   onPick,
 }: {
   value: string | null;
   placeholder: string;
-  options: { id: string; label: string }[];
+  options: Option[];
+  ariaLabel: string;
   onPick: (v: string | null) => Promise<unknown>;
 }) {
   const router = useRouter();
   const [pending, start] = useTransition();
   return (
-    <select
+    <Select
+      size="sm"
       value={value ?? ""}
       disabled={pending}
-      onChange={(e) =>
+      ariaLabel={ariaLabel}
+      placeholder={placeholder}
+      items={[{ value: "", label: placeholder }, ...options]}
+      onValueChange={(v) =>
         start(async () => {
-          await onPick(e.target.value || null);
+          await onPick(v || null);
           router.refresh();
         })
       }
-      className={cls}
-    >
-      <option value="">{placeholder}</option>
-      {options.map((o) => (
-        <option key={o.id} value={o.id}>
-          {o.label}
-        </option>
-      ))}
-    </select>
+    />
   );
 }
 
@@ -56,7 +52,8 @@ export function DepartmentSelect({
     <Picker
       value={value}
       placeholder="No department"
-      options={departments.map((d) => ({ id: d.id, label: d.name }))}
+      ariaLabel="Department"
+      options={departments.map((d) => ({ value: d.id, label: d.name }))}
       onPick={(v) => setDepartment(profileId, v)}
     />
   );
@@ -75,9 +72,10 @@ export function ManagerSelect({
     <Picker
       value={value}
       placeholder="No manager"
+      ariaLabel="Manager"
       options={people
         .filter((p) => p.id !== profileId)
-        .map((p) => ({ id: p.id, label: p.full_name }))}
+        .map((p) => ({ value: p.id, label: p.full_name }))}
       onPick={(v) => setManager(profileId, v)}
     />
   );
@@ -96,7 +94,8 @@ export function LeadSelect({
     <Picker
       value={value}
       placeholder="No lead"
-      options={members.map((p) => ({ id: p.id, label: p.full_name }))}
+      ariaLabel="Department lead"
+      options={members.map((p) => ({ value: p.id, label: p.full_name }))}
       onPick={(v) => setDepartmentLead(departmentId, v)}
     />
   );

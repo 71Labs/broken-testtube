@@ -4,6 +4,14 @@ import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createTask } from "../actions";
 import type { Profile, Project } from "@/lib/panel/types";
+import { cn } from "@/lib/utils";
+import { Button } from "./ui/button";
+import { Field, Select, type Option } from "./ui/select";
+import { DateField } from "./ui/date-field";
+import { Add01Icon, Cancel01Icon } from "./ui/icons";
+
+const inputCls =
+  "w-full rounded-lg border border-border bg-white px-3 py-2.5 text-sm text-ink placeholder:text-grey-2 outline-none transition-[border-color,box-shadow] duration-150 focus-visible:border-ink focus-visible:ring-2 focus-visible:ring-ink/10";
 
 export function NewTask({
   projects,
@@ -27,100 +35,92 @@ export function NewTask({
     }
   }, [state, router]);
 
+  const projectItems: Option[] = [
+    { value: "", label: "No project" },
+    ...projects.map((p) => ({ value: p.id, label: p.name })),
+  ];
+  const priorityItems: Option[] = [
+    { value: "low", label: "Low" },
+    { value: "medium", label: "Medium" },
+    { value: "high", label: "High" },
+  ];
+  const assigneeItems: Option[] = [
+    { value: "", label: "Assign to me" },
+    ...team.map((m) => ({ value: m.id, label: m.full_name })),
+  ];
+
   return (
-    <div>
-      <button
+    <div className="w-full sm:w-auto">
+      <Button
+        variant={open ? "secondary" : "primary"}
+        icon={open ? Cancel01Icon : Add01Icon}
         onClick={() => setOpen((v) => !v)}
-        className="inline-flex items-center gap-1.5 rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
+        aria-expanded={open}
       >
-        <span className="text-base leading-none">{open ? "×" : "+"}</span>
-        {open ? "Close" : "New task"}
-      </button>
+        {open ? "Cancel" : "New task"}
+      </Button>
 
       {open && (
         <form
           ref={formRef}
           action={action}
-          className="mt-4 space-y-3 rounded-2xl border border-neutral-200 bg-white p-4"
+          className="mt-3 w-full space-y-4 rounded-xl border border-hairline bg-white p-5 motion-safe:animate-in motion-safe:fade-in-0 motion-safe:slide-in-from-top-1 motion-safe:duration-200 sm:w-[30rem]"
         >
-          <input
-            name="title"
-            required
-            placeholder="Task title"
-            className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-900"
-          />
-          <textarea
-            name="description"
-            rows={2}
-            placeholder="Details (optional)"
-            className="w-full resize-none rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-900"
-          />
-          <div className="grid gap-3 sm:grid-cols-2">
-            <Select name="project_id" label="Project">
-              <option value="">No project</option>
-              {projects.map((p) => (
-                <option key={p.id} value={p.id}>{p.name}</option>
-              ))}
-            </Select>
-            <Select name="priority" label="Priority" defaultValue="medium">
-              <option value="low">Low</option>
-              <option value="medium">Medium</option>
-              <option value="high">High</option>
-            </Select>
-            {isAdmin && (
-              <Select name="assignee_id" label="Assignee">
-                <option value="">Assign to me</option>
-                {team.map((m) => (
-                  <option key={m.id} value={m.id}>{m.full_name}</option>
-                ))}
-              </Select>
-            )}
-            <label className="block">
-              <span className="mb-1 block text-[11px] font-medium text-neutral-500">Due date</span>
-              <input
-                name="due_date"
-                type="date"
-                className="w-full rounded-lg border border-neutral-200 px-3 py-2 text-sm outline-none focus:border-neutral-900"
-              />
-            </label>
+          <div className="space-y-2.5">
+            <input
+              name="title"
+              required
+              aria-label="Task title"
+              placeholder="Task title"
+              className={cn(inputCls, "text-[15px] font-medium")}
+            />
+            <textarea
+              name="description"
+              rows={2}
+              aria-label="Task details"
+              placeholder="Add details (optional)"
+              className={cn(inputCls, "resize-none")}
+            />
           </div>
 
-          {state?.error && <p className="text-xs text-red-600">{state.error}</p>}
+          <div className="grid gap-3 sm:grid-cols-2">
+            <Field label="Project">
+              <Select name="project_id" items={projectItems} ariaLabel="Project" />
+            </Field>
+            <Field label="Priority">
+              <Select
+                name="priority"
+                items={priorityItems}
+                defaultValue="medium"
+                ariaLabel="Priority"
+              />
+            </Field>
+            {isAdmin && (
+              <Field label="Assignee">
+                <Select name="assignee_id" items={assigneeItems} ariaLabel="Assignee" />
+              </Field>
+            )}
+            <Field label="Due date">
+              <DateField name="due_date" />
+            </Field>
+          </div>
 
-          <button
-            type="submit"
-            disabled={pending}
-            className="rounded-lg bg-neutral-950 px-4 py-2 text-sm font-medium text-white disabled:opacity-60"
-          >
-            {pending ? "Creating…" : "Create task"}
-          </button>
+          {state?.error && (
+            <p role="alert" className="text-xs text-red-600">
+              {state.error}
+            </p>
+          )}
+
+          <div className="flex items-center gap-2 border-t border-hairline pt-4">
+            <Button type="submit" icon={Add01Icon} disabled={pending}>
+              {pending ? "Creating…" : "Create task"}
+            </Button>
+            <Button type="button" variant="ghost" onClick={() => setOpen(false)}>
+              Cancel
+            </Button>
+          </div>
         </form>
       )}
     </div>
-  );
-}
-
-function Select({
-  name,
-  label,
-  children,
-  defaultValue,
-}: {
-  name: string;
-  label: string;
-  children: React.ReactNode;
-  defaultValue?: string;
-}) {
-  return (
-    <label className="block">
-      <span className="mb-1 block text-[11px] font-medium text-neutral-500">{label}</span>
-      <select
-        name={name}
-        defaultValue={defaultValue}
-        className="w-full rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm outline-none focus:border-neutral-900"
-      >
-        {children}
-      </select>
-    </label>
   );
 }

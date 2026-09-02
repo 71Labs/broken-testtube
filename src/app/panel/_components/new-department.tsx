@@ -3,6 +3,8 @@
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { createDepartment } from "../actions";
+import { Button } from "./ui/button";
+import { Add01Icon } from "./ui/icons";
 
 export function NewDepartment() {
   const [open, setOpen] = useState(false);
@@ -20,28 +22,40 @@ export function NewDepartment() {
 
   if (!open) {
     return (
-      <button
-        onClick={() => setOpen(true)}
-        className="inline-flex items-center gap-1.5 rounded-full bg-neutral-950 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-neutral-800"
-      >
-        <span className="text-base leading-none">+</span> New department
-      </button>
+      <Button icon={Add01Icon} onClick={() => setOpen(true)}>
+        New department
+      </Button>
     );
   }
 
   return (
-    <form ref={ref} action={action} className="flex items-center gap-2 rounded-full border border-neutral-200 bg-white p-1.5 pl-3">
+    <form
+      ref={ref}
+      action={action}
+      className="flex items-center gap-2 rounded-full border border-border bg-white p-1.5 pl-3 transition-colors focus-within:border-ink/40"
+    >
       <input
         name="name"
         required
+        aria-label="Department name"
         placeholder="Department name"
-        className="w-44 text-sm outline-none placeholder:text-neutral-400"
+        className="w-44 bg-transparent text-sm text-ink outline-none placeholder:text-grey-2"
       />
-      <input name="color" type="color" defaultValue="#71717a" className="h-7 w-7 cursor-pointer rounded border-0 bg-transparent p-0" />
-      <button disabled={pending} className="rounded-full bg-neutral-950 px-3 py-1.5 text-xs font-medium text-white disabled:opacity-60">
+      <input
+        name="color"
+        type="color"
+        defaultValue="#757575"
+        aria-label="Department color"
+        className="h-7 w-7 cursor-pointer rounded border-0 bg-transparent p-0"
+      />
+      <Button type="submit" size="sm" className="rounded-full" disabled={pending}>
         {pending ? "…" : "Add"}
-      </button>
-      {state?.error && <span className="pr-2 text-xs text-red-600">{state.error}</span>}
+      </Button>
+      {state?.error && (
+        <span role="alert" className="pr-2 text-xs text-red-600">
+          {state.error}
+        </span>
+      )}
     </form>
   );
 }
