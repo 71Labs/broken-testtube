@@ -18,6 +18,10 @@ do $$ begin
   create type panel.task_priority as enum ('low', 'medium', 'high');
 exception when duplicate_object then null; end $$;
 
+do $$ begin
+  create type panel.job_status as enum ('draft', 'open', 'closed');
+exception when duplicate_object then null; end $$;
+
 -- ──────────────────────────────────────────────────────── profiles ──
 create table if not exists panel.profiles (
   id          uuid primary key references auth.users (id) on delete cascade,
@@ -75,6 +79,20 @@ alter table panel.profiles
   add column if not exists department_id uuid references panel.departments (id) on delete set null;
 alter table panel.profiles
   add column if not exists manager_id uuid references panel.profiles (id) on delete set null;
+
+-- ─────────────────────────────────────────── careers / job openings ──
+-- Managed by admins in /panel/jobs; `open` rows are public on /careers.
+create table if not exists panel.jobs (
+  id              uuid primary key default gen_random_uuid(),
+  title           text not null,
+  slug            text unique not null,
+  department_id   uuid references panel.departments (id) on delete set null,
+  location        text not null default 'Remote / Global',
+  employment_type text not null default 'Full-time',
+  description     text not null default '',
+  status          panel.job_status not null default 'draft',
+  created_at      timestamptz not null default now()
+);
 
 -- ──────────────────────────────────────────────── helper: is_admin ──
 create or replace function panel.is_admin()
@@ -157,6 +175,17 @@ create policy departments_read on panel.departments for select to authenticated 
 
 drop policy if exists departments_admin on panel.departments;
 create policy departments_admin on panel.departments for all to authenticated
+  using (panel.is_admin()) with check (panel.is_admin());
+
+alter table panel.jobs enable row level security;
+
+-- Public (anon) sees only OPEN roles; admins see & manage everything.
+drop policy if exists jobs_read on panel.jobs;
+create policy jobs_read on panel.jobs for select to anon, authenticated
+  using (status = 'open' or panel.is_admin());
+
+drop policy if exists jobs_admin on panel.jobs;
+create policy jobs_admin on panel.jobs for all to authenticated
   using (panel.is_admin()) with check (panel.is_admin());
 
 -- ────────────────────────────────────────── grants (PostgREST access) ──

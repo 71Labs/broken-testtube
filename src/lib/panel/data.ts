@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Activity, Department, Profile, Project, Task } from "./types";
+import { isSupabaseConfigured } from "@/lib/supabase/config";
+import type { Activity, Department, Job, Profile, Project, Task } from "./types";
 
 export async function getMyProfile(): Promise<Profile | null> {
   const supabase = await createClient();
@@ -53,6 +54,45 @@ export async function getDepartments(): Promise<Department[]> {
     .select("*, lead:profiles!departments_lead_id_fkey(id,full_name)")
     .order("created_at");
   return (data as Department[]) ?? [];
+}
+
+const JOB_SELECT =
+  "*, department:departments!jobs_department_id_fkey(name,slug,color)";
+
+/** All jobs (admins see every status via RLS; workers see open only). */
+export async function getJobs(): Promise<Job[]> {
+  if (!isSupabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("jobs")
+    .select(JOB_SELECT)
+    .order("created_at", { ascending: false });
+  return (data as Job[]) ?? [];
+}
+
+/** Public: open roles for the marketing /careers page (RLS allows anon). */
+export async function getOpenJobs(): Promise<Job[]> {
+  if (!isSupabaseConfigured) return [];
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("jobs")
+    .select(JOB_SELECT)
+    .eq("status", "open")
+    .order("created_at", { ascending: false });
+  return (data as Job[]) ?? [];
+}
+
+/** Public: a single open role by slug. */
+export async function getOpenJob(slug: string): Promise<Job | null> {
+  if (!isSupabaseConfigured) return null;
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("jobs")
+    .select(JOB_SELECT)
+    .eq("slug", slug)
+    .eq("status", "open")
+    .maybeSingle();
+  return (data as Job) ?? null;
 }
 
 export async function getActivity(limit = 12): Promise<Activity[]> {

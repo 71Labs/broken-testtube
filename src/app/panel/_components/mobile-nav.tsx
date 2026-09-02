@@ -6,6 +6,7 @@ import { signOut } from "../actions";
 import { initials, type Profile } from "@/lib/panel/types";
 import { cn } from "@/lib/utils";
 import {
+  Briefcase01Icon,
   FolderLibraryIcon,
   Home03Icon,
   Icon,
@@ -23,6 +24,7 @@ const NAV: { href: string; label: string; icon: HugeIcon }[] = [
   { href: "/panel/projects", label: "Projects", icon: FolderLibraryIcon },
   { href: "/panel/team", label: "Team", icon: UserGroup03Icon },
   { href: "/panel/org", label: "Organization", icon: Structure01Icon },
+  { href: "/panel/jobs", label: "Careers", icon: Briefcase01Icon },
   { href: "/panel/profile", label: "Profile", icon: UserCircleIcon },
 ];
 

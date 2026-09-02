@@ -27,6 +27,9 @@ export {
   Clock01Icon,
   SentIcon,
   InboxIcon,
+  Briefcase01Icon,
+  Location01Icon,
+  JobSearchIcon,
 } from "@hugeicons/core-free-icons";
 
 export type HugeIcon = ComponentProps<typeof HugeiconsIcon>["icon"];

@@ -33,6 +33,34 @@ export type Project = {
   created_at: string;
 };
 
+export type JobStatus = "draft" | "open" | "closed";
+
+export type Job = {
+  id: string;
+  title: string;
+  slug: string;
+  department_id: string | null;
+  location: string;
+  employment_type: string;
+  description: string;
+  status: JobStatus;
+  created_at: string;
+  department?: Pick<Department, "name" | "slug" | "color"> | null;
+};
+
+export const JOB_STATUS_META: Record<JobStatus, { label: string; dot: string }> = {
+  draft: { label: "Draft", dot: "#949494" },
+  open: { label: "Open", dot: "#3c9a4e" },
+  closed: { label: "Closed", dot: "#c4c4c4" },
+};
+
+export const EMPLOYMENT_TYPES = [
+  "Full-time",
+  "Part-time",
+  "Contract",
+  "Internship",
+] as const;
+
 export type Task = {
   id: string;
   title: string;

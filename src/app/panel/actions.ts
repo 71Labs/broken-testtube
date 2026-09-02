@@ -3,7 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import type { TaskStatus } from "@/lib/panel/types";
+import type { JobStatus, TaskStatus } from "@/lib/panel/types";
 import { STATUS_META } from "@/lib/panel/types";
 
 /* --------------------------------- auth ----------------------------------- */
@@ -120,6 +120,61 @@ export async function createProject(_prev: unknown, formData: FormData) {
   if (error) return { error: error.message };
   revalidatePath("/panel", "layout");
   return { ok: true };
+}
+
+/* --------------------------------- jobs ----------------------------------- */
+
+function slugify(s: string) {
+  return s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+}
+
+export async function createJob(_prev: unknown, formData: FormData) {
+  const { supabase, user } = await me();
+  if (!user) return { error: "Not signed in." };
+
+  const title = String(formData.get("title") ?? "").trim();
+  if (!title) return { error: "A role title is required." };
+
+  let slug = slugify(title);
+  const { data: clash } = await supabase.from("jobs").select("id").eq("slug", slug).maybeSingle();
+  if (clash) slug = `${slug}-${Math.random().toString(36).slice(2, 6)}`;
+
+  const payload = {
+    title,
+    slug,
+    department_id: (formData.get("department_id") as string) || null,
+    location: String(formData.get("location") ?? "").trim() || "Remote / Global",
+    employment_type: String(formData.get("employment_type") ?? "Full-time"),
+    description: String(formData.get("description") ?? "").trim(),
+    status: (formData.get("status") as JobStatus) || "draft",
+  };
+
+  const { error } = await supabase.from("jobs").insert(payload);
+  if (error) return { error: error.message };
+
+  revalidatePath("/panel", "layout");
+  revalidatePath("/careers");
+  return { ok: true };
+}
+
+export async function setJobStatus(jobId: string, status: JobStatus) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("jobs").update({ status }).eq("id", jobId);
+  if (!error) {
+    revalidatePath("/panel", "layout");
+    revalidatePath("/careers");
+  }
+  return { error: error?.message };
+}
+
+export async function deleteJob(jobId: string) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("jobs").delete().eq("id", jobId);
+  if (!error) {
+    revalidatePath("/panel", "layout");
+    revalidatePath("/careers");
+  }
+  return { error: error?.message };
 }
 
 /* -------------------------------- profiles -------------------------------- */

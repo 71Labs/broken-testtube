@@ -1,5 +1,6 @@
 import { Reveal } from "@/components/motion/reveal";
 import { OutlineButton, GhostLink, Caption } from "@/components/site/ui";
+import { getOpenJobs } from "@/lib/panel/data";
 
 export const metadata = { title: "Careers" };
 
@@ -22,40 +23,19 @@ const HOW_WE_HIRE = [
   },
 ];
 
-const ROLES = [
-  {
-    title: "Founding Mobile Engineer, Talise",
-    description:
-      "React Native and Sui. Own the app people actually send money in, from the send sheet to settlement.",
-    meta: "Remote / Global · Full-time",
-  },
-  {
-    title: "Product Engineer, Full-stack",
-    description:
-      "Next.js and TypeScript across Talise and Utsuro. Ship features end to end, from the schema to the pixel.",
-    meta: "Remote / Global · Full-time",
-  },
-  {
-    title: "Design Engineer",
-    description:
-      "Turn interface ideas into shipped, tactile product. Live where design and code meet, and make it feel right.",
-    meta: "Remote / Global · Full-time",
-  },
-  {
-    title: "ML / Inference Engineer, Utsuro",
-    description:
-      "Image and video pipelines on 0G Compute. Push quality, latency, and cost in the right direction at once.",
-    meta: "Remote / Global · Full-time",
-  },
-  {
-    title: "Growth Lead",
-    description:
-      "Take Talise to more corridors and rails. Find the demand, build the loops, and turn early users into a habit.",
-    meta: "Remote / Global · Full-time",
-  },
-];
+function jobMeta(job: {
+  department?: { name: string } | null;
+  location: string;
+  employment_type: string;
+}) {
+  return [job.department?.name, job.location, job.employment_type]
+    .filter(Boolean)
+    .join(" · ");
+}
 
-export default function CareersPage() {
+export default async function CareersPage() {
+  const roles = await getOpenJobs();
+
   return (
     <>
       {/* Hero */}
@@ -107,30 +87,43 @@ export default function CareersPage() {
           <Reveal>
             <Caption>Open roles</Caption>
           </Reveal>
-          <div className="mt-10 border-t border-hairline">
-            {ROLES.map((role, i) => (
-              <Reveal key={role.title} delay={i * 0.06}>
-                <div className="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-hairline py-7 sm:grid-cols-[1fr_auto] sm:items-start">
-                  <div>
-                    <h3 className="text-[20px] leading-tight tracking-tight text-ink sm:text-[24px]">
-                      {role.title}
-                    </h3>
-                    <p className="mt-3 max-w-[560px] text-[16px] leading-[1.55] text-grey">
-                      {role.description}
-                    </p>
+
+          {roles.length === 0 ? (
+            <Reveal delay={0.06}>
+              <div className="mt-10 border-t border-hairline pt-10">
+                <p className="max-w-[560px] text-[17px] leading-[1.6] text-grey">
+                  No open roles right now. We are always glad to meet people who
+                  like what we are building, though — tell us what you would
+                  build and we will keep you in mind.
+                </p>
+              </div>
+            </Reveal>
+          ) : (
+            <div className="mt-10 border-t border-hairline">
+              {roles.map((role, i) => (
+                <Reveal key={role.id} delay={i * 0.06}>
+                  <div className="grid grid-cols-1 gap-x-8 gap-y-4 border-b border-hairline py-7 sm:grid-cols-[1fr_auto] sm:items-start">
+                    <div>
+                      <h3 className="text-[20px] leading-tight tracking-tight text-ink sm:text-[24px]">
+                        {role.title}
+                      </h3>
+                      {role.description && (
+                        <p className="mt-3 line-clamp-2 max-w-[560px] text-[16px] leading-[1.55] text-grey">
+                          {role.description}
+                        </p>
+                      )}
+                    </div>
+                    <div className="flex items-center justify-between gap-6 sm:flex-col sm:items-end sm:gap-4">
+                      <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-grey-2">
+                        {jobMeta(role)}
+                      </p>
+                      <GhostLink href={`/careers/${role.slug}`}>View role</GhostLink>
+                    </div>
                   </div>
-                  <div className="flex items-center justify-between gap-6 sm:flex-col sm:items-end sm:gap-4">
-                    <p className="text-[13px] font-medium uppercase tracking-[0.14em] text-grey-2">
-                      {role.meta}
-                    </p>
-                    <GhostLink href="mailto:hello@71labs.xyz" external>
-                      Apply
-                    </GhostLink>
-                  </div>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+                </Reveal>
+              ))}
+            </div>
+          )}
 
           <Reveal delay={0.1} className="mt-12">
             <p className="text-[16px] leading-[1.55] text-grey">
