@@ -7,7 +7,22 @@ export type Profile = {
   full_name: string;
   role: Role;
   title: string | null;
+  department_id: string | null;
+  manager_id: string | null;
   created_at: string;
+  department?: Pick<Department, "name" | "slug" | "color"> | null;
+  manager?: Pick<Profile, "id" | "full_name"> | null;
+};
+
+export type Department = {
+  id: string;
+  name: string;
+  slug: string;
+  color: string;
+  description: string | null;
+  lead_id: string | null;
+  created_at: string;
+  lead?: Pick<Profile, "id" | "full_name"> | null;
 };
 
 export type Project = {

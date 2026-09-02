@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import type { Activity, Profile, Project, Task } from "./types";
+import type { Activity, Department, Profile, Project, Task } from "./types";
 
 export async function getMyProfile(): Promise<Profile | null> {
   const supabase = await createClient();
@@ -30,8 +30,22 @@ export async function getProjects(): Promise<Project[]> {
 
 export async function getTeam(): Promise<Profile[]> {
   const supabase = await createClient();
-  const { data } = await supabase.from("profiles").select("*").order("full_name");
+  const { data } = await supabase
+    .from("profiles")
+    .select(
+      "*, department:departments(name,slug,color), manager:profiles!profiles_manager_id_fkey(id,full_name)",
+    )
+    .order("full_name");
   return (data as Profile[]) ?? [];
+}
+
+export async function getDepartments(): Promise<Department[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("departments")
+    .select("*, lead:profiles!departments_lead_id_fkey(id,full_name)")
+    .order("created_at");
+  return (data as Department[]) ?? [];
 }
 
 export async function getActivity(limit = 12): Promise<Activity[]> {

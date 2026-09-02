@@ -147,6 +147,45 @@ insert into public.projects (name, slug, color) values
   ('Studio', 'studio', '#71717a')
 on conflict (slug) do nothing;
 
+-- ═══════════════════════════════ organization structure ═══════════════════
+-- Departments / teams, reporting lines (manager), and a per-department lead.
+
+create table if not exists public.departments (
+  id          uuid primary key default gen_random_uuid(),
+  name        text not null,
+  slug        text unique not null,
+  color       text not null default '#71717a',
+  description text,
+  lead_id     uuid references public.profiles (id) on delete set null,
+  created_at  timestamptz not null default now()
+);
+
+-- Attach people to a department and a manager (reporting line).
+alter table public.profiles
+  add column if not exists department_id uuid references public.departments (id) on delete set null;
+alter table public.profiles
+  add column if not exists manager_id uuid references public.profiles (id) on delete set null;
+
+alter table public.departments enable row level security;
+
+drop policy if exists departments_read on public.departments;
+create policy departments_read on public.departments for select to authenticated using (true);
+
+drop policy if exists departments_admin on public.departments;
+create policy departments_admin on public.departments for all to authenticated
+  using (public.is_admin()) with check (public.is_admin());
+
+-- Admins may set anyone's department / manager; the profiles_update_self policy
+-- (id = auth.uid() OR is_admin()) already covers these column updates.
+
+-- ─────────────────────────────────────────────── seed departments ──
+insert into public.departments (name, slug, color, description) values
+  ('Talise', 'talise', '#3c9a4e', 'Consumer stablecoin payments on Sui.'),
+  ('Utsuro', 'utsuro', '#e8681e', 'AI image and video generation.'),
+  ('Studio', 'studio', '#1a1a1a', 'Design, brand, and shared platform.'),
+  ('Operations', 'operations', '#5b8def', 'People, finance, and growth.')
+on conflict (slug) do nothing;
+
 -- ─────────────────────────────────────── make yourself an admin ──
 -- After you sign up in the panel once, run this with your email to get admin:
 --   update public.profiles set role = 'admin'

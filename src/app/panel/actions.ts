@@ -144,3 +144,52 @@ export async function setRole(profileId: string, role: "admin" | "worker") {
   if (!error) revalidatePath("/panel", "layout");
   return { error: error?.message };
 }
+
+/* ------------------------------ organization ------------------------------ */
+
+export async function createDepartment(_prev: unknown, formData: FormData) {
+  const { supabase } = await me();
+  const name = String(formData.get("name") ?? "").trim();
+  if (!name) return { error: "Name is required." };
+  const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  const color = String(formData.get("color") ?? "#71717a");
+  const description = String(formData.get("description") ?? "").trim() || null;
+  const { error } = await supabase
+    .from("departments")
+    .insert({ name, slug, color, description });
+  if (error) return { error: error.message };
+  revalidatePath("/panel", "layout");
+  return { ok: true };
+}
+
+export async function setDepartment(profileId: string, departmentId: string | null) {
+  const { supabase } = await me();
+  const { error } = await supabase
+    .from("profiles")
+    .update({ department_id: departmentId })
+    .eq("id", profileId);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
+export async function setManager(profileId: string, managerId: string | null) {
+  const { supabase } = await me();
+  // Guard against self-reporting.
+  const mgr = managerId === profileId ? null : managerId;
+  const { error } = await supabase
+    .from("profiles")
+    .update({ manager_id: mgr })
+    .eq("id", profileId);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
+export async function setDepartmentLead(departmentId: string, leadId: string | null) {
+  const { supabase } = await me();
+  const { error } = await supabase
+    .from("departments")
+    .update({ lead_id: leadId })
+    .eq("id", departmentId);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
