@@ -7,6 +7,9 @@ export async function createClient() {
   const cookieStore = await cookies();
 
   return createServerClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
+    // Panel tables live in the `panel` schema (this Supabase DB is shared with
+    // another app that owns `public`).
+    db: { schema: "panel" },
     cookies: {
       getAll() {
         return cookieStore.getAll();
