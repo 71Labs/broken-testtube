@@ -32,11 +32,18 @@ export async function getTeam(): Promise<Profile[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("profiles")
-    .select(
-      "*, department:departments(name,slug,color), manager:profiles!profiles_manager_id_fkey(id,full_name)",
-    )
+    .select("*, department:departments!profiles_department_id_fkey(name,slug,color)")
     .order("full_name");
-  return (data as Profile[]) ?? [];
+  const team = (data as Profile[]) ?? [];
+  // Resolve the reporting line (manager) in JS rather than via a self-referential
+  // embed — PostgREST's schema cache is unreliable for profiles→profiles FKs.
+  const nameById = new Map(team.map((p) => [p.id, p.full_name]));
+  for (const p of team) {
+    p.manager = p.manager_id
+      ? { id: p.manager_id, full_name: nameById.get(p.manager_id) ?? "—" }
+      : null;
+  }
+  return team;
 }
 
 export async function getDepartments(): Promise<Department[]> {
