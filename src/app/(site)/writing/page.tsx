@@ -11,10 +11,10 @@ const POSTS = [
       "Why a dollar wallet should feel like texting, and what it took to make sends settle under a second on Sui.",
   },
   {
-    title: "Reference, not copy",
-    meta: "Feb 2026 · AI",
+    title: "Resolve before you sign",
+    meta: "Feb 2026 · Product",
     excerpt:
-      "How Utsuro reads an image with Qwen3-VL and folds a precise description into the prompt, so subject and mood carry over but the pixels do not.",
+      "How Maren turns a @handle into a real address and shows it to you before you sign, so paying a name never means trusting a black box.",
   },
   {
     title: "What 2nd place taught us",

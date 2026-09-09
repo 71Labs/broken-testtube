@@ -230,7 +230,7 @@ export default function TalisePage() {
                 <OutlineButton href="https://talise.io" external>
                   Visit talise.io
                 </OutlineButton>
-                <GhostLink href="/utsuro">See Utsuro</GhostLink>
+                <GhostLink href="/maren">See Maren</GhostLink>
               </div>
             </div>
           </div>

@@ -3,7 +3,7 @@ import { OutlineButton } from "./ui";
 
 const NAV = [
   { label: "Talise", href: "/talise" },
-  { label: "Utsuro", href: "/utsuro" },
+  { label: "Maren", href: "/maren" },
   { label: "Studio", href: "/studio" },
   { label: "Writing", href: "/writing" },
 ];

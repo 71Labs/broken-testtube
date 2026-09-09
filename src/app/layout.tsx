@@ -22,19 +22,19 @@ export const metadata: Metadata = {
     template: "%s · 71Labs",
   },
   description:
-    "71Labs is an independent product studio building at the frontier. Consumer payments with Talise, and AI image & video with Utsuro.",
+    "71Labs is an independent product studio building at the frontier. Consumer payments with Talise, and Bitcoin-backed dollars with Maren.",
   keywords: [
     "71Labs",
     "product studio",
     "Talise",
-    "Utsuro",
-    "AI video",
+    "Maren",
+    "Bitcoin-backed dollars",
     "stablecoin payments",
   ],
   openGraph: {
     title: "71Labs · A product studio and research lab",
     description:
-      "An independent product studio building Talise (payments) and Utsuro (AI image & video).",
+      "An independent product studio building Talise (payments) and Maren (Bitcoin-backed dollars).",
     url: "https://71labs.xyz",
     siteName: "71Labs",
     type: "website",

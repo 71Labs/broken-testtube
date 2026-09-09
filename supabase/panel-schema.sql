@@ -200,13 +200,13 @@ alter default privileges in schema panel grant all on routines to anon, authenti
 -- ─────────────────────────────────────────────────────────── seed ──
 insert into panel.projects (name, slug, color) values
   ('Talise', 'talise', '#3c9a4e'),
-  ('Utsuro', 'utsuro', '#e8681e'),
+  ('Maren', 'maren', '#5b3df5'),
   ('Studio', 'studio', '#71717a')
 on conflict (slug) do nothing;
 
 insert into panel.departments (name, slug, color, description) values
   ('Talise', 'talise', '#3c9a4e', 'Consumer stablecoin payments on Sui.'),
-  ('Utsuro', 'utsuro', '#e8681e', 'AI image and video generation.'),
+  ('Maren', 'maren', '#5b3df5', 'Bitcoin-backed dollars on Mezo.'),
   ('Studio', 'studio', '#1a1a1a', 'Design, brand, and shared platform.'),
   ('Operations', 'operations', '#5b8def', 'People, finance, and growth.')
 on conflict (slug) do nothing;

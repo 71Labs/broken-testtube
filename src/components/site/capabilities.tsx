@@ -5,7 +5,7 @@ const ITEMS = [
   { no: "01", title: "Research", body: "We start from first principles, prototyping hard problems in AI, systems, and distributed software before they're obviously tractable." },
   { no: "02", title: "Design", body: "We treat interface and ergonomics as core engineering. A tool people reach for beats a demo people applaud." },
   { no: "03", title: "Build", body: "Small teams, short cycles, real users. We ship production software and iterate against the way it's actually used." },
-  { no: "04", title: "Ship", body: "The best experiments graduate into real products in people's hands, like Talise and Utsuro, live today." },
+  { no: "04", title: "Ship", body: "The best experiments graduate into real products in people's hands, like Talise and Maren, live today." },
 ];
 
 export function Capabilities() {

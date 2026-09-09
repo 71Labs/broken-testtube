@@ -4,8 +4,8 @@ const COLUMNS = [
     links: [
       { label: "Talise", href: "/talise" },
       { label: "talise.io", href: "https://talise.io" },
-      { label: "Utsuro", href: "/utsuro" },
-      { label: "utsuro.xyz", href: "https://utsuro.xyz" },
+      { label: "Maren", href: "/maren" },
+      { label: "marenfinance.xyz", href: "https://marenfinance.xyz" },
     ],
   },
   {
@@ -37,7 +37,7 @@ export function SiteFooter() {
               71labs<span className="text-grey-2">/</span>
             </span>
             <p className="mt-5 max-w-[260px] text-[15px] leading-relaxed text-grey">
-              An independent product studio building Talise and Utsuro.
+              An independent product studio building Talise and Maren.
             </p>
           </div>
 

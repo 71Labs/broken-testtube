@@ -23,7 +23,7 @@ const PROCESS = [
   {
     no: "04",
     title: "Ship",
-    body: "The experiments that work graduate into products in people's hands. Talise and Utsuro both started here and are live today.",
+    body: "The experiments that work graduate into products in people's hands. Talise and Maren both started here and are live today.",
   },
 ];
 
@@ -67,8 +67,8 @@ export default function StudioPage() {
               className="mt-8 max-w-[560px] text-[19px] leading-[1.55] text-grey"
             >
               71Labs designs, builds, and ships software end to end. We are a
-              small, senior team working on consumer payments with Talise and AI
-              image and video with Utsuro.
+              small, senior team working on consumer payments with Talise and
+              Bitcoin-backed dollars with Maren.
             </Reveal>
           </div>
         </div>

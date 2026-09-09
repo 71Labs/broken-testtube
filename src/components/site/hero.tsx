@@ -15,7 +15,7 @@ export function Hero() {
           </Reveal>
           <Reveal as="p" delay={0.12} className="mt-8 max-w-[540px] text-[19px] leading-[1.55] text-grey">
             71Labs designs, builds, and ships software at the frontier. Consumer
-            payments with Talise, and AI image and video with Utsuro.
+            payments with Talise, and Bitcoin-backed dollars with Maren.
           </Reveal>
           <Reveal delay={0.18} className="mt-10 flex flex-wrap items-center gap-6">
             <OutlineButton href="#products">See our products</OutlineButton>
