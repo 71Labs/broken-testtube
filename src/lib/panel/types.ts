@@ -61,6 +61,101 @@ export const EMPLOYMENT_TYPES = [
   "Internship",
 ] as const;
 
+/* ─────────────────── operating system: products / research / leads ─────── */
+
+type OwnerRef = Pick<Profile, "id" | "full_name"> | null;
+
+export type ProductStage =
+  | "idea" | "research" | "validation" | "building" | "market" | "revenue" | "scale" | "killed";
+export type ResearchStage =
+  | "question" | "experiment" | "findings" | "documented" | "applied" | "dropped";
+export type LeadType = "client" | "grant" | "partnership" | "hackathon" | "investor";
+export type LeadStage =
+  | "identified" | "contacted" | "pitched" | "demo" | "won" | "lost";
+
+export type Product = {
+  id: string;
+  name: string;
+  description: string | null;
+  owner_id: string | null;
+  stage: ProductStage;
+  roi_note: string | null;
+  created_at: string;
+  owner?: OwnerRef;
+};
+
+export type Research = {
+  id: string;
+  title: string;
+  owner_id: string | null;
+  stage: ResearchStage;
+  notes: string | null;
+  outcome: string | null;
+  created_at: string;
+  owner?: OwnerRef;
+};
+
+export type Lead = {
+  id: string;
+  name: string;
+  type: LeadType;
+  owner_id: string | null;
+  stage: LeadStage;
+  value_note: string | null;
+  next_action: string | null;
+  created_at: string;
+  owner?: OwnerRef;
+};
+
+export const PRODUCT_STAGES: ProductStage[] = [
+  "idea", "research", "validation", "building", "market", "revenue", "scale", "killed",
+];
+export const PRODUCT_STAGE_META: Record<ProductStage, { label: string; dot: string }> = {
+  idea: { label: "Idea", dot: "#949494" },
+  research: { label: "Research", dot: "#5b8def" },
+  validation: { label: "Validation", dot: "#8b5cf6" },
+  building: { label: "Building", dot: "#e8681e" },
+  market: { label: "Market test", dot: "#eab308" },
+  revenue: { label: "Revenue", dot: "#3c9a4e" },
+  scale: { label: "Scale", dot: "#0ea5e9" },
+  killed: { label: "Killed", dot: "#c4c4c4" },
+};
+
+export const RESEARCH_STAGES: ResearchStage[] = [
+  "question", "experiment", "findings", "documented", "applied", "dropped",
+];
+export const RESEARCH_STAGE_META: Record<ResearchStage, { label: string; dot: string }> = {
+  question: { label: "Question", dot: "#5b8def" },
+  experiment: { label: "Experiment", dot: "#e8681e" },
+  findings: { label: "Findings", dot: "#eab308" },
+  documented: { label: "Documented", dot: "#8b5cf6" },
+  applied: { label: "Applied", dot: "#3c9a4e" },
+  dropped: { label: "Dropped", dot: "#c4c4c4" },
+};
+
+export const LEAD_STAGES: LeadStage[] = [
+  "identified", "contacted", "pitched", "demo", "won", "lost",
+];
+export const LEAD_STAGE_META: Record<LeadStage, { label: string; dot: string }> = {
+  identified: { label: "Identified", dot: "#949494" },
+  contacted: { label: "Contacted", dot: "#5b8def" },
+  pitched: { label: "Pitched", dot: "#eab308" },
+  demo: { label: "Demo", dot: "#8b5cf6" },
+  won: { label: "Won", dot: "#3c9a4e" },
+  lost: { label: "Lost", dot: "#c4c4c4" },
+};
+
+export const LEAD_TYPES: LeadType[] = [
+  "client", "grant", "partnership", "hackathon", "investor",
+];
+export const LEAD_TYPE_META: Record<LeadType, string> = {
+  client: "Client",
+  grant: "Grant",
+  partnership: "Partnership",
+  hackathon: "Hackathon",
+  investor: "Investor",
+};
+
 export type Task = {
   id: string;
   title: string;

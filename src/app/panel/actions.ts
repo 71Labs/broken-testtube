@@ -3,7 +3,9 @@
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
-import type { JobStatus, TaskStatus } from "@/lib/panel/types";
+import type {
+  JobStatus, LeadStage, LeadType, ProductStage, ResearchStage, TaskStatus,
+} from "@/lib/panel/types";
 import { STATUS_META } from "@/lib/panel/types";
 
 /* --------------------------------- auth ----------------------------------- */
@@ -174,6 +176,102 @@ export async function deleteJob(jobId: string) {
     revalidatePath("/panel", "layout");
     revalidatePath("/careers");
   }
+  return { error: error?.message };
+}
+
+/* ---------------------- products / research / leads ----------------------- */
+
+export async function createProduct(_prev: unknown, formData: FormData) {
+  const { supabase, user } = await me();
+  if (!user) return { error: "Not signed in." };
+  const name = String(formData.get("name") ?? "").trim();
+  if (!name) return { error: "A name is required." };
+  const { error } = await supabase.from("products").insert({
+    name,
+    description: String(formData.get("description") ?? "").trim() || null,
+    owner_id: (formData.get("owner_id") as string) || null,
+    stage: (formData.get("stage") as ProductStage) || "idea",
+    roi_note: String(formData.get("roi_note") ?? "").trim() || null,
+  });
+  if (error) return { error: error.message };
+  revalidatePath("/panel", "layout");
+  return { ok: true };
+}
+
+export async function setProductStage(id: string, stage: ProductStage) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("products").update({ stage }).eq("id", id);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
+export async function deleteProduct(id: string) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("products").delete().eq("id", id);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
+export async function createResearch(_prev: unknown, formData: FormData) {
+  const { supabase, user } = await me();
+  if (!user) return { error: "Not signed in." };
+  const title = String(formData.get("title") ?? "").trim();
+  if (!title) return { error: "A research question is required." };
+  const { error } = await supabase.from("research").insert({
+    title,
+    owner_id: (formData.get("owner_id") as string) || null,
+    stage: (formData.get("stage") as ResearchStage) || "question",
+    notes: String(formData.get("notes") ?? "").trim() || null,
+    outcome: String(formData.get("outcome") ?? "").trim() || null,
+  });
+  if (error) return { error: error.message };
+  revalidatePath("/panel", "layout");
+  return { ok: true };
+}
+
+export async function setResearchStage(id: string, stage: ResearchStage) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("research").update({ stage }).eq("id", id);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
+export async function deleteResearch(id: string) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("research").delete().eq("id", id);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
+export async function createLead(_prev: unknown, formData: FormData) {
+  const { supabase, user } = await me();
+  if (!user) return { error: "Not signed in." };
+  const name = String(formData.get("name") ?? "").trim();
+  if (!name) return { error: "A name is required." };
+  const { error } = await supabase.from("leads").insert({
+    name,
+    type: (formData.get("type") as LeadType) || "client",
+    owner_id: (formData.get("owner_id") as string) || null,
+    stage: (formData.get("stage") as LeadStage) || "identified",
+    value_note: String(formData.get("value_note") ?? "").trim() || null,
+    next_action: String(formData.get("next_action") ?? "").trim() || null,
+  });
+  if (error) return { error: error.message };
+  revalidatePath("/panel", "layout");
+  return { ok: true };
+}
+
+export async function setLeadStage(id: string, stage: LeadStage) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("leads").update({ stage }).eq("id", id);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
+export async function deleteLead(id: string) {
+  const { supabase } = await me();
+  const { error } = await supabase.from("leads").delete().eq("id", id);
+  if (!error) revalidatePath("/panel", "layout");
   return { error: error?.message };
 }
 

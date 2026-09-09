@@ -22,6 +22,26 @@ do $$ begin
   create type panel.job_status as enum ('draft', 'open', 'closed');
 exception when duplicate_object then null; end $$;
 
+do $$ begin
+  create type panel.product_stage as enum
+    ('idea', 'research', 'validation', 'building', 'market', 'revenue', 'scale', 'killed');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type panel.research_stage as enum
+    ('question', 'experiment', 'findings', 'documented', 'applied', 'dropped');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type panel.lead_type as enum
+    ('client', 'grant', 'partnership', 'hackathon', 'investor');
+exception when duplicate_object then null; end $$;
+
+do $$ begin
+  create type panel.lead_stage as enum
+    ('identified', 'contacted', 'pitched', 'demo', 'won', 'lost');
+exception when duplicate_object then null; end $$;
+
 -- ──────────────────────────────────────────────────────── profiles ──
 create table if not exists panel.profiles (
   id          uuid primary key references auth.users (id) on delete cascade,
@@ -92,6 +112,39 @@ create table if not exists panel.jobs (
   description     text not null default '',
   status          panel.job_status not null default 'draft',
   created_at      timestamptz not null default now()
+);
+
+-- ────────────────────── operating system: pipeline / research / leads ──
+-- Shared workspace for the whole team (any signed-in teammate reads + writes).
+create table if not exists panel.products (
+  id          uuid primary key default gen_random_uuid(),
+  name        text not null,
+  description text,
+  owner_id    uuid references panel.profiles (id) on delete set null,
+  stage       panel.product_stage not null default 'idea',
+  roi_note    text,
+  created_at  timestamptz not null default now()
+);
+
+create table if not exists panel.research (
+  id          uuid primary key default gen_random_uuid(),
+  title       text not null,
+  owner_id    uuid references panel.profiles (id) on delete set null,
+  stage       panel.research_stage not null default 'question',
+  notes       text,
+  outcome     text,
+  created_at  timestamptz not null default now()
+);
+
+create table if not exists panel.leads (
+  id          uuid primary key default gen_random_uuid(),
+  name        text not null,
+  type        panel.lead_type not null default 'client',
+  owner_id    uuid references panel.profiles (id) on delete set null,
+  stage       panel.lead_stage not null default 'identified',
+  value_note  text,
+  next_action text,
+  created_at  timestamptz not null default now()
 );
 
 -- ──────────────────────────────────────────────── helper: is_admin ──
@@ -187,6 +240,22 @@ create policy jobs_read on panel.jobs for select to anon, authenticated
 drop policy if exists jobs_admin on panel.jobs;
 create policy jobs_admin on panel.jobs for all to authenticated
   using (panel.is_admin()) with check (panel.is_admin());
+
+alter table panel.products enable row level security;
+alter table panel.research enable row level security;
+alter table panel.leads    enable row level security;
+
+drop policy if exists products_all on panel.products;
+create policy products_all on panel.products for all to authenticated
+  using (true) with check (true);
+
+drop policy if exists research_all on panel.research;
+create policy research_all on panel.research for all to authenticated
+  using (true) with check (true);
+
+drop policy if exists leads_all on panel.leads;
+create policy leads_all on panel.leads for all to authenticated
+  using (true) with check (true);
 
 -- ────────────────────────────────────────── grants (PostgREST access) ──
 grant usage on schema panel to anon, authenticated, service_role;

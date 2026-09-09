@@ -30,6 +30,11 @@ export {
   Briefcase01Icon,
   Location01Icon,
   JobSearchIcon,
+  Rocket01Icon,
+  TestTube01Icon,
+  Target01Icon,
+  Idea01Icon,
+  Analytics01Icon,
 } from "@hugeicons/core-free-icons";
 
 export type HugeIcon = ComponentProps<typeof HugeiconsIcon>["icon"];

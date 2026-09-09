@@ -1,6 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
-import type { Activity, Department, Job, Profile, Project, Task } from "./types";
+import type {
+  Activity, Department, Job, Lead, Product, Profile, Project, Research, Task,
+} from "./types";
 
 export async function getMyProfile(): Promise<Profile | null> {
   const supabase = await createClient();
@@ -93,6 +95,33 @@ export async function getOpenJob(slug: string): Promise<Job | null> {
     .eq("status", "open")
     .maybeSingle();
   return (data as Job) ?? null;
+}
+
+export async function getProductPipeline(): Promise<Product[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("products")
+    .select("*, owner:profiles!products_owner_id_fkey(id,full_name)")
+    .order("created_at", { ascending: false });
+  return (data as Product[]) ?? [];
+}
+
+export async function getResearch(): Promise<Research[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("research")
+    .select("*, owner:profiles!research_owner_id_fkey(id,full_name)")
+    .order("created_at", { ascending: false });
+  return (data as Research[]) ?? [];
+}
+
+export async function getLeads(): Promise<Lead[]> {
+  const supabase = await createClient();
+  const { data } = await supabase
+    .from("leads")
+    .select("*, owner:profiles!leads_owner_id_fkey(id,full_name)")
+    .order("created_at", { ascending: false });
+  return (data as Lead[]) ?? [];
 }
 
 export async function getActivity(limit = 12): Promise<Activity[]> {
