@@ -1,30 +1,37 @@
 import Image from "next/image";
 import { ProductSection } from "./product-section";
 
+const ACCENT = "#3c9a4e";
+
 function TalisePreview() {
   return (
-    <div className="surface-cream flex items-center justify-center rounded-lg p-10 sm:p-14">
-      <div className="flex items-end gap-4">
-        <div className="w-[150px] translate-y-4 sm:w-[168px]">
+    <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-b from-[#e9f5ec] to-[#f4efe9] p-10 sm:p-14">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl"
+        style={{ background: `${ACCENT}26` }}
+      />
+      <div className="relative flex items-end justify-center gap-5">
+        <div className="w-[148px] translate-y-5 sm:w-[168px]">
           <Image
             src="/talise/send.png"
             alt="Talise send flow"
             width={1206}
             height={2622}
             sizes="168px"
-            quality={88}
-            className="w-full rounded-[14px] border border-hairline"
+            quality={90}
+            className="w-full rounded-[18px] shadow-[0_26px_50px_-22px_rgba(20,40,25,0.32)] ring-1 ring-black/[0.06]"
           />
         </div>
-        <div className="w-[168px] sm:w-[196px]">
+        <div className="w-[176px] sm:w-[204px]">
           <Image
             src="/talise/home.png"
             alt="Talise home screen"
             width={1206}
             height={2622}
-            sizes="196px"
-            quality={88}
-            className="w-full rounded-[16px] border border-hairline"
+            sizes="204px"
+            quality={90}
+            className="w-full rounded-[22px] shadow-[0_30px_60px_-24px_rgba(20,40,25,0.36)] ring-1 ring-black/[0.06]"
           />
         </div>
       </div>
@@ -49,6 +56,7 @@ export function Talise() {
       id="talise"
       name="Talise"
       eyebrow="Payments on Sui"
+      accent={ACCENT}
       title="Money that moves like a message."
       description="Talise lets anyone hold real dollars on Sui and send them to a name, as easily as texting. No wallet addresses, no gas, no seed phrases."
       badge={<AwardBadge />}
@@ -58,7 +66,7 @@ export function Talise() {
         "Cheque links, private send, and cash-out to a local bank.",
       ]}
       primary={{ label: "Visit talise.io", href: "https://talise.io", external: true }}
-      secondary={{ label: "Explore Talise", href: "#talise" }}
+      secondary={{ label: "Explore Talise", href: "/talise" }}
       preview={<TalisePreview />}
     />
   );

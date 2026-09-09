@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { Recognition } from "@/components/site/recognition";
-import { VideoBlock } from "@/components/site/video-block";
 import { OutlineButton, GhostLink, Caption } from "@/components/site/ui";
 import { cn } from "@/lib/utils";
 
@@ -191,7 +190,7 @@ export default function TalisePage() {
             <Reveal as="h1" delay={0.06} className="ed-display mt-6 text-balance text-ink">
               Money that moves like a message.
             </Reveal>
-            <Reveal as="p" delay={0.12} className="mt-8 max-w-[560px] text-[19px] leading-[1.55] text-grey">
+            <Reveal as="p" delay={0.12} className="font-lead mt-8 max-w-[560px] text-[20px] leading-[1.5] text-ink-2">
               Talise lets anyone hold real dollars on Sui and send them to a name,
               as easily as texting. No wallet addresses, no gas, no seed phrases.
             </Reveal>
@@ -205,10 +204,19 @@ export default function TalisePage() {
         </div>
       </section>
 
-      {/* Full-bleed clean app video */}
-      <div className="mt-16 sm:mt-24">
-        <VideoBlock />
-      </div>
+      {/* Full-bleed clean app still */}
+      <Reveal className="mt-16 sm:mt-24">
+        <div className="relative aspect-[16/9] w-full overflow-hidden bg-[#f2f2f2]">
+          <Image
+            src="/cine/opt/app-poster.jpg"
+            alt="The Talise app"
+            fill
+            quality={90}
+            sizes="100vw"
+            className="object-cover"
+          />
+        </div>
+      </Reveal>
 
       {/* Feature deep-dive */}
       {FEATURES.map((feature) => (

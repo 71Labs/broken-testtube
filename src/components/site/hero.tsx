@@ -13,7 +13,7 @@ export function Hero() {
           <Reveal as="h1" delay={0.06} className="ed-display mt-6 text-ink">
             Building the tools that come next, for the onchain economy.
           </Reveal>
-          <Reveal as="p" delay={0.12} className="mt-8 max-w-[540px] text-[19px] leading-[1.55] text-grey">
+          <Reveal as="p" delay={0.12} className="font-lead mt-8 max-w-[560px] text-[20px] leading-[1.5] text-ink-2">
             71Labs designs, builds, and ships software at the frontier. Consumer
             payments with Talise, and Bitcoin-backed dollars with Maren.
           </Reveal>

@@ -64,7 +64,7 @@ export default function MarenPage() {
           <Reveal as="h1" delay={0.06} className="ed-display mt-6 text-balance text-ink">
             Spend Bitcoin. Never sell it.
           </Reveal>
-          <Reveal as="p" delay={0.12} className="mt-8 max-w-[560px] text-[19px] leading-[1.55] text-grey">
+          <Reveal as="p" delay={0.12} className="font-lead mt-8 max-w-[560px] text-[20px] leading-[1.5] text-ink-2">
             Borrow MUSD against your Bitcoin and pay anyone by @handle. Gasless,
             non-custodial, and honest about every on-chain receipt, all on Mezo.
           </Reveal>

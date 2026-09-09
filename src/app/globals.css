@@ -10,7 +10,9 @@
   --font-sans: var(--font-sans);
   --font-mono: var(--font-geist-mono);
   --font-serif: var(--font-serif);
-  --font-heading: var(--font-sans);
+  --font-heading: var(--font-rounded);
+  --font-display: var(--font-rounded);
+  --font-rounded: var(--font-rounded);
   --color-ring: var(--ring);
   --color-input: var(--input);
   --color-border: var(--border);
@@ -116,11 +118,16 @@
 }
 
 @layer utilities {
-  /* Wordmark = the workhorse sans (Inter), tight. */
+  /* Wordmark = Neue Montreal medium, tight. */
   .font-wordmark {
     font-family: var(--font-sans), sans-serif;
-    font-weight: 600;
+    font-weight: 500;
     letter-spacing: -0.02em;
+  }
+
+  /* Leading + main texts = SF Pro Rounded. */
+  .font-lead {
+    font-family: var(--font-rounded), ui-rounded, system-ui, sans-serif;
   }
 
   /* AREA 17 named text + surface helpers. */
@@ -133,18 +140,22 @@
   .surface-cream { background: var(--cream); }
   .bg-yellow { background: var(--yellow); }
 
-  /* Editorial display heading — Suisse-tight rhythm. */
+  /* Leading display — SF Pro Rounded, Apple-tight rhythm. */
   .ed-display {
-    font-size: clamp(2.5rem, 5.2vw, 3.55rem);   /* ~40 → 55px */
-    line-height: 1.06;
-    letter-spacing: -0.015em;
+    font-family: var(--font-rounded), ui-rounded, system-ui, sans-serif;
+    font-size: clamp(2.6rem, 5.4vw, 3.9rem);   /* ~42 → 62px */
+    line-height: 1.04;
+    letter-spacing: -0.022em;
     font-weight: 400;
+    text-wrap: balance;
   }
   .ed-heading {
-    font-size: clamp(1.9rem, 3.6vw, 2.6rem);    /* ~30 → 42px */
-    line-height: 1.12;
-    letter-spacing: -0.014em;
+    font-family: var(--font-rounded), ui-rounded, system-ui, sans-serif;
+    font-size: clamp(2rem, 3.8vw, 2.8rem);    /* ~32 → 45px */
+    line-height: 1.1;
+    letter-spacing: -0.02em;
     font-weight: 400;
+    text-wrap: balance;
   }
 
   /* Ghost link: color shift + hairline underline on hover. */

@@ -2,6 +2,20 @@ import { Reveal } from "@/components/motion/reveal";
 import { OutlineButton, GhostLink, Caption } from "./ui";
 import { cn } from "@/lib/utils";
 
+function Check({ accent }: { accent: string }) {
+  return (
+    <span
+      aria-hidden
+      className="mt-0.5 grid h-[18px] w-[18px] shrink-0 place-items-center rounded-full"
+      style={{ background: `${accent}1f`, color: accent }}
+    >
+      <svg viewBox="0 0 16 16" className="h-2.5 w-2.5" fill="none">
+        <path d="M3.5 8.5 6.5 11.5 12.5 5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    </span>
+  );
+}
+
 export function ProductSection({
   id,
   name,
@@ -14,6 +28,7 @@ export function ProductSection({
   preview,
   reverse = false,
   badge,
+  accent = "#1a1a1a",
 }: {
   id: string;
   name: string;
@@ -30,21 +45,32 @@ export function ProductSection({
   badge?: React.ReactNode;
 }) {
   return (
-    <section id={id} className="mx-auto max-w-[1440px] px-6 py-24 sm:px-10 sm:py-32 lg:px-12">
-      <div className="grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-20">
+    <section
+      id={id}
+      className="mx-auto max-w-[1200px] scroll-mt-24 px-6 py-24 sm:px-10 sm:py-32 lg:px-12"
+    >
+      <div className="grid items-center gap-14 lg:grid-cols-2 lg:gap-24">
         {/* text */}
         <div className={cn(reverse && "lg:order-2")}>
           <Reveal>
-            <Caption>
-              {name} · {eyebrow}
-            </Caption>
+            <span className="inline-flex items-center gap-2">
+              <span
+                className="h-1.5 w-1.5 rounded-full"
+                style={{ background: accent }}
+              />
+              <Caption>{eyebrow}</Caption>
+            </span>
           </Reveal>
 
-          <Reveal as="h2" delay={0.06} className="ed-heading mt-5 max-w-[15ch] text-ink">
+          <Reveal as="h2" delay={0.06} className="ed-heading mt-4 max-w-[15ch] text-ink">
             {title}
           </Reveal>
 
-          <Reveal as="p" delay={0.1} className="mt-6 max-w-[440px] text-[17px] leading-[1.6] text-grey">
+          <Reveal
+            as="p"
+            delay={0.1}
+            className="font-lead mt-6 max-w-[460px] text-[19px] leading-[1.5] text-ink-2"
+          >
             {description}
           </Reveal>
 
@@ -54,21 +80,22 @@ export function ProductSection({
             </Reveal>
           )}
 
-          <ul className="mt-8 max-w-[460px] border-t border-hairline">
+          <ul className="mt-9 max-w-[480px] space-y-3.5">
             {bullets.map((b, i) => (
               <Reveal
                 as="li"
                 key={i}
                 delay={0.16 + i * 0.06}
                 y={14}
-                className="border-b border-hairline py-3.5 text-[15px] leading-relaxed text-ink-2"
+                className="flex items-start gap-3 text-[15px] leading-[1.5] text-grey"
               >
-                {b}
+                <Check accent={accent} />
+                <span>{b}</span>
               </Reveal>
             ))}
           </ul>
 
-          <Reveal delay={0.16 + bullets.length * 0.06} className="mt-9 flex flex-wrap items-center gap-6">
+          <Reveal delay={0.16 + bullets.length * 0.06} className="mt-10 flex flex-wrap items-center gap-6">
             <OutlineButton href={primary.href} external={primary.external}>
               {primary.label}
             </OutlineButton>

@@ -1,13 +1,32 @@
 import type { Metadata } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 
-// AREA 17 workhorse type — Inter as the Suisse Intl substitute.
-const sans = Inter({
+// Neue Montreal — the default workhorse (nav, UI, subtext, supporting copy).
+const neue = localFont({
   variable: "--font-sans",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
+  src: [
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-Light.otf", weight: "300", style: "normal" },
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-LightItalic.otf", weight: "300", style: "italic" },
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-Regular.otf", weight: "400", style: "normal" },
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-Italic.otf", weight: "400", style: "italic" },
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-Medium.otf", weight: "500", style: "normal" },
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-MediumItalic.otf", weight: "500", style: "italic" },
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-Bold.otf", weight: "700", style: "normal" },
+    { path: "../../public/fonts/neue-montreal/NeueMontreal-BoldItalic.otf", weight: "700", style: "italic" },
+  ],
+});
+
+// SF Pro Rounded — leading + main texts (headlines, lead copy, wordmark).
+const rounded = localFont({
+  variable: "--font-rounded",
+  display: "swap",
+  src: [
+    { path: "../../public/fonts/sf-pro-rounded/SF-Pro-Rounded-Regular.otf", weight: "400", style: "normal" },
+  ],
 });
 
 const geistMono = Geist_Mono({
@@ -57,7 +76,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${sans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${neue.variable} ${rounded.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <SmoothScroll>{children}</SmoothScroll>

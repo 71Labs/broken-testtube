@@ -1,30 +1,37 @@
 import Image from "next/image";
 import { ProductSection } from "./product-section";
 
+const ACCENT = "#5b3df5";
+
 function MarenPreview() {
   return (
-    <div className="flex items-center justify-center rounded-lg bg-[#f1eeff] p-10 sm:p-14">
-      <div className="flex items-end gap-4">
-        <div className="w-[150px] translate-y-4 sm:w-[168px]">
+    <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-b from-[#efeaff] to-[#f6f4ff] p-10 sm:p-14">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl"
+        style={{ background: `${ACCENT}26` }}
+      />
+      <div className="relative flex items-end justify-center gap-5">
+        <div className="w-[148px] translate-y-5 sm:w-[168px]">
           <Image
             src="/maren/send.png"
             alt="Maren send-by-handle flow"
             width={1206}
             height={2622}
             sizes="168px"
-            quality={88}
-            className="w-full rounded-[14px] border border-hairline"
+            quality={90}
+            className="w-full rounded-[18px] shadow-[0_26px_50px_-22px_rgba(30,20,60,0.32)] ring-1 ring-black/[0.06]"
           />
         </div>
-        <div className="w-[168px] sm:w-[196px]">
+        <div className="w-[176px] sm:w-[204px]">
           <Image
             src="/maren/home.png"
             alt="Maren home screen showing an MUSD balance"
             width={1206}
             height={2622}
-            sizes="196px"
-            quality={88}
-            className="w-full rounded-[16px] border border-hairline"
+            sizes="204px"
+            quality={90}
+            className="w-full rounded-[22px] shadow-[0_30px_60px_-24px_rgba(30,20,60,0.36)] ring-1 ring-black/[0.06]"
           />
         </div>
       </div>
@@ -38,6 +45,7 @@ export function Maren() {
       id="maren"
       name="Maren"
       eyebrow="Bitcoin-backed dollars · Mezo"
+      accent={ACCENT}
       title="Spend Bitcoin. Never sell it."
       description="Maren lets you borrow MUSD against your Bitcoin and pay anyone by @handle. Gasless, non-custodial, and honest about every on-chain receipt, in one clean app."
       bullets={[
@@ -46,7 +54,7 @@ export function Maren() {
         "Gasless on Mezo, non-custodial, with honest on-chain receipts.",
       ]}
       primary={{ label: "Visit marenfinance.xyz", href: "https://marenfinance.xyz", external: true }}
-      secondary={{ label: "Explore Maren", href: "#maren" }}
+      secondary={{ label: "Explore Maren", href: "/maren" }}
       preview={<MarenPreview />}
       reverse
     />
