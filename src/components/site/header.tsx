@@ -4,6 +4,7 @@ import { OutlineButton } from "./ui";
 const NAV = [
   { label: "Talise", href: "/talise" },
   { label: "Maren", href: "/maren" },
+  { label: "Work with us", href: "/work-with-us" },
   { label: "Studio", href: "/studio" },
   { label: "Writing", href: "/writing" },
 ];
@@ -24,7 +25,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <OutlineButton href="/#contact">Work with us</OutlineButton>
+        <OutlineButton href="/work-with-us">Work with us</OutlineButton>
       </div>
     </header>
   );

@@ -13,13 +13,14 @@ export function Hero() {
           <Reveal as="h1" delay={0.06} className="ed-display mt-6 text-ink">
             Building the tools that come next, for the onchain economy.
           </Reveal>
-          <Reveal as="p" delay={0.12} className="font-lead mt-8 max-w-[560px] text-[20px] leading-[1.5] text-ink-2">
-            71Labs designs, builds, and ships software at the frontier. Consumer
-            payments with Talise, and Bitcoin-backed dollars with Maren.
+          <Reveal as="p" delay={0.12} className="font-lead mt-8 max-w-[580px] text-[20px] leading-[1.5] text-ink-2">
+            71Labs is a product and R&amp;D studio. We build our own products —
+            payments with Talise, Bitcoin-backed dollars with Maren — and
+            applied-AI systems for teams who need working software, not demos.
           </Reveal>
           <Reveal delay={0.18} className="mt-10 flex flex-wrap items-center gap-6">
-            <OutlineButton href="#products">See our products</OutlineButton>
-            <GhostLink href="#contact">Work with us</GhostLink>
+            <OutlineButton href="/work-with-us">Work with us</OutlineButton>
+            <GhostLink href="#products">See our products</GhostLink>
           </Reveal>
         </div>
       </div>

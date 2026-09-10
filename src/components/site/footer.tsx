@@ -11,6 +11,7 @@ const COLUMNS = [
   {
     title: "Studio",
     links: [
+      { label: "Work with us", href: "/work-with-us" },
       { label: "About the studio", href: "/studio" },
       { label: "Writing", href: "/writing" },
       { label: "Careers", href: "/careers" },
