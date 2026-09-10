@@ -1,6 +1,6 @@
-import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { OutlineButton, GhostLink, Caption } from "@/components/site/ui";
+import { PhoneFrame } from "@/components/site/phone-frame";
 
 export const metadata = { title: "Maren" };
 
@@ -15,7 +15,7 @@ const FEATURES: { name: string; title: string; body: string }[] = [
   {
     name: "Borrow, don't sell",
     title: "Borrow MUSD against your Bitcoin.",
-    body: "Your Bitcoin stays yours and keeps its upside. You draw MUSD — Bitcoin-backed dollars — against it, amount-first, so you spend without ever triggering a sale.",
+    body: "Your Bitcoin stays yours and keeps its upside. You draw MUSD, Bitcoin-backed dollars, against it, amount-first, so you spend without ever triggering a sale.",
   },
   {
     name: "Pay by @handle",
@@ -37,17 +37,7 @@ const FEATURES: { name: string; title: string; body: string }[] = [
 function AppFrame() {
   return (
     <div className="flex items-center justify-center rounded-lg bg-[#f1eeff] p-8 sm:p-12">
-      <div className="w-[220px] sm:w-[260px]">
-        <Image
-          src="/maren/home.png"
-          alt="The Maren home screen"
-          width={1206}
-          height={2622}
-          sizes="(min-width:1024px) 260px, 60vw"
-          quality={88}
-          className="w-full rounded-[20px] border border-hairline"
-        />
-      </div>
+      <PhoneFrame src="/maren/home.png" alt="The Maren home screen" className="w-[220px] sm:w-[248px]" />
     </div>
   );
 }
@@ -82,15 +72,7 @@ export default function MarenPage() {
         <div className="grid grid-cols-2 gap-4 sm:gap-6 lg:grid-cols-4">
           {SCREENS.map((s, i) => (
             <Reveal key={s.file} delay={i * 0.06}>
-              <Image
-                src={`/maren/${s.file}.png`}
-                alt={s.alt}
-                width={1206}
-                height={2622}
-                sizes="(min-width:1024px) 300px, 45vw"
-                quality={88}
-                className="w-full rounded-[18px] border border-hairline"
-              />
+              <PhoneFrame src={`/maren/${s.file}.png`} alt={s.alt} sizes="(min-width:1024px) 300px, 45vw" />
             </Reveal>
           ))}
         </div>

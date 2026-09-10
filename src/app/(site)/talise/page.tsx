@@ -2,11 +2,12 @@ import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { Recognition } from "@/components/site/recognition";
 import { OutlineButton, GhostLink, Caption } from "@/components/site/ui";
+import { PhoneFrame } from "@/components/site/phone-frame";
 import { cn } from "@/lib/utils";
 
 export const metadata = { title: "Talise" };
 
-/* One phone screenshot, no rotation, no shadow, thin hairline rounding. */
+/* One phone screenshot in a real iPhone 16 Pro frame. */
 function Phone({
   src,
   alt,
@@ -18,17 +19,7 @@ function Phone({
   className?: string;
   sizes: string;
 }) {
-  return (
-    <Image
-      src={src}
-      alt={alt}
-      width={1206}
-      height={2622}
-      sizes={sizes}
-      quality={88}
-      className={cn("w-full rounded-[16px] border border-hairline", className)}
-    />
-  );
+  return <PhoneFrame src={src} alt={alt} sizes={sizes} className={className} />;
 }
 
 type Feature = {

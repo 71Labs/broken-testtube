@@ -4,7 +4,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import { SmoothScroll } from "@/components/motion/smooth-scroll";
 
-// Neue Montreal — the default workhorse (nav, UI, subtext, supporting copy).
+// Neue Montreal: the default workhorse (nav, UI, subtext, supporting copy).
 const neue = localFont({
   variable: "--font-sans",
   display: "swap",
@@ -20,7 +20,7 @@ const neue = localFont({
   ],
 });
 
-// SF Pro Rounded — leading + main texts (headlines, lead copy, wordmark).
+// SF Pro Rounded: leading + main texts (headlines, lead copy, wordmark).
 const rounded = localFont({
   variable: "--font-rounded",
   display: "swap",

@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { ProductSection } from "./product-section";
+import { PhoneFrame } from "./phone-frame";
 
 const ACCENT = "#3c9a4e";
 
 function TalisePreview() {
   return (
-    <div className="relative overflow-hidden rounded-[28px] p-10 sm:p-14">
+    <div className="relative overflow-hidden rounded-[28px] p-6 sm:p-14">
       <Image
         src="/bg/bg-054.webp"
         alt=""
@@ -16,31 +17,15 @@ function TalisePreview() {
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-white/10"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/12 to-transparent"
       />
-      <div className="relative flex items-end justify-center gap-5">
-        <div className="w-[148px] translate-y-5 sm:w-[168px]">
-          <Image
-            src="/talise/send.png"
-            alt="Talise send flow"
-            width={1206}
-            height={2622}
-            sizes="168px"
-            quality={90}
-            className="w-full rounded-[18px] shadow-[0_26px_50px_-22px_rgba(20,40,25,0.32)] ring-1 ring-black/[0.06]"
-          />
-        </div>
-        <div className="w-[176px] sm:w-[204px]">
-          <Image
-            src="/talise/home.png"
-            alt="Talise home screen"
-            width={1206}
-            height={2622}
-            sizes="204px"
-            quality={90}
-            className="w-full rounded-[22px] shadow-[0_30px_60px_-24px_rgba(20,40,25,0.36)] ring-1 ring-black/[0.06]"
-          />
-        </div>
+      <div className="relative flex items-end justify-center gap-4 sm:gap-6">
+        <PhoneFrame
+          src="/talise/send.png"
+          alt="Talise send flow"
+          className="hidden w-[132px] translate-y-6 sm:block sm:w-[150px]"
+        />
+        <PhoneFrame src="/talise/home.png" alt="Talise home screen" className="w-[172px] sm:w-[188px]" />
       </div>
     </div>
   );
@@ -48,11 +33,15 @@ function TalisePreview() {
 
 function AwardBadge() {
   return (
-    <span className="inline-flex items-center gap-2 rounded-full border border-hairline py-1.5 pl-2 pr-3.5">
-      <span className="h-2 w-2 rounded-full bg-[#fdf313]" />
-      <span className="text-[12px] font-medium uppercase tracking-[0.1em] text-ink-2">
-        2nd place · Sui Overflow 2026
-      </span>
+    <span className="inline-flex items-center gap-2.5 rounded-full border border-hairline bg-white py-1.5 pl-1.5 pr-4">
+      <Image
+        src="/logo/sui-overflow.webp"
+        alt="Sui Overflow"
+        width={160}
+        height={160}
+        className="h-6 w-6 rounded-full"
+      />
+      <span className="text-[13px] font-medium text-ink">Sui Overflow 2026 Winner</span>
     </span>
   );
 }

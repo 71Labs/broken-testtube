@@ -4,7 +4,7 @@ import { OutlineButton, GhostLink, Caption } from "@/components/site/ui";
 export const metadata = {
   title: "Work with us",
   description:
-    "71Labs is a product & R&D studio. We turn AI ambition into working systems — validation sprints, AI operations systems, and venture MVPs, delivered by one senior team.",
+    "71Labs is a product & R&D studio. We turn AI ambition into working systems: validation sprints, AI operations systems, and venture MVPs, delivered by one senior team.",
 };
 
 const BUYERS_NEED = [
@@ -20,7 +20,7 @@ const OFFERS = [
     name: "Product Validation Sprint",
     price: "$3k–$6k",
     timeline: "10–15 working days",
-    summary: "Research, requirements, a prototype, and a technical plan — so you commit with evidence, not a hunch.",
+    summary: "Research, requirements, a prototype, and a technical plan, so you commit with evidence, not a hunch.",
     includes: [
       "Discovery and requirements",
       "A clickable prototype",
@@ -45,7 +45,7 @@ const OFFERS = [
     name: "Venture MVP Sprint",
     price: "$12k–$25k",
     timeline: "6–10 weeks",
-    summary: "A complete product team in one engagement — ready for users and the next funding conversation.",
+    summary: "A complete product team in one engagement, ready for users and the next funding conversation.",
     includes: [
       "Product strategy and brand",
       "UX and interface design",
@@ -84,7 +84,7 @@ export default function WorkWithUsPage() {
           </Reveal>
           <Reveal as="p" delay={0.12} className="font-lead mt-8 max-w-[620px] text-[20px] leading-[1.5] text-ink-2">
             71Labs is a product and R&amp;D studio. We help startups and
-            organizations research, design, and build technology products — with
+            organizations research, design, and build technology products, with
             one compact senior team that owns delivery end to end.
           </Reveal>
           <Reveal delay={0.18} className="mt-10 flex flex-wrap items-center gap-6">
@@ -109,7 +109,7 @@ export default function WorkWithUsPage() {
             <Reveal as="p" delay={0.1} className="font-lead mt-6 text-[18px] leading-[1.6] text-grey">
               Everyone can reach powerful models. Most teams still need someone to
               redesign the workflow, integrate the software, and own delivery. We
-              sell a measurable operational outcome — not a chatbot or a design file.
+              sell a measurable operational outcome, not a chatbot or a design file.
             </Reveal>
           </div>
           <Reveal delay={0.12}>

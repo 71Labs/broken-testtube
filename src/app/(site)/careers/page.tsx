@@ -93,8 +93,8 @@ export default async function CareersPage() {
               <div className="mt-10 border-t border-hairline pt-10">
                 <p className="max-w-[560px] text-[17px] leading-[1.6] text-grey">
                   No open roles right now. We are always glad to meet people who
-                  like what we are building, though — tell us what you would
-                  build and we will keep you in mind.
+                  like what we are building, so tell us what you would build and
+                  we will keep you in mind.
                 </p>
               </div>
             </Reveal>
