@@ -18,10 +18,12 @@ export function NewTask({
   projects,
   team,
   isAdmin,
+  variant = "button",
 }: {
   projects: Project[];
   team: Profile[];
   isAdmin: boolean;
+  variant?: "button" | "card";
 }) {
   const [open, setOpen] = useState(false);
   const [state, action, pending] = useActionState(createTask, null);
@@ -53,7 +55,23 @@ export function NewTask({
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger render={<Button icon={Add01Icon}>New task</Button>} />
+      {variant === "card" ? (
+        <Dialog.Trigger
+          className="group w-full rounded-xl border border-dashed border-border bg-white p-4 text-left outline-none transition-colors duration-150 hover:border-ink/30 hover:bg-fog/40 focus-visible:ring-2 focus-visible:ring-ink/10"
+        >
+          <span className="flex items-center gap-2 text-sm font-medium text-ink">
+            <span className="grid h-6 w-6 place-items-center rounded-md bg-ink text-white">
+              <Icon icon={Add01Icon} size={14} />
+            </span>
+            New task
+          </span>
+          <span className="mt-2 block text-xs leading-relaxed text-grey-2">
+            Add a task and set its priority, assignee, and due date.
+          </span>
+        </Dialog.Trigger>
+      ) : (
+        <Dialog.Trigger render={<Button icon={Add01Icon}>New task</Button>} />
+      )}
 
       <Dialog.Portal>
         <Dialog.Backdrop

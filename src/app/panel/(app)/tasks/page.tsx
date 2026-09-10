@@ -20,7 +20,13 @@ export default async function TasksPage() {
       <PageHeader title="Tasks" subtitle="The whole team's board. Move a card as work progresses.">
         <NewTask projects={projects} team={team} isAdmin={isAdmin} />
       </PageHeader>
-      <TaskBoard tasks={tasks} team={team} isAdmin={isAdmin} myId={profile.id} />
+      <TaskBoard
+        tasks={tasks}
+        team={team}
+        isAdmin={isAdmin}
+        myId={profile.id}
+        createSlot={<NewTask projects={projects} team={team} isAdmin={isAdmin} variant="card" />}
+      />
     </>
   );
 }

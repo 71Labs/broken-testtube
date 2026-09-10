@@ -11,8 +11,9 @@ do $$ begin
 exception when duplicate_object then null; end $$;
 
 do $$ begin
-  create type panel.task_status as enum ('todo', 'in_progress', 'done');
+  create type panel.task_status as enum ('todo', 'in_progress', 'in_review', 'done');
 exception when duplicate_object then null; end $$;
+alter type panel.task_status add value if not exists 'in_review' after 'in_progress';
 
 do $$ begin
   create type panel.task_priority as enum ('low', 'medium', 'high');

@@ -1,5 +1,5 @@
 export type Role = "admin" | "worker";
-export type TaskStatus = "todo" | "in_progress" | "done";
+export type TaskStatus = "todo" | "in_progress" | "in_review" | "done";
 export type TaskPriority = "low" | "medium" | "high";
 
 export type Profile = {
@@ -183,12 +183,22 @@ export type Activity = {
 
 export const STATUS_META: Record<TaskStatus, { label: string; dot: string }> = {
   todo: { label: "To do", dot: "#a1a1aa" },
-  in_progress: { label: "In progress", dot: "#e8681e" },
-  done: { label: "Done", dot: "#3c9a4e" },
+  in_progress: { label: "In Progress", dot: "#e8681e" },
+  in_review: { label: "In Review", dot: "#8b5cf6" },
+  done: { label: "Completed", dot: "#3c9a4e" },
+};
+
+/** Board column order + a derived progress % for each stage's cards. */
+export const TASK_COLUMNS: TaskStatus[] = ["todo", "in_progress", "in_review", "done"];
+export const STATUS_PROGRESS: Record<TaskStatus, number> = {
+  todo: 8,
+  in_progress: 45,
+  in_review: 75,
+  done: 100,
 };
 
 export const PRIORITY_META: Record<TaskPriority, { label: string; className: string }> = {
-  low: { label: "Low", className: "bg-neutral-100 text-neutral-500" },
+  low: { label: "Low", className: "bg-emerald-50 text-emerald-600" },
   medium: { label: "Medium", className: "bg-amber-50 text-amber-600" },
   high: { label: "High", className: "bg-red-50 text-red-600" },
 };

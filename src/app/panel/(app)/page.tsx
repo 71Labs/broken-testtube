@@ -74,17 +74,18 @@ export default async function OverviewPage() {
         ))}
       </div>
 
-      <div className="mt-10 grid gap-8 lg:grid-cols-[1.6fr_1fr]">
-        <section>
-          <h2 className="mb-4 text-sm font-medium text-ink">Your board</h2>
-          <TaskBoard
-            tasks={mine.length ? mine : tasks.slice(0, 9)}
-            team={team}
-            isAdmin={isAdmin}
-            myId={profile.id}
-          />
-        </section>
+      <section className="mt-10">
+        <h2 className="mb-4 text-sm font-medium text-ink">Your board</h2>
+        <TaskBoard
+          tasks={mine.length ? mine : tasks.slice(0, 9)}
+          team={team}
+          isAdmin={isAdmin}
+          myId={profile.id}
+          createSlot={<NewTask projects={projects} team={team} isAdmin={isAdmin} variant="card" />}
+        />
+      </section>
 
+      <div className="mt-10 max-w-2xl">
         <section>
           <h2 className="mb-4 text-sm font-medium text-ink">Recent activity</h2>
           <div className="overflow-hidden rounded-xl border border-hairline bg-white">
