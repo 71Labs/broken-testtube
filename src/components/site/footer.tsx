@@ -32,13 +32,14 @@ const COLUMNS = [
 
 export function SiteFooter() {
   return (
-    <footer className="border-t border-hairline pb-14">
+    <footer className="pb-14">
       <div className="mx-auto max-w-[1440px] px-6 py-24 sm:px-10 sm:py-28 lg:px-12">
         <div className="flex flex-col justify-between gap-14 lg:flex-row">
           <div>
             <Logo variant="black" size={28} />
             <p className="mt-5 max-w-[260px] text-[15px] leading-relaxed text-grey">
-              An independent product studio building Talise and Maren.
+              A product and R&amp;D studio building applied-AI systems and our
+              own products, Talise and Maren.
             </p>
           </div>
 
@@ -66,7 +67,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col justify-between gap-4 border-t border-hairline pt-8 sm:flex-row sm:items-center">
+        <div className="mt-20 flex flex-col justify-between gap-4 pt-8 sm:flex-row sm:items-center">
           <p className="text-[13px] text-grey-2">© 2026 71Labs. All rights reserved.</p>
           <div className="flex items-center gap-6 text-[14px]">
             {["X", "GitHub", "LinkedIn"].map((s) => (
