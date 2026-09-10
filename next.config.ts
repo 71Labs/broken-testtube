@@ -7,8 +7,8 @@ const nextConfig: NextConfig = {
     root: path.join(__dirname),
   },
   images: {
-    // Allow HD quality on prominent imagery (default is 75, which softens photos).
-    qualities: [75, 88, 92],
+    // Allowed `quality` values (Next 16 rejects any not listed → 400).
+    qualities: [75, 80, 82, 88, 90, 92],
     formats: ["image/avif", "image/webp"],
   },
 };
