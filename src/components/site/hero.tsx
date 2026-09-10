@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
 import { OutlineButton, SoftButton } from "./ui";
-import { PhoneFrame } from "./phone-frame";
+import { HeroWorkflows } from "./hero-workflows";
 
 export function Hero() {
   return (
@@ -49,19 +49,7 @@ export function Hero() {
             sizes="100vw"
             className="object-cover"
           />
-          <div className="relative mx-auto flex max-w-[760px] items-end justify-center gap-4 sm:gap-8">
-            <PhoneFrame
-              src="/talise/send.png"
-              alt="Talise send flow"
-              className="hidden w-[120px] translate-y-6 sm:block sm:w-[150px]"
-            />
-            <PhoneFrame src="/talise/home.png" alt="Talise home screen" priority className="w-[176px] sm:w-[184px]" />
-            <PhoneFrame
-              src="/maren/home.png"
-              alt="Maren home screen"
-              className="hidden w-[120px] translate-y-6 sm:block sm:w-[150px]"
-            />
-          </div>
+          <HeroWorkflows />
         </div>
       </Reveal>
     </section>
