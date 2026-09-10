@@ -1,7 +1,9 @@
 import { getMyProfile, getTasks } from "@/lib/panel/data";
-import { PRIORITY_META, STATUS_META, initials } from "@/lib/panel/types";
+import { PRIORITY_META, STATUS_META } from "@/lib/panel/types";
 import { PageHeader } from "../../_components/page-header";
 import { ProfileForm } from "../../_components/profile-form";
+import { GradientPicker } from "../../_components/gradient-picker";
+import { GradientAvatar } from "../../_components/ui/avatar";
 import { Icon, InboxIcon } from "../../_components/ui/icons";
 
 export const metadata = { title: "Profile" };
@@ -18,9 +20,12 @@ export default async function ProfilePage() {
       <div className="grid gap-8 lg:grid-cols-[1fr_1.2fr]">
         <div>
           <div className="mb-5 flex items-center gap-3">
-            <span className="grid h-14 w-14 place-items-center rounded-full bg-ink text-lg font-medium text-white">
-              {initials(profile.full_name)}
-            </span>
+            <GradientAvatar
+              seed={profile.id}
+              gradient={profile.avatar_gradient}
+              name={profile.full_name}
+              size={56}
+            />
             <div className="min-w-0">
               <p className="truncate text-lg font-medium text-ink">
                 {profile.full_name}
@@ -31,6 +36,9 @@ export default async function ProfilePage() {
             </div>
           </div>
           <ProfileForm profile={profile} />
+          <div className="mt-6">
+            <GradientPicker profile={profile} />
+          </div>
         </div>
 
         <div>

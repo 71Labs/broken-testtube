@@ -3,6 +3,7 @@
 import { useActionState, useState } from "react";
 import { signIn, signUp } from "../actions";
 import { Button } from "../_components/ui/button";
+import { Logo } from "@/components/site/logo";
 
 export function LoginForm() {
   const [mode, setMode] = useState<"in" | "up">("in");
@@ -11,8 +12,8 @@ export function LoginForm() {
 
   return (
     <div className="mx-auto flex min-h-screen w-full max-w-sm flex-col justify-center px-6 py-16">
-      <a href="/" className="font-wordmark text-lg tracking-tight text-ink">
-        71labs
+      <a href="/" aria-label="71Labs home">
+        <Logo variant="black" size={26} />
       </a>
       <h1 className="mt-8 text-2xl font-medium tracking-tight text-ink text-balance">
         {mode === "in" ? "Sign in to the panel" : "Create your account"}

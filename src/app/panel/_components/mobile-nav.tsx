@@ -3,8 +3,10 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "../actions";
-import { initials, type Profile } from "@/lib/panel/types";
+import { type Profile } from "@/lib/panel/types";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/site/logo";
+import { GradientAvatar } from "./ui/avatar";
 import {
   Briefcase01Icon,
   FolderLibraryIcon,
@@ -39,13 +41,16 @@ export function MobileNav({ profile }: { profile: Profile }) {
   return (
     <div className="sticky top-0 z-40 border-b border-hairline bg-white/90 backdrop-blur lg:hidden">
       <div className="flex items-center justify-between px-5 py-3">
-        <Link href="/panel" className="font-wordmark text-base tracking-tight text-ink">
-          71labs
+        <Link href="/panel" aria-label="71Labs panel">
+          <Logo variant="black" size={22} />
         </Link>
         <div className="flex items-center gap-3">
-          <span className="grid h-7 w-7 place-items-center rounded-full bg-ink text-[10px] font-medium text-white">
-            {initials(profile.full_name)}
-          </span>
+          <GradientAvatar
+            seed={profile.id}
+            gradient={profile.avatar_gradient}
+            name={profile.full_name}
+            size={28}
+          />
           <form action={signOut}>
             <button
               aria-label="Sign out"

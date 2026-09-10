@@ -19,7 +19,7 @@ export async function getTasks(): Promise<Task[]> {
   const { data } = await supabase
     .from("tasks")
     .select(
-      "*, project:projects(name,slug,color), assignee:profiles!tasks_assignee_id_fkey(full_name)",
+      "*, project:projects(name,slug,color), assignee:profiles!tasks_assignee_id_fkey(id,full_name,avatar_gradient)",
     )
     .order("created_at", { ascending: false });
   return (data as Task[]) ?? [];
@@ -128,7 +128,7 @@ export async function getActivity(limit = 12): Promise<Activity[]> {
   const supabase = await createClient();
   const { data } = await supabase
     .from("activity")
-    .select("*, actor:profiles!activity_actor_id_fkey(full_name)")
+    .select("*, actor:profiles!activity_actor_id_fkey(id,full_name,avatar_gradient)")
     .order("created_at", { ascending: false })
     .limit(limit);
   return (data as Activity[]) ?? [];

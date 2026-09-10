@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OutlineButton } from "./ui";
+import { Logo } from "./logo";
 
 const NAV = [
   { label: "Talise", href: "/talise" },
@@ -13,8 +14,8 @@ export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-hairline bg-white/85 backdrop-blur">
       <div className="mx-auto flex h-[76px] max-w-[1440px] items-center justify-between px-6 sm:px-10 lg:px-12">
-        <Link href="/" className="font-wordmark text-lg text-ink" aria-label="71Labs home">
-          71labs<span className="text-grey-2">/</span>
+        <Link href="/" aria-label="71Labs home">
+          <Logo variant="black" size={26} />
         </Link>
 
         <nav className="hidden items-center gap-9 md:flex">

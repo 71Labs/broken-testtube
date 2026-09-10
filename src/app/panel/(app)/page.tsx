@@ -1,8 +1,9 @@
 import { getActivity, getMyProfile, getProjects, getTasks, getTeam } from "@/lib/panel/data";
-import { STATUS_META, initials } from "@/lib/panel/types";
+import { STATUS_META } from "@/lib/panel/types";
 import { PageHeader } from "../_components/page-header";
 import { NewTask } from "../_components/new-task";
 import { TaskBoard } from "../_components/task-board";
+import { GradientAvatar } from "../_components/ui/avatar";
 import {
   CheckmarkCircle02Icon,
   Clock01Icon,
@@ -102,9 +103,13 @@ export default async function OverviewPage() {
                   key={a.id}
                   className="flex items-start gap-3 border-b border-hairline px-4 py-3 last:border-0"
                 >
-                  <span className="mt-0.5 grid h-6 w-6 shrink-0 place-items-center rounded-full bg-ink text-[9px] font-medium text-white">
-                    {initials(a.actor?.full_name ?? "—")}
-                  </span>
+                  <GradientAvatar
+                    seed={a.actor?.id ?? a.id}
+                    gradient={a.actor?.avatar_gradient}
+                    name={a.actor?.full_name}
+                    size={24}
+                    className="mt-0.5"
+                  />
                   <p className="text-xs text-grey">
                     <span className="font-medium text-ink">
                       {a.actor?.full_name ?? "Someone"}

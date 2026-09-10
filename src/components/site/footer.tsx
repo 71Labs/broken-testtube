@@ -1,3 +1,5 @@
+import { Logo } from "./logo";
+
 const COLUMNS = [
   {
     title: "Products",
@@ -34,9 +36,7 @@ export function SiteFooter() {
       <div className="mx-auto max-w-[1440px] px-6 py-24 sm:px-10 sm:py-28 lg:px-12">
         <div className="flex flex-col justify-between gap-14 lg:flex-row">
           <div>
-            <span className="font-wordmark text-xl text-ink">
-              71labs<span className="text-grey-2">/</span>
-            </span>
+            <Logo variant="black" size={28} />
             <p className="mt-5 max-w-[260px] text-[15px] leading-relaxed text-grey">
               An independent product studio building Talise and Maren.
             </p>

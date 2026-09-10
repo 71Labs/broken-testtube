@@ -3,8 +3,10 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { signOut } from "../actions";
-import { initials, type Profile } from "@/lib/panel/types";
+import { type Profile } from "@/lib/panel/types";
 import { cn } from "@/lib/utils";
+import { Logo } from "@/components/site/logo";
+import { GradientAvatar } from "./ui/avatar";
 import {
   Briefcase01Icon,
   FolderLibraryIcon,
@@ -39,13 +41,10 @@ export function Sidebar({ profile }: { profile: Profile }) {
 
   return (
     <aside className="fixed inset-y-0 left-0 hidden w-60 flex-col border-r border-hairline bg-white p-4 lg:flex">
-      <Link
-        href="/panel"
-        className="px-2 font-wordmark text-lg tracking-tight text-ink"
-      >
-        71labs
+      <Link href="/panel" className="px-1" aria-label="71Labs panel">
+        <Logo variant="black" size={24} />
       </Link>
-      <p className="mt-1 px-2 font-mono text-[10px] uppercase tracking-[0.16em] text-grey-2">
+      <p className="mt-2 px-1 font-mono text-[10px] uppercase tracking-[0.16em] text-grey-2">
         Company panel
       </p>
 
@@ -85,9 +84,12 @@ export function Sidebar({ profile }: { profile: Profile }) {
 
       <div className="mt-auto border-t border-hairline pt-3">
         <div className="flex items-center gap-2.5 px-1">
-          <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
-            {initials(profile.full_name)}
-          </span>
+          <GradientAvatar
+            seed={profile.id}
+            gradient={profile.avatar_gradient}
+            name={profile.full_name}
+            size={32}
+          />
           <div className="min-w-0">
             <p className="truncate text-[13px] font-medium text-ink">
               {profile.full_name}

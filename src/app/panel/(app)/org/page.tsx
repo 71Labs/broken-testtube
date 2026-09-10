@@ -1,8 +1,9 @@
 import { getDepartments, getMyProfile, getTeam } from "@/lib/panel/data";
-import { initials, type Department, type Profile } from "@/lib/panel/types";
+import { type Department, type Profile } from "@/lib/panel/types";
 import { PageHeader } from "../../_components/page-header";
 import { NewDepartment } from "../../_components/new-department";
 import { DepartmentSelect, ManagerSelect, LeadSelect } from "../../_components/org-selects";
+import { GradientAvatar } from "../../_components/ui/avatar";
 
 export const metadata = { title: "Organization" };
 
@@ -136,9 +137,12 @@ function DeptSection({
               className="grid grid-cols-1 gap-3 px-5 py-3.5 sm:grid-cols-[1.4fr_1fr_auto] sm:items-center"
             >
               <span className="flex items-center gap-3">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
-                  {initials(m.full_name)}
-                </span>
+                <GradientAvatar
+                  seed={m.id}
+                  gradient={m.avatar_gradient}
+                  name={m.full_name}
+                  size={32}
+                />
                 <span className="min-w-0">
                   <span className="block truncate text-sm font-medium text-ink">
                     {m.full_name}

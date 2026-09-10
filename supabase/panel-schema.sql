@@ -100,6 +100,8 @@ alter table panel.profiles
   add column if not exists department_id uuid references panel.departments (id) on delete set null;
 alter table panel.profiles
   add column if not exists manager_id uuid references panel.profiles (id) on delete set null;
+alter table panel.profiles
+  add column if not exists avatar_gradient smallint;  -- index into the gradient palette; null = derive from id
 
 -- ─────────────────────────────────────────── careers / job openings ──
 -- Managed by admins in /panel/jobs; `open` rows are public on /careers.

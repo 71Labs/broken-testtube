@@ -291,6 +291,17 @@ export async function updateProfile(_prev: unknown, formData: FormData) {
   return { ok: true };
 }
 
+export async function setAvatarGradient(index: number | null) {
+  const { supabase, user } = await me();
+  if (!user) return { error: "Not signed in." };
+  const { error } = await supabase
+    .from("profiles")
+    .update({ avatar_gradient: index })
+    .eq("id", user.id);
+  if (!error) revalidatePath("/panel", "layout");
+  return { error: error?.message };
+}
+
 export async function setRole(profileId: string, role: "admin" | "worker") {
   const { supabase } = await me();
   const { error } = await supabase.from("profiles").update({ role }).eq("id", profileId);

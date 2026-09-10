@@ -3,6 +3,7 @@ import { Recognition } from "@/components/site/recognition";
 import { ProductsIntro } from "@/components/site/products-intro";
 import { Talise } from "@/components/site/talise";
 import { Maren } from "@/components/site/maren";
+import { WhatWeBuild } from "@/components/site/what-we-build";
 import { Capabilities } from "@/components/site/capabilities";
 import { ContactCTA } from "@/components/site/contact-cta";
 
@@ -14,6 +15,7 @@ export default function Home() {
       <ProductsIntro />
       <Talise />
       <Maren />
+      <WhatWeBuild />
       <Capabilities />
       <ContactCTA />
     </>

@@ -9,10 +9,37 @@ export type Profile = {
   title: string | null;
   department_id: string | null;
   manager_id: string | null;
+  avatar_gradient: number | null;
   created_at: string;
   department?: Pick<Department, "name" | "slug" | "color"> | null;
   manager?: Pick<Profile, "id" | "full_name"> | null;
 };
+
+/** Curated avatar gradients. Index stored on the profile; null → derived from id. */
+export const AVATAR_GRADIENTS: { from: string; to: string }[] = [
+  { from: "#ff9ec4", to: "#d6247a" }, // pink → magenta
+  { from: "#b39dfb", to: "#6d28d9" }, // lavender → violet
+  { from: "#7cc0ff", to: "#1e40af" }, // sky → deep blue
+  { from: "#5eead4", to: "#0d9488" }, // aqua → teal
+  { from: "#9ff0a8", to: "#16a34a" }, // mint → green
+  { from: "#fdba74", to: "#ea580c" }, // peach → orange
+  { from: "#fca5a5", to: "#dc2626" }, // coral → red
+  { from: "#a5b4fc", to: "#3730a3" }, // periwinkle → indigo
+  { from: "#7dd3fc", to: "#0891b2" }, // cyan → deep cyan
+  { from: "#fcd34d", to: "#d97706" }, // gold → amber
+  { from: "#fda4af", to: "#be123c" }, // rose → crimson
+  { from: "#c4b5fd", to: "#4338ca" }, // violet → royal
+];
+
+/** Stable index from a string seed (e.g., profile id). */
+export function gradientIndex(seed: string, override?: number | null): number {
+  if (override !== null && override !== undefined) {
+    return ((override % AVATAR_GRADIENTS.length) + AVATAR_GRADIENTS.length) % AVATAR_GRADIENTS.length;
+  }
+  let h = 0;
+  for (let i = 0; i < seed.length; i++) h = (h * 31 + seed.charCodeAt(i)) >>> 0;
+  return h % AVATAR_GRADIENTS.length;
+}
 
 export type Department = {
   id: string;
@@ -169,7 +196,7 @@ export type Task = {
   created_at: string;
   updated_at: string;
   project?: Pick<Project, "name" | "slug" | "color"> | null;
-  assignee?: Pick<Profile, "full_name"> | null;
+  assignee?: Pick<Profile, "id" | "full_name" | "avatar_gradient"> | null;
 };
 
 export type Activity = {
@@ -178,7 +205,7 @@ export type Activity = {
   task_id: string | null;
   message: string;
   created_at: string;
-  actor?: Pick<Profile, "full_name"> | null;
+  actor?: Pick<Profile, "id" | "full_name" | "avatar_gradient"> | null;
 };
 
 export const STATUS_META: Record<TaskStatus, { label: string; dot: string }> = {

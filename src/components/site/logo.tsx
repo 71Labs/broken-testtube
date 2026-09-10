@@ -1,50 +1,41 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
 
 /**
- * 71Labs monoline mark: a bracketed aperture (nod to a lab lens / capture frame)
- * with a centered node. Renders in currentColor so it inherits text color.
+ * Official 71Labs mark + wordmark. Pick `variant` by the surface it sits on:
+ * "black" on light backgrounds, "white" on dark ones.
  */
-export function LogoMark({ className }: { className?: string }) {
+export function Logo({
+  variant = "black",
+  withWordmark = true,
+  size = 24,
+  className,
+}: {
+  variant?: "black" | "white";
+  withWordmark?: boolean;
+  size?: number;
+  className?: string;
+}) {
   return (
-    <svg
-      viewBox="0 0 32 32"
-      fill="none"
-      aria-hidden="true"
-      className={cn("h-7 w-7", className)}
-    >
-      {/* bracket corners */}
-      <path
-        d="M11 4H7a3 3 0 0 0-3 3v4M21 4h4a3 3 0 0 1 3 3v4M11 28H7a3 3 0 0 1-3-3v-4M21 28h4a3 3 0 0 0 3-3v-4"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
+    <span className={cn("inline-flex items-center gap-2", className)}>
+      <Image
+        src={variant === "white" ? "/logo/mark-white.png" : "/logo/mark-black.png"}
+        alt={withWordmark ? "" : "71Labs"}
+        width={936}
+        height={790}
+        style={{ height: size, width: "auto" }}
+        priority
       />
-      {/* inner rotated aperture */}
-      <rect
-        x="10.2"
-        y="10.2"
-        width="11.6"
-        height="11.6"
-        rx="2.4"
-        transform="rotate(45 16 16)"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        opacity="0.55"
-      />
-      <circle cx="16" cy="16" r="2.3" fill="currentColor" />
-    </svg>
-  );
-}
-
-export function Logo({ className }: { className?: string }) {
-  return (
-    <span
-      className={cn(
-        "font-wordmark text-xl font-medium tracking-tight text-neutral-950",
-        className,
+      {withWordmark && (
+        <span
+          className={cn(
+            "font-wordmark text-lg tracking-tight",
+            variant === "white" ? "text-white" : "text-ink",
+          )}
+        >
+          71labs
+        </span>
       )}
-    >
-      71labs
     </span>
   );
 }

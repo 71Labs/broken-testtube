@@ -1,7 +1,7 @@
 import { getMyProfile, getTasks, getTeam } from "@/lib/panel/data";
-import { initials } from "@/lib/panel/types";
 import { PageHeader } from "../../_components/page-header";
 import { RoleSelect } from "../../_components/role-select";
+import { GradientAvatar } from "../../_components/ui/avatar";
 
 export const metadata = { title: "Team" };
 
@@ -42,9 +42,12 @@ export default async function TeamPage() {
               className="grid grid-cols-[1fr_auto] items-center gap-3 border-b border-hairline px-5 py-3.5 transition-colors duration-150 last:border-0 hover:bg-fog/50 sm:grid-cols-[2fr_1fr_0.8fr_0.8fr]"
             >
               <span className="flex min-w-0 items-center gap-3">
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-ink text-[11px] font-medium text-white">
-                  {initials(m.full_name)}
-                </span>
+                <GradientAvatar
+                  seed={m.id}
+                  gradient={m.avatar_gradient}
+                  name={m.full_name}
+                  size={32}
+                />
                 <span className="truncate text-sm font-medium text-ink">
                   {m.full_name}
                   {m.id === profile.id && (

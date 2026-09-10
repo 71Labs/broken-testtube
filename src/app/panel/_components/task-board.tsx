@@ -8,7 +8,6 @@ import {
   STATUS_META,
   STATUS_PROGRESS,
   TASK_COLUMNS,
-  initials,
   type Profile,
   type Task,
   type TaskStatus,
@@ -16,6 +15,7 @@ import {
 import { assignTask, deleteTask, updateTaskStatus } from "../actions";
 import { cn } from "@/lib/utils";
 import { Select, type Option } from "./ui/select";
+import { GradientAvatar } from "./ui/avatar";
 import { Calendar03Icon, Delete02Icon, Icon } from "./ui/icons";
 
 const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
@@ -161,9 +161,18 @@ export function TaskBoard({
                       </div>
                     ) : (
                       <span className="flex min-w-0 items-center gap-1.5 text-[11px] text-grey">
-                        <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-ink text-[8px] font-medium text-white">
-                          {t.assignee ? initials(t.assignee.full_name) : "—"}
-                        </span>
+                        {t.assignee ? (
+                          <GradientAvatar
+                            seed={t.assignee.id}
+                            gradient={t.assignee.avatar_gradient}
+                            name={t.assignee.full_name}
+                            size={20}
+                          />
+                        ) : (
+                          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full border border-dashed border-border text-[8px] text-grey-2">
+                            —
+                          </span>
+                        )}
                         <span className="truncate">{t.assignee?.full_name ?? "Unassigned"}</span>
                       </span>
                     )}

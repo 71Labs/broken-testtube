@@ -59,14 +59,29 @@ export function NewTask({
         <Dialog.Trigger
           className="group w-full rounded-xl border border-dashed border-border bg-white p-4 text-left outline-none transition-colors duration-150 hover:border-ink/30 hover:bg-fog/40 focus-visible:ring-2 focus-visible:ring-ink/10"
         >
+          {/* stacked-cards illustration */}
+          <span className="relative mb-3 flex h-24 items-center justify-center overflow-hidden rounded-lg bg-fog/60">
+            <svg viewBox="0 0 120 64" className="h-16 w-auto" fill="none" aria-hidden>
+              <rect x="10" y="12" width="34" height="40" rx="4" fill="#fff" stroke="rgba(10,10,10,0.12)" />
+              <rect x="30" y="8" width="34" height="44" rx="4" fill="#fff" stroke="rgba(10,10,10,0.14)" />
+              <rect x="38" y="16" width="18" height="3" rx="1.5" fill="rgba(10,10,10,0.18)" />
+              <rect x="38" y="23" width="14" height="3" rx="1.5" fill="rgba(10,10,10,0.12)" />
+              <rect x="38" y="30" width="16" height="3" rx="1.5" fill="rgba(10,10,10,0.12)" />
+              <g>
+                <rect x="66" y="18" width="30" height="34" rx="4" fill="#fff" stroke="rgba(10,10,10,0.16)" />
+                <circle cx="81" cy="35" r="8" fill="#1a1a1a" />
+                <path d="M81 31.5v7M77.5 35h7" stroke="#fff" strokeWidth="1.6" strokeLinecap="round" />
+              </g>
+            </svg>
+          </span>
           <span className="flex items-center gap-2 text-sm font-medium text-ink">
             <span className="grid h-6 w-6 place-items-center rounded-md bg-ink text-white">
               <Icon icon={Add01Icon} size={14} />
             </span>
             New task
           </span>
-          <span className="mt-2 block text-xs leading-relaxed text-grey-2">
-            Add a task and set its priority, assignee, and due date.
+          <span className="mt-1.5 block text-xs leading-relaxed text-grey-2">
+            Create a task and define its priority, assignee, and due date.
           </span>
         </Dialog.Trigger>
       ) : (
