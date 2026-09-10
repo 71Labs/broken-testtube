@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Reveal } from "@/components/motion/reveal";
-import { OutlineButton, GhostLink, Caption } from "./ui";
+import { OutlineButton, SoftButton, Caption } from "./ui";
 
 export function Hero() {
   return (
@@ -20,7 +20,7 @@ export function Hero() {
           </Reveal>
           <Reveal delay={0.18} className="mt-10 flex flex-wrap items-center gap-6">
             <OutlineButton href="/work-with-us">Work with us</OutlineButton>
-            <GhostLink href="#products">See our products</GhostLink>
+            <SoftButton href="#products">See our products</SoftButton>
           </Reveal>
         </div>
       </div>

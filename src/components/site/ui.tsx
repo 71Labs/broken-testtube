@@ -11,7 +11,7 @@ const upRight = (
   </svg>
 );
 
-/** AREA 17 outlined button — hairline border, 8px radius, inverts on hover. No shadow. */
+/** Primary CTA — solid ink fill, white text, arrow. Clean and filled (no outline). */
 export function OutlineButton({
   href,
   children,
@@ -29,20 +29,55 @@ export function OutlineButton({
       href={href}
       {...ext}
       className={cn(
-        "group inline-flex items-center gap-2 rounded-lg border border-[#1a1a1a] px-6 py-3 text-[15px] font-medium text-ink",
-        "transition-colors duration-300 [transition-timing-function:var(--ease-snap)] hover:bg-[#1a1a1a] hover:text-white",
+        "group inline-flex items-center gap-2 rounded-xl bg-ink px-5 py-3 text-[15px] font-medium text-white outline-none",
+        "transition-[background-color,transform] duration-200 hover:bg-ink-2 focus-visible:ring-2 focus-visible:ring-ink/25 motion-safe:active:scale-[0.98]",
         className,
       )}
     >
       {children}
-      <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+      <span className="transition-transform duration-200 group-hover:translate-x-0.5">
         {external ? upRight : arrow}
       </span>
     </a>
   );
 }
 
-/** Ghost text link — color shift + arrow nudge on hover. The dominant interaction. */
+/** Secondary CTA — soft grey fill, ink text. Pairs with the primary. */
+export function SoftButton({
+  href,
+  children,
+  external = false,
+  withArrow = false,
+  className,
+}: {
+  href: string;
+  children: React.ReactNode;
+  external?: boolean;
+  withArrow?: boolean;
+  className?: string;
+}) {
+  const ext = external ? { target: "_blank", rel: "noopener noreferrer" } : {};
+  return (
+    <a
+      href={href}
+      {...ext}
+      className={cn(
+        "group inline-flex items-center gap-2 rounded-xl bg-secondary px-5 py-3 text-[15px] font-medium text-ink outline-none",
+        "transition-[background-color,transform] duration-200 hover:bg-[#e8e8e4] focus-visible:ring-2 focus-visible:ring-ink/15 motion-safe:active:scale-[0.98]",
+        className,
+      )}
+    >
+      {children}
+      {withArrow && (
+        <span className="transition-transform duration-200 group-hover:translate-x-0.5">
+          {external ? upRight : arrow}
+        </span>
+      )}
+    </a>
+  );
+}
+
+/** Tertiary text link — color shift + arrow nudge, never underlined. */
 export function GhostLink({
   href,
   children,
@@ -60,19 +95,19 @@ export function GhostLink({
       href={href}
       {...ext}
       className={cn(
-        "group inline-flex items-center gap-1.5 text-[15px] font-medium text-ink transition-colors duration-300 hover:text-grey-2",
+        "group inline-flex items-center gap-1.5 text-[15px] font-medium text-ink no-underline transition-colors duration-200 hover:text-grey-2",
         className,
       )}
     >
       {children}
-      <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+      <span className="transition-transform duration-200 group-hover:translate-x-0.5">
         {external ? upRight : arrow}
       </span>
     </a>
   );
 }
 
-/** Small caption/eyebrow — Inter, muted, tracked, uppercase. */
+/** Small caption/eyebrow — muted, tracked, uppercase. */
 export function Caption({
   children,
   className,
