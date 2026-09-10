@@ -25,15 +25,15 @@ export function Hero() {
         </div>
       </div>
 
-      {/* Full-bleed cinematic block — the visual exhale. */}
+      {/* Full-bleed abstract block — the visual exhale. */}
       <Reveal delay={0.1} className="mt-16 sm:mt-24">
         <div className="relative aspect-[21/9] w-full overflow-hidden">
           <Image
-            src="/cine/opt/hero.jpg"
-            alt="Building at 71Labs"
+            src="/bg/bg-056.webp"
+            alt=""
             fill
             priority
-            quality={92}
+            quality={82}
             sizes="100vw"
             className="object-cover"
           />

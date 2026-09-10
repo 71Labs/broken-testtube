@@ -40,3 +40,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Large design source assets (optimized webp live in public/bg)
+AI_Bg_*.png
+*.pptx
+2026).pdf

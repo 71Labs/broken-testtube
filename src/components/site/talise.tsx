@@ -5,11 +5,18 @@ const ACCENT = "#3c9a4e";
 
 function TalisePreview() {
   return (
-    <div className="relative overflow-hidden rounded-[28px] bg-gradient-to-b from-[#e9f5ec] to-[#f4efe9] p-10 sm:p-14">
+    <div className="relative overflow-hidden rounded-[28px] p-10 sm:p-14">
+      <Image
+        src="/bg/bg-054.webp"
+        alt=""
+        fill
+        sizes="(min-width:1024px) 560px, 100vw"
+        quality={80}
+        className="object-cover"
+      />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl"
-        style={{ background: `${ACCENT}26` }}
+        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/15 via-transparent to-white/10"
       />
       <div className="relative flex items-end justify-center gap-5">
         <div className="w-[148px] translate-y-5 sm:w-[168px]">
