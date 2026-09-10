@@ -183,6 +183,42 @@ export const LEAD_TYPE_META: Record<LeadType, string> = {
   investor: "Investor",
 };
 
+/* ─────────────────────────────── team messaging ─────────────────────────── */
+
+export type ChatUser = Pick<Profile, "id" | "full_name" | "avatar_gradient">;
+
+export type Message = {
+  id: string;
+  conversation_id: string;
+  sender_id: string | null;
+  body: string;
+  created_at: string;
+  sender?: ChatUser | null;
+};
+
+export type Conversation = {
+  id: string;
+  title: string | null;
+  is_group: boolean;
+  created_by: string | null;
+  created_at: string;
+  last_message_at: string;
+  members: ChatUser[];
+  lastMessage: { body: string; created_at: string; sender_id: string | null } | null;
+  unread: number;
+};
+
+/** DM: the other person's name; group: title or a name list. */
+export function conversationName(c: Conversation, myId: string): string {
+  if (c.is_group) {
+    if (c.title) return c.title;
+    const others = c.members.filter((m) => m.id !== myId).map((m) => m.full_name);
+    return others.length ? others.join(", ") : "Group";
+  }
+  const other = c.members.find((m) => m.id !== myId);
+  return other?.full_name ?? "Direct message";
+}
+
 export type Task = {
   id: string;
   title: string;

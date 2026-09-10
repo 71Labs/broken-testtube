@@ -260,6 +260,79 @@ drop policy if exists leads_all on panel.leads;
 create policy leads_all on panel.leads for all to authenticated
   using (true) with check (true);
 
+-- ─────────────────────────────────────── team messaging (chat) ──
+create table if not exists panel.conversations (
+  id              uuid primary key default gen_random_uuid(),
+  title           text,
+  is_group        boolean not null default false,
+  created_by      uuid references panel.profiles (id) on delete set null,
+  created_at      timestamptz not null default now(),
+  last_message_at timestamptz not null default now()
+);
+
+create table if not exists panel.conversation_members (
+  conversation_id uuid not null references panel.conversations (id) on delete cascade,
+  profile_id      uuid not null references panel.profiles (id) on delete cascade,
+  last_read_at    timestamptz not null default now(),
+  primary key (conversation_id, profile_id)
+);
+
+create table if not exists panel.messages (
+  id              uuid primary key default gen_random_uuid(),
+  conversation_id uuid not null references panel.conversations (id) on delete cascade,
+  sender_id       uuid references panel.profiles (id) on delete set null,
+  body            text not null,
+  created_at      timestamptz not null default now()
+);
+create index if not exists messages_conversation_idx on panel.messages (conversation_id, created_at);
+
+-- membership check — SECURITY DEFINER so member policies don't recurse.
+create or replace function panel.is_member(conv uuid)
+returns boolean language sql security definer stable set search_path = '' as $$
+  select exists (
+    select 1 from panel.conversation_members m
+    where m.conversation_id = conv and m.profile_id = auth.uid()
+  );
+$$;
+
+alter table panel.conversations        enable row level security;
+alter table panel.conversation_members enable row level security;
+alter table panel.messages             enable row level security;
+
+drop policy if exists conversations_read on panel.conversations;
+create policy conversations_read on panel.conversations for select to authenticated
+  using (panel.is_member(id) or created_by = auth.uid());
+drop policy if exists conversations_insert on panel.conversations;
+create policy conversations_insert on panel.conversations for insert to authenticated
+  with check (created_by = auth.uid());
+drop policy if exists conversations_update on panel.conversations;
+create policy conversations_update on panel.conversations for update to authenticated
+  using (panel.is_member(id)) with check (panel.is_member(id));
+
+drop policy if exists members_read on panel.conversation_members;
+create policy members_read on panel.conversation_members for select to authenticated
+  using (panel.is_member(conversation_id));
+drop policy if exists members_insert on panel.conversation_members;
+create policy members_insert on panel.conversation_members for insert to authenticated
+  with check (
+    profile_id = auth.uid()
+    or panel.is_member(conversation_id)
+    or exists (select 1 from panel.conversations c where c.id = conversation_id and c.created_by = auth.uid())
+  );
+drop policy if exists members_update on panel.conversation_members;
+create policy members_update on panel.conversation_members for update to authenticated
+  using (profile_id = auth.uid()) with check (profile_id = auth.uid());
+drop policy if exists members_delete on panel.conversation_members;
+create policy members_delete on panel.conversation_members for delete to authenticated
+  using (profile_id = auth.uid());
+
+drop policy if exists messages_read on panel.messages;
+create policy messages_read on panel.messages for select to authenticated
+  using (panel.is_member(conversation_id));
+drop policy if exists messages_insert on panel.messages;
+create policy messages_insert on panel.messages for insert to authenticated
+  with check (sender_id = auth.uid() and panel.is_member(conversation_id));
+
 -- ────────────────────────────────────────── grants (PostgREST access) ──
 grant usage on schema panel to anon, authenticated, service_role;
 grant all on all tables in schema panel to anon, authenticated, service_role;
@@ -282,3 +355,9 @@ insert into panel.departments (name, slug, color, description) values
   ('Studio', 'studio', '#1a1a1a', 'Design, brand, and shared platform.'),
   ('Operations', 'operations', '#5b8def', 'People, finance, and growth.')
 on conflict (slug) do nothing;
+
+-- ─────────────────────────────────────────── realtime (chat) ──
+-- Broadcast new messages to subscribed clients. Guarded so re-runs are safe.
+do $$ begin
+  alter publication supabase_realtime add table panel.messages;
+exception when duplicate_object then null; when others then null; end $$;

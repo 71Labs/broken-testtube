@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import { isSupabaseConfigured } from "@/lib/supabase/config";
 import type {
-  Activity, Department, Job, Lead, Product, Profile, Project, Research, Task,
+  Activity, ChatUser, Conversation, Department, Job, Lead, Product, Profile, Project, Research, Task,
 } from "./types";
 
 export async function getMyProfile(): Promise<Profile | null> {
@@ -122,6 +122,65 @@ export async function getLeads(): Promise<Lead[]> {
     .select("*, owner:profiles!leads_owner_id_fkey(id,full_name)")
     .order("created_at", { ascending: false });
   return (data as Lead[]) ?? [];
+}
+
+export async function getConversations(): Promise<Conversation[]> {
+  if (!isSupabaseConfigured) return [];
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (!user) return [];
+
+  const { data: mems } = await supabase
+    .from("conversation_members")
+    .select("conversation_id,last_read_at")
+    .eq("profile_id", user.id);
+  const rows = (mems ?? []) as { conversation_id: string; last_read_at: string }[];
+  const ids = rows.map((m) => m.conversation_id);
+  if (!ids.length) return [];
+  const lastRead: Record<string, string> = {};
+  rows.forEach((m) => (lastRead[m.conversation_id] = m.last_read_at));
+
+  const { data: convs } = await supabase
+    .from("conversations")
+    .select(
+      "id,title,is_group,created_by,created_at,last_message_at, members:conversation_members(profile:profiles!conversation_members_profile_id_fkey(id,full_name,avatar_gradient))",
+    )
+    .in("id", ids)
+    .order("last_message_at", { ascending: false });
+
+  const { data: msgs } = await supabase
+    .from("messages")
+    .select("conversation_id,body,created_at,sender_id")
+    .in("conversation_id", ids)
+    .order("created_at", { ascending: false });
+
+  const byConv: Record<string, { body: string; created_at: string; sender_id: string | null }[]> = {};
+  ((msgs ?? []) as { conversation_id: string; body: string; created_at: string; sender_id: string | null }[]).forEach(
+    (m) => (byConv[m.conversation_id] ??= []).push(m),
+  );
+
+  return ((convs ?? []) as unknown as {
+    id: string; title: string | null; is_group: boolean; created_by: string | null;
+    created_at: string; last_message_at: string;
+    members: { profile: ChatUser | null }[];
+  }[]).map((c) => {
+    const list = byConv[c.id] ?? [];
+    const lr = lastRead[c.id];
+    const unread = list.filter((m) => m.sender_id !== user.id && (!lr || m.created_at > lr)).length;
+    return {
+      id: c.id,
+      title: c.title,
+      is_group: c.is_group,
+      created_by: c.created_by,
+      created_at: c.created_at,
+      last_message_at: c.last_message_at,
+      members: (c.members ?? []).map((m) => m.profile).filter((p): p is ChatUser => !!p),
+      lastMessage: list[0] ?? null,
+      unread,
+    };
+  });
 }
 
 export async function getActivity(limit = 12): Promise<Activity[]> {

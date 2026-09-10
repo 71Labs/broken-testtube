@@ -9,6 +9,7 @@ import { Logo } from "@/components/site/logo";
 import { GradientAvatar } from "./ui/avatar";
 import {
   Briefcase01Icon,
+  BubbleChatIcon,
   FolderLibraryIcon,
   Home03Icon,
   Icon,
@@ -26,6 +27,7 @@ import {
 const NAV: { href: string; label: string; icon: HugeIcon }[] = [
   { href: "/panel", label: "Overview", icon: Home03Icon },
   { href: "/panel/tasks", label: "Tasks", icon: Task01Icon },
+  { href: "/panel/messages", label: "Messages", icon: BubbleChatIcon },
   { href: "/panel/products", label: "Products", icon: Rocket01Icon },
   { href: "/panel/research", label: "Research", icon: TestTube01Icon },
   { href: "/panel/leads", label: "Leads", icon: Target01Icon },
