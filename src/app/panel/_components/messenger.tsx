@@ -180,7 +180,7 @@ export function Messenger({
       {/* conversation list */}
       <aside
         className={cn(
-          "flex w-full shrink-0 flex-col border-r border-hairline md:w-72",
+          "flex w-full shrink-0 flex-col border-r border-hairline md:w-80 lg:w-[21rem]",
           activeId && "hidden md:flex",
         )}
       >
@@ -286,7 +286,7 @@ export function Messenger({
                         size={24}
                       />
                     )}
-                    <div className={cn("max-w-[78%]", mine && "items-end")}>
+                    <div className={cn("max-w-[min(78%,42rem)]", mine && "items-end")}>
                       {active.is_group && !mine && (
                         <p className="mb-0.5 pl-1 text-[10px] text-grey-2">{sender?.full_name}</p>
                       )}

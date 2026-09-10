@@ -20,7 +20,7 @@ export default async function PanelAppLayout({
       <Sidebar profile={profile} />
       <MobileNav profile={profile} />
       <main className="lg:pl-60">
-        <div className="mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-10">{children}</div>
+        <div className="mx-auto max-w-[88rem] px-5 py-8 sm:px-8 sm:py-10">{children}</div>
       </main>
     </div>
   );
