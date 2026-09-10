@@ -19,10 +19,11 @@ export function Capabilities() {
           <Reveal as="h2" delay={0.06} className="ed-heading mt-5 max-w-[13ch] text-ink">
             Research to production, under one roof.
           </Reveal>
-          <Reveal as="p" delay={0.1} className="mt-6 max-w-[360px] text-[17px] leading-[1.6] text-grey">
+          <Reveal as="p" delay={0.1} className="mt-6 max-w-[380px] text-[17px] leading-[1.6] text-grey">
             71Labs is a small, senior team. We take an idea from a first
-            prototype to a product in people&apos;s hands, owning the research,
-            the design, and the engineering end to end.
+            prototype to a product in people&apos;s hands, whether it is one of
+            our own or one we build with you, owning research, design, and
+            engineering end to end.
           </Reveal>
         </div>
 

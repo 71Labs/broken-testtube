@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "71Labs",
     description:
-      "A product studio and research lab. Currently building Talise.",
+      "A product and R&D studio. Applied-AI systems and shipped products, from Talise to Maren.",
     images: ["/talise/og.png"],
   },
 };

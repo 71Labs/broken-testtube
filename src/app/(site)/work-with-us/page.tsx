@@ -151,7 +151,7 @@ export default function WorkWithUsPage() {
                 }
               >
                 {o.featured && (
-                  <span className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-yellow px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-ink">
+                  <span className="mb-4 inline-flex w-fit items-center gap-1.5 rounded-full bg-ink px-2.5 py-1 text-[11px] font-medium uppercase tracking-[0.1em] text-white">
                     Most popular
                   </span>
                 )}

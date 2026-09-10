@@ -68,7 +68,7 @@ export function Sidebar({ profile }: { profile: Profile }) {
               )}
             >
               {active && (
-                <span className="absolute inset-y-1.5 left-0 w-[3px] rounded-full bg-yellow" />
+                <span className="absolute inset-y-1.5 left-0 w-[3px] rounded-full bg-ink" />
               )}
               <Icon
                 icon={n.icon}

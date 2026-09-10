@@ -9,11 +9,12 @@ export function ProductsIntro() {
           <Caption>Our products</Caption>
         </Reveal>
         <Reveal as="h2" delay={0.06} className="ed-heading mt-5 text-ink">
-          Two products, one studio.
+          Two products of our own.
         </Reveal>
-        <Reveal as="p" delay={0.1} className="mt-5 max-w-[520px] text-[17px] leading-[1.6] text-grey">
+        <Reveal as="p" delay={0.1} className="mt-5 max-w-[540px] text-[17px] leading-[1.6] text-grey">
           We build and ship the whole thing, from research to the app in your
-          hands. Each lives in its own world; both are built by 71Labs.
+          hands. Talise and Maren are ours, and the clearest proof of what we
+          build for the teams we work with.
         </Reveal>
       </div>
     </section>

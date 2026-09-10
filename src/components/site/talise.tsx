@@ -1,33 +1,17 @@
 import Image from "next/image";
 import { ProductSection } from "./product-section";
-import { PhoneFrame } from "./phone-frame";
+import { ProductCard } from "./product-card";
 
 const ACCENT = "#3c9a4e";
 
 function TalisePreview() {
   return (
-    <div className="relative overflow-hidden rounded-[28px] p-6 sm:p-14">
-      <Image
-        src="/bg/bg-054.webp"
-        alt=""
-        fill
-        sizes="(min-width:1024px) 560px, 100vw"
-        quality={80}
-        className="object-cover"
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/12 to-transparent"
-      />
-      <div className="relative flex items-end justify-center gap-4 sm:gap-6">
-        <PhoneFrame
-          src="/talise/send.png"
-          alt="Talise send flow"
-          className="hidden w-[132px] translate-y-6 sm:block sm:w-[150px]"
-        />
-        <PhoneFrame src="/talise/home.png" alt="Talise home screen" className="w-[172px] sm:w-[188px]" />
-      </div>
-    </div>
+    <ProductCard
+      href="/talise"
+      bg="/bg/bg-054.webp"
+      name="Talise"
+      tagline="Money that moves like a message."
+    />
   );
 }
 

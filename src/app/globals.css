@@ -110,10 +110,12 @@
   body {
     @apply bg-background text-foreground;
     text-rendering: optimizeLegibility;
+    /* Contain stray horizontal overflow without breaking sticky/fixed elements. */
+    overflow-x: clip;
   }
   ::selection {
-    background: var(--yellow);
-    color: #1a1a1a;
+    background: #1a1a1a;
+    color: #ffffff;
   }
 }
 
