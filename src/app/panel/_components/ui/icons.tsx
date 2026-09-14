@@ -36,6 +36,8 @@ export {
   Idea01Icon,
   Analytics01Icon,
   BubbleChatIcon,
+  DragDropVerticalIcon,
+  PlusSignIcon,
 } from "@hugeicons/core-free-icons";
 
 export type HugeIcon = ComponentProps<typeof HugeiconsIcon>["icon"];

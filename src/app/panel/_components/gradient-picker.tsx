@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { AVATAR_GRADIENTS, type Profile } from "@/lib/panel/types";
 import { setAvatarGradient } from "../actions";
+import { runAction } from "./use-action";
 import { cn } from "@/lib/utils";
 
 export function GradientPicker({ profile }: { profile: Profile }) {
@@ -13,8 +14,11 @@ export function GradientPicker({ profile }: { profile: Profile }) {
 
   const pick = (i: number | null) =>
     start(async () => {
-      await setAvatarGradient(i);
-      router.refresh();
+      const ok = await runAction(() => setAvatarGradient(i), {
+        success: "Avatar updated",
+        error: "Couldn't update your avatar",
+      });
+      if (ok) router.refresh();
     });
 
   return (

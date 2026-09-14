@@ -4,6 +4,7 @@ import { Dialog } from "@base-ui/react/dialog";
 import { useActionState, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { toast } from "./ui/toast";
 import { createLead, createProduct, createResearch } from "../actions";
 import {
   LEAD_STAGES, LEAD_STAGE_META, LEAD_TYPES, LEAD_TYPE_META,
@@ -24,12 +25,14 @@ function Modal({
   title,
   description,
   action,
+  success,
   children,
 }: {
   triggerLabel: string;
   title: string;
   description: string;
   action: Action;
+  success: string;
   children: (firstRef: React.RefObject<HTMLInputElement | null>) => React.ReactNode;
 }) {
   const [open, setOpen] = useState(false);
@@ -42,9 +45,10 @@ function Modal({
     if (state?.ok) {
       setOpen(false);
       formRef.current?.reset();
+      toast.success(success);
       router.refresh();
     }
-  }, [state, router]);
+  }, [state, router, success]);
 
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
@@ -111,7 +115,7 @@ function ownerItems(team: Profile[]): Option[] {
 export function NewProduct({ team }: { team: Profile[] }) {
   const stages: Option[] = PRODUCT_STAGES.map((s) => ({ value: s, label: PRODUCT_STAGE_META[s].label }));
   return (
-    <Modal triggerLabel="New product" title="New product" description="A bet moving through the pipeline." action={createProduct}>
+    <Modal triggerLabel="New product" title="New product" description="A bet moving through the pipeline." action={createProduct} success="Product added">
       {(firstRef) => (
         <>
           <input ref={firstRef} name="name" required aria-label="Product name" placeholder="Product name" className={cn(inputCls, "text-[15px] font-medium")} />
@@ -132,7 +136,7 @@ export function NewProduct({ team }: { team: Profile[] }) {
 export function NewResearch({ team }: { team: Profile[] }) {
   const stages: Option[] = RESEARCH_STAGES.map((s) => ({ value: s, label: RESEARCH_STAGE_META[s].label }));
   return (
-    <Modal triggerLabel="New research" title="New research" description="Question → Experiment → Findings → Applied." action={createResearch}>
+    <Modal triggerLabel="New research" title="New research" description="Question → Experiment → Findings → Applied." action={createResearch} success="Research question added">
       {(firstRef) => (
         <>
           <input ref={firstRef} name="title" required aria-label="Research question" placeholder="The question you're answering" className={cn(inputCls, "text-[15px] font-medium")} />
@@ -154,7 +158,7 @@ export function NewLead({ team }: { team: Profile[] }) {
   const stages: Option[] = LEAD_STAGES.map((s) => ({ value: s, label: LEAD_STAGE_META[s].label }));
   const types: Option[] = LEAD_TYPES.map((t) => ({ value: t, label: LEAD_TYPE_META[t] }));
   return (
-    <Modal triggerLabel="New lead" title="New lead" description="An opportunity to pursue." action={createLead}>
+    <Modal triggerLabel="New lead" title="New lead" description="An opportunity to pursue." action={createLead} success="Lead added">
       {(firstRef) => (
         <>
           <input ref={firstRef} name="name" required aria-label="Name" placeholder="Org or person" className={cn(inputCls, "text-[15px] font-medium")} />

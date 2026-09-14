@@ -8,6 +8,7 @@ import { EMPLOYMENT_TYPES, type Department } from "@/lib/panel/types";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Field, Select, type Option } from "./ui/select";
+import { toast } from "./ui/toast";
 import { Add01Icon, Cancel01Icon, Icon } from "./ui/icons";
 
 const inputCls =
@@ -24,6 +25,7 @@ export function NewJob({ departments }: { departments: Department[] }) {
     if (state?.ok) {
       setOpen(false);
       formRef.current?.reset();
+      toast.success("Role created as a draft");
       router.refresh();
     }
   }, [state, router]);

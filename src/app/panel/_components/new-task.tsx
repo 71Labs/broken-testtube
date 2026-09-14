@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Field, Select, type Option } from "./ui/select";
 import { DateField } from "./ui/date-field";
+import { toast } from "./ui/toast";
 import { Add01Icon, Cancel01Icon, Icon } from "./ui/icons";
 
 const inputCls =
@@ -35,6 +36,7 @@ export function NewTask({
     if (state?.ok) {
       setOpen(false);
       formRef.current?.reset();
+      toast.success("Task created");
       router.refresh();
     }
   }, [state, router]);

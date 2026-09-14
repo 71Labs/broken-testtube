@@ -2,7 +2,7 @@ import { getLeads, getMyProfile, getTeam } from "@/lib/panel/data";
 import { LEAD_STAGES, LEAD_STAGE_META, LEAD_TYPE_META } from "@/lib/panel/types";
 import { PageHeader } from "../../_components/page-header";
 import { NewLead } from "../../_components/pipeline-modals";
-import { LeadActions } from "../../_components/pipeline-actions";
+import { PipelineRow } from "../../_components/pipeline-actions";
 import { StageGroups, PipelineEmpty } from "../../_components/stage-groups";
 import { Icon, Target01Icon } from "../../_components/ui/icons";
 
@@ -39,10 +39,7 @@ export default async function LeadsPage() {
           items={leads}
           getStage={(l) => l.stage}
           renderCard={(l) => (
-            <div
-              key={l.id}
-              className="flex flex-col gap-3 px-5 py-4 transition-colors duration-150 hover:bg-fog/50 sm:flex-row sm:items-center sm:justify-between"
-            >
+            <PipelineRow key={l.id} kind="lead" id={l.id} stage={l.stage} name={l.name}>
               <div className="min-w-0">
                 <span className="flex items-center gap-2">
                   <p className="text-sm font-medium text-ink">{l.name}</p>
@@ -66,8 +63,7 @@ export default async function LeadsPage() {
                   )}
                 </p>
               </div>
-              <LeadActions id={l.id} stage={l.stage} />
-            </div>
+            </PipelineRow>
           )}
         />
       )}

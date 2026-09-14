@@ -2,7 +2,7 @@ import { getMyProfile, getProductPipeline, getTeam } from "@/lib/panel/data";
 import { PRODUCT_STAGES, PRODUCT_STAGE_META } from "@/lib/panel/types";
 import { PageHeader } from "../../_components/page-header";
 import { NewProduct } from "../../_components/pipeline-modals";
-import { ProductActions } from "../../_components/pipeline-actions";
+import { PipelineRow } from "../../_components/pipeline-actions";
 import { StageGroups, PipelineEmpty } from "../../_components/stage-groups";
 import { Icon, Rocket01Icon } from "../../_components/ui/icons";
 
@@ -39,10 +39,7 @@ export default async function ProductsPage() {
           items={products}
           getStage={(p) => p.stage}
           renderCard={(p) => (
-            <div
-              key={p.id}
-              className="flex flex-col gap-3 px-5 py-4 transition-colors duration-150 hover:bg-fog/50 sm:flex-row sm:items-center sm:justify-between"
-            >
+            <PipelineRow key={p.id} kind="product" id={p.id} stage={p.stage} name={p.name}>
               <div className="min-w-0">
                 <p className="text-sm font-medium text-ink">{p.name}</p>
                 {p.description && (
@@ -58,8 +55,7 @@ export default async function ProductsPage() {
                   )}
                 </p>
               </div>
-              <ProductActions id={p.id} stage={p.stage} />
-            </div>
+            </PipelineRow>
           )}
         />
       )}

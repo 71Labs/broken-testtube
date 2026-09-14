@@ -2,7 +2,7 @@ import { getMyProfile, getResearch, getTeam } from "@/lib/panel/data";
 import { RESEARCH_STAGES, RESEARCH_STAGE_META } from "@/lib/panel/types";
 import { PageHeader } from "../../_components/page-header";
 import { NewResearch } from "../../_components/pipeline-modals";
-import { ResearchActions } from "../../_components/pipeline-actions";
+import { PipelineRow } from "../../_components/pipeline-actions";
 import { StageGroups, PipelineEmpty } from "../../_components/stage-groups";
 import { Icon, TestTube01Icon } from "../../_components/ui/icons";
 
@@ -39,10 +39,7 @@ export default async function ResearchPage() {
           items={research}
           getStage={(r) => r.stage}
           renderCard={(r) => (
-            <div
-              key={r.id}
-              className="flex flex-col gap-3 px-5 py-4 transition-colors duration-150 hover:bg-fog/50 sm:flex-row sm:items-center sm:justify-between"
-            >
+            <PipelineRow key={r.id} kind="research" id={r.id} stage={r.stage} name={r.title}>
               <div className="min-w-0">
                 <p className="text-sm font-medium text-ink">{r.title}</p>
                 {r.notes && (
@@ -58,8 +55,7 @@ export default async function ResearchPage() {
                   )}
                 </p>
               </div>
-              <ResearchActions id={r.id} stage={r.stage} />
-            </div>
+            </PipelineRow>
           )}
         />
       )}

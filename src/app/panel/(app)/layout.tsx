@@ -4,6 +4,7 @@ import { getMyProfile } from "@/lib/panel/data";
 import { SetupNotice } from "../_components/setup-notice";
 import { Sidebar } from "../_components/sidebar";
 import { MobileNav } from "../_components/mobile-nav";
+import { Toaster } from "../_components/ui/toast";
 
 export default async function PanelAppLayout({
   children,
@@ -22,6 +23,7 @@ export default async function PanelAppLayout({
       <main className="lg:pl-60">
         <div className="mx-auto max-w-[88rem] px-5 py-8 sm:px-8 sm:py-10">{children}</div>
       </main>
+      <Toaster />
     </div>
   );
 }

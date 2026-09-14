@@ -13,6 +13,7 @@ import {
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { GradientAvatar } from "./ui/avatar";
+import { toast } from "./ui/toast";
 import { Add01Icon, ArrowLeft01Icon, BubbleChatIcon, Cancel01Icon, Icon, SentIcon } from "./ui/icons";
 
 function clock(iso: string) {
@@ -126,7 +127,7 @@ export function Messenger({
     const body = draft.trim();
     if (!body || !activeId) return;
     setDraft("");
-    const { data } = await supabase
+    const { data, error } = await supabase
       .from("messages")
       .insert({ conversation_id: activeId, sender_id: myId, body })
       .select("id,conversation_id,sender_id,body,created_at")
@@ -137,6 +138,9 @@ export function Messenger({
       setConvs((prev) => bump(prev, m, myId, activeId));
       scrollDown();
       supabase.from("conversations").update({ last_message_at: m.created_at }).eq("id", activeId);
+    } else if (error) {
+      setDraft(body); // don't lose what they typed
+      toast.error("Message didn't send", { description: "Check your connection and try again." });
     }
   }
 
@@ -153,12 +157,15 @@ export function Messenger({
       }
     }
     const isGroup = memberIds.length > 1;
-    const { data: conv } = await supabase
+    const { data: conv, error } = await supabase
       .from("conversations")
       .insert({ created_by: myId, is_group: isGroup, title: isGroup ? title.trim() || null : null })
       .select("id,title,is_group,created_by,created_at,last_message_at")
       .single();
-    if (!conv) return;
+    if (!conv) {
+      if (error) toast.error("Couldn't start the conversation", { description: "Please try again." });
+      return;
+    }
     await supabase
       .from("conversation_members")
       .insert([myId, ...memberIds].map((pid) => ({ conversation_id: conv.id, profile_id: pid })));
@@ -196,7 +203,15 @@ export function Messenger({
         </div>
         <div className="flex-1 overflow-y-auto">
           {convs.length === 0 ? (
-            <p className="px-4 py-8 text-center text-xs text-grey-2">No conversations yet.</p>
+            <div className="flex flex-col items-center gap-3 px-4 py-10 text-center">
+              <p className="text-xs text-grey-2">No conversations yet.</p>
+              <button
+                onClick={() => setNewOpen(true)}
+                className="rounded-lg border border-border px-3 py-1.5 text-xs font-medium text-ink outline-none transition-colors hover:border-ink/25 hover:bg-fog focus-visible:ring-2 focus-visible:ring-ink/10"
+              >
+                Start a conversation
+              </button>
+            </div>
           ) : (
             convs.map((c) => {
               const name = conversationName(c, myId);
@@ -340,9 +355,15 @@ export function Messenger({
             </form>
           </>
         ) : (
-          <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center">
+          <div className="flex flex-1 flex-col items-center justify-center gap-3 px-6 text-center">
             <Icon icon={BubbleChatIcon} size={26} className="text-grey-2" />
-            <p className="text-sm text-grey-2">Select a conversation, or start a new one.</p>
+            <p className="text-sm text-grey-2">Pick a conversation on the left, or start a new one.</p>
+            <button
+              onClick={() => setNewOpen(true)}
+              className="rounded-lg bg-ink px-3.5 py-2 text-xs font-medium text-white outline-none transition-[background-color,transform] hover:bg-ink-2 focus-visible:ring-2 focus-visible:ring-ink/25 motion-safe:active:scale-[0.98]"
+            >
+              New message
+            </button>
           </div>
         )}
       </section>

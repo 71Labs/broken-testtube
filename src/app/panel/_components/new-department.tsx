@@ -7,6 +7,7 @@ import { createDepartment } from "../actions";
 import { cn } from "@/lib/utils";
 import { Button } from "./ui/button";
 import { Field } from "./ui/select";
+import { toast } from "./ui/toast";
 import { Add01Icon, Cancel01Icon, Icon } from "./ui/icons";
 
 const inputCls =
@@ -23,6 +24,7 @@ export function NewDepartment() {
     if (state?.ok) {
       setOpen(false);
       formRef.current?.reset();
+      toast.success("Department created");
       router.refresh();
     }
   }, [state, router]);

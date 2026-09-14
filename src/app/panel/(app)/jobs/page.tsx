@@ -3,7 +3,8 @@ import { getDepartments, getJobs, getMyProfile } from "@/lib/panel/data";
 import { JOB_STATUS_META } from "@/lib/panel/types";
 import { PageHeader } from "../../_components/page-header";
 import { NewJob } from "../../_components/new-job";
-import { JobActions } from "../../_components/job-actions";
+import { JobRow } from "../../_components/job-actions";
+import { EmptyState } from "../../_components/ui/empty-state";
 import { Briefcase01Icon, Icon, Location01Icon } from "../../_components/ui/icons";
 
 export const metadata = { title: "Careers" };
@@ -31,21 +32,17 @@ export default async function JobsPage() {
       </PageHeader>
 
       {jobs.length === 0 ? (
-        <div className="flex flex-col items-center gap-3 rounded-xl border border-dashed border-hairline py-16 text-center">
-          <Icon icon={Briefcase01Icon} size={24} className="text-grey-2" />
-          <p className="text-sm text-grey-2">
-            No roles yet.{isAdmin ? " Open your first one to start hiring." : ""}
-          </p>
-        </div>
+        <EmptyState
+          icon={<Icon icon={Briefcase01Icon} size={24} />}
+          title="No roles yet"
+          hint={isAdmin ? "Open your first one to start hiring — it publishes to the public careers page." : "The studio isn't hiring for anything right now. Check back soon."}
+        />
       ) : (
         <div className="overflow-hidden rounded-xl border border-hairline">
           {jobs.map((j) => {
             const meta = JOB_STATUS_META[j.status];
             return (
-              <div
-                key={j.id}
-                className="flex flex-col gap-3 border-b border-hairline px-5 py-4 transition-colors duration-150 last:border-0 hover:bg-fog/50 sm:flex-row sm:items-center sm:justify-between"
-              >
+              <JobRow key={j.id} id={j.id} status={j.status} title={j.title} isAdmin={isAdmin}>
                 <div className="min-w-0">
                   <div className="flex items-center gap-2">
                     <span
@@ -81,15 +78,7 @@ export default async function JobsPage() {
                     <span>{j.employment_type}</span>
                   </p>
                 </div>
-
-                {isAdmin ? (
-                  <JobActions id={j.id} status={j.status} />
-                ) : (
-                  <span className="w-fit rounded-full bg-secondary px-2 py-0.5 font-mono text-[10px] uppercase tracking-[0.12em] text-grey">
-                    {meta.label}
-                  </span>
-                )}
-              </div>
+              </JobRow>
             );
           })}
         </div>

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useTransition } from "react";
 import { setRole } from "../actions";
 import type { Role } from "@/lib/panel/types";
+import { runAction } from "./use-action";
 import { Select } from "./ui/select";
 
 export function RoleSelect({ id, role }: { id: string; role: Role }) {
@@ -22,8 +23,11 @@ export function RoleSelect({ id, role }: { id: string; role: Role }) {
       ]}
       onValueChange={(v) =>
         start(async () => {
-          await setRole(id, v as Role);
-          router.refresh();
+          const ok = await runAction(() => setRole(id, v as Role), {
+            success: `Role set to ${v === "admin" ? "Admin" : "Worker"}`,
+            error: "Couldn't change the role",
+          });
+          if (ok) router.refresh();
         })
       }
     />
